@@ -31,6 +31,7 @@ char	**set_path()
 	char	*env;
 	char	**paths;
 
+
 	env = getenv("PATH");
 	paths = ft_split(env, ':');
 	//protect this laterrrr

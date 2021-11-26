@@ -30,13 +30,15 @@ static void	setup_signals()
 int	parse_command(t_cmd *cmd, char *prompt)
 {
 	int	ret;
-
+	
+	if (!prompt)
+		error_exit(-1);
 	cmd->params = ft_split(prompt, ' ');
 	if (!cmd->params)
 		stop_server(12);
 	if (!cmd->params[0])
 		return (0);
-	if (ft_strncmp("exit", cmd->params[0], 4) == 0 && !(cmd->params[0][4]) && !cmd->params[1])
+	if (ft_strncmp("exit", cmd->params[0], 5) == 0 && !cmd->params[1])
 		exit(0);
 	return (1);
 }
@@ -47,6 +49,7 @@ int main()
 	t_cmd	cmd;
 	char	**paths;
 	int		ret;
+	char buff[60];
 
 	setup_signals();
 	paths = set_path();
@@ -54,8 +57,11 @@ int main()
 	{
 		prompt = readline(">minishell ");
 		ret = parse_command(&cmd, prompt);
+		
 		if (ret)
 			execute_command(0, &cmd, paths);
+		//char *cwd = getcwd(buff, 60);
+		//printf("%s\n", cwd);
 		//free command list
 	}
 }
