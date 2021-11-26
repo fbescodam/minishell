@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2021/11/26 23:48:25 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/27 00:18:27 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,29 @@ int	main(int argc, char **argv, char **envp)
 	char	**paths;
 	int		ret;
 	char	buff[60];
+	int		terminated_process;
+	int		status;
 
-	setup_signals();
-	paths = set_path();
-	while (1)
+	terminated_process = 0;
+	int pid = fork();
+	if (pid < 0)
+		exit_shell_w_error(0);
+	if (pid != 0)
 	{
-		prompt = readline("minishell> ");
-		ret = parse_command(&cmd, prompt);
-
-		if (ret)
-			execute_command(0, &cmd, paths);
-		//char *cwd = getcwd(buff, 60);
-		//printf("%s\n", cwd);
-		//free command list
+		setup_signals();
+		while (terminated_process != pid)
+			terminated_process = wait(&status);
+	}
+	else
+	{
+		paths = set_path();
+		while (1)
+		{
+			prompt = readline("minishell> ");
+			ret = parse_command(&cmd, prompt);
+			if (ret)
+				execute_command(0, &cmd, paths);
+			//free command list
+		}
 	}
 }
