@@ -66,11 +66,11 @@ void	execute_command(int mode, t_cmd *cmd, char **paths)
 	{
 		ret = fd_setup(mode, cmd);
 		if (ret == -1)
-			error_exit(0);
+			exit_shell_w_error(0);
 		execv(cmd->path, cmd->params);
 		if (!cmd->path)
-			error_exit(127);
-		error_exit(0);
+			exit_shell_w_error(127);
+		exit_shell_w_error(0);
 	}
 	while (terminated_process != pid)
 		terminated_process = wait(&status);

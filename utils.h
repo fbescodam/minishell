@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   utils.h                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2021/11/26 23:46:20 by jgalloni      #+#    #+#                 */
+/*   Updated: 2021/11/26 23:47:08 by fbes          ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef UTILS_H
 # define UTILS_H
 
@@ -17,9 +29,10 @@ typedef struct t_cmd_utils{
 
 void	stop_server(int sig);
 char	*check_command(char *command, char **paths);
-char	**set_path();
+char	**set_path(void);
 int		input_redirect(int mode, t_cmd *cmd);
 int		output_redirect(int mode, t_cmd *cmd);
 void	execute_command(int mode, t_cmd *cmd, char **paths);
-void	error_exit(int err);
+void	exit_shell(int sig);
+void	exit_shell_w_error(int err);
 #endif

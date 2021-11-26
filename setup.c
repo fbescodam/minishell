@@ -1,4 +1,15 @@
-#include <stdlib.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   setup.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2021/11/26 23:46:37 by jgalloni      #+#    #+#                 */
+/*   Updated: 2021/11/26 23:46:48 by fbes          ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft/libft.h"
 
 char	*check_command(char *command, char **paths)
