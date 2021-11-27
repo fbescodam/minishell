@@ -6,7 +6,7 @@
 #    By: fbes <fbes@student.codam.nl>                 +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/26 23:07:45 by fbes          #+#    #+#                  #
-#    Updated: 2021/11/26 23:13:05 by fbes          ########   odam.nl          #
+#    Updated: 2021/11/27 03:25:31 by fbes          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRCS =		main.c exit.c redirection_utils.c setup.c
 
 HEADERS =	utils.h
 
-INCLUDES =	-I lib/libft
+INCLUDES =	-I lib/libft -I /Users/$(USER)/.brew/opt/readline/include
 
 OBJS =		$(SRCS:.c=.o)
 
@@ -25,7 +25,7 @@ CFLAGS =
 all: $(NAME)
 
 $(NAME): $(OBJS) $(HEADERS) libft/libft.a
-	$(CC) $(CFLAGS) $(INCLUDES) $(SRCS) -lreadline libft/libft.a -o $(NAME)
+	$(CC) $(CFLAGS) $(INCLUDES) $(SRCS) -lreadline -L /Users/$(USER)/.brew/opt/readline/lib libft/libft.a -o $(NAME)
 
 .c.o:
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@

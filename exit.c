@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:59 by jgalloni      #+#    #+#                 */
-/*   Updated: 2021/11/26 23:48:00 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/27 03:26:18 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include "readline/readline.h"
 
 void	exit_shell(int sig)
 {
@@ -22,10 +23,14 @@ void	exit_shell(int sig)
 		write(2, "\nOut of memory\n", 15);
 		exit(ENOMEM);
 	}
-	else
+	else if (sig == -1)
 	{
 		printf("Goodbye\n");
 		exit(0);
+	}
+	else
+	{
+		write(1, "\nminishell> ", 12);
 	}
 }
 
