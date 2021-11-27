@@ -4,6 +4,8 @@
 #include<sys/wait.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <signal.h>
+#include <stdio.h>
 
 int	input_redirect(int mode, t_cmd *cmd)
 {
@@ -51,6 +53,11 @@ int	fd_setup(int mode, t_cmd *cmd)
 	return (ret);
 }
 
+void	handler()
+{
+	printf("\n");
+}
+
 void	execute_command(int mode, t_cmd *cmd, char **paths)
 {
 	int		ret;
@@ -62,8 +69,10 @@ void	execute_command(int mode, t_cmd *cmd, char **paths)
 	ret = 0;
 	cmd->path = check_command((cmd->params)[0], paths);
 	pid = fork();
+	signal(SIGINT, handler);
 	if (pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
 		ret = fd_setup(mode, cmd);
 		if (ret == -1)
 			exit_shell_w_error(0);
