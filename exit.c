@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:59 by jgalloni      #+#    #+#                 */
-/*   Updated: 2021/11/27 03:26:18 by fbes          ########   odam.nl         */
+/*   Updated: 2021/11/27 03:40:18 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <signal.h>
 #include "readline/readline.h"
 
 void	exit_shell(int sig)
@@ -28,9 +29,12 @@ void	exit_shell(int sig)
 		printf("Goodbye\n");
 		exit(0);
 	}
-	else
+	else if (sig == SIGINT)
 	{
-		write(1, "\nminishell> ", 12);
+		printf("\n"); // Move to a new line
+    	rl_on_new_line(); // Regenerate the prompt on a newline
+    	rl_replace_line("", 0); // Clear the previous text
+    	rl_redisplay();
 	}
 }
 
