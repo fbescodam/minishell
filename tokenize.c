@@ -34,6 +34,7 @@ int		add_word_tokens(char *words, t_list **tokens)
 	t_token	*new;
 	t_list	*new_instance;
 	int ret;
+	int	i;
 
 	words_list = ft_split(words, ' ');
 	if (!words_list)
@@ -43,9 +44,16 @@ int		add_word_tokens(char *words, t_list **tokens)
 		//free word_list
 		return (0);
 	}
-	ret = setup_word_token(tokens, words_list);
-	if (ret == -1)
-		return (-1);
+	i = 0;
+	while (words_list[i])
+	{
+		ret = setup_word_token(tokens, words_list[i]);
+		if (ret == -1)
+			return (-1);
+		i++;
+	}
+	free(words_list);
+	printf("OH JESUS\n");
 	return (1);
 }
 
@@ -75,15 +83,7 @@ void	print_token_list(t_list *tokens)
 	{
 		token = (t_token *)(current_token->content);
 		if (token->flag == WORD)
-		{
-			printf("THIS TOKEN IS  WORD-TYPE\n");
-			int i = 0;
-			while (token->words[i])
-			{
-				printf("SPLIT WORDS IN TOKEN : '%s'\n", token->words[i]);
-				i++;
-			}
-		}
+			printf("THIS TOKEN IS  WORD-TYPE : '%s'\n", token->word);
 		else if (token->flag == INPUT_REDIR)
 			printf("THIS TOKEN IS INPUT_REDIR\n");
 		else if (token->flag == OUTPUT_REDIR)
@@ -100,16 +100,15 @@ void	print_token_list(t_list *tokens)
 	}
 }
 
-int		tokenize(char *prompt)
+int		tokenize(char *prompt, t_list **tokens)
 {
 	int	next_operator;
 	char *cmd;
 	int	i;
-	t_list *tokens;
 	int ret;
 
 	i = 0;
-	tokens = 0;
+	*tokens = 0;
 	while (prompt[i])
 	{
 		next_operator = scan_operators(prompt + i);
@@ -117,16 +116,18 @@ int		tokenize(char *prompt)
 		if (!cmd)
 			return (-1); //proper error hanling goes here
 		if (cmd[0] != '\0')
-			ret = add_word_tokens(cmd, &tokens);
+			ret = add_word_tokens(cmd, tokens);
 		if (ret == -1)
 			return (-1); //proper error handling goes here
-		ret = add_operator_token(prompt + i + next_operator, &tokens, &i);
+		ret = add_operator_token(prompt + i + next_operator, tokens, &i);
 		if (ret == -1)
 			return (-1); //proper error handling goes here
 		free(cmd);
-		i += next_operator + 1;
+		i += next_operator;
+		if (prompt[i] != '\0')
+			i++;
 	}
-	print_token_list(tokens);
+	print_token_list(*tokens);
 	return (1);
 
 }

@@ -27,7 +27,7 @@ int	setup_operator_token(t_list **tokens, int flag)
 	return (1);
 }
 
-int	setup_word_token(t_list **tokens, char **words)
+int	setup_word_token(t_list **tokens, char *words)
 {
 	t_token	*new;
 	t_list	*new_instance;
@@ -36,7 +36,7 @@ int	setup_word_token(t_list **tokens, char **words)
 	if (!new)
 		return (-1);
 	new->flag = WORD;
-	new->words = words;
+	new->word = words;
 	if (!(*tokens))
 	{
 		*tokens = ft_lstnew(new);

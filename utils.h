@@ -6,18 +6,20 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:46:20 by jgalloni      #+#    #+#                 */
-/*   Updated: 2021/11/26 23:47:08 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/03 22:35:00 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
+#include "libft/libft.h"
 
 typedef struct t_cmd_utils{
 	char	*in_file;
 	char	*out_file;
 	int		in_fd;
 	int		out_fd;
+	int		mode;
 	char	**params;
 	char	*path;
 }t_cmd;
@@ -27,6 +29,7 @@ typedef struct t_cmd_utils{
 # define OUT_FILE 2
 # define OUT_FD 1
 
+int	setup_cmd(t_cmd **cmd, t_list *tokens);
 void	stop_server(int sig);
 char	*check_command(char *command, char **paths);
 char	**set_path(void);
