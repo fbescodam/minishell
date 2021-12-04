@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2021/12/04 02:48:33 by jgalloni      ########   odam.nl         */
+/*   Updated: 2021/12/04 03:30:02 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,6 @@ int	parse_command(t_cmd **cmd, t_list **tokens, char *prompt)
 
 	if (!prompt)
 		exit_shell_w_error(-1);
-	/* cmd->params = ft_split(prompt, ' ');
-	if (!cmd->params)
-		exit_shell_w_error(ENOMEM);
-	if (!cmd->params[0])
-		return (0);
-	if (ft_strncmp("exit", cmd->params[0], 5) == 0 && !cmd->params[1])
-		exit_shell(-1); */
 	ret = tokenize(prompt, tokens);
 	if (ret == -1)
 		exit_shell_w_error(ENOMEM);
@@ -52,8 +45,10 @@ int	parse_command(t_cmd **cmd, t_list **tokens, char *prompt)
 	ret = setup_cmd(cmd, *tokens);
 	if (ret == -1)
 		exit_shell_w_error(ENOMEM);
-	return (1);
+	return (ret);
 }
+
+
 
 int	main(int argc, char **argv, char **envp)
 {
