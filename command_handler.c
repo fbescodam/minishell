@@ -2,6 +2,18 @@
 #include "tokens.h"
 #include "utils.h"
 #include <stdio.h>
+#include <fcntl.h>
+
+int	file_exists(char *name)
+{
+	int	fd;
+
+	fd = open(name, O_RDONLY);
+	if (fd < 0)
+		return (0);
+	close(fd);
+	return (1);
+}
 
 int	cmd_redirection(t_cmd **cmd, t_list **current_token)
 {
@@ -9,7 +21,7 @@ int	cmd_redirection(t_cmd **cmd, t_list **current_token)
 	t_token *file_name;
 
 	token = (t_token *)((*current_token)->content);
-	file_name = (t_token *)((*current_token)->next);
+	file_name = (t_token *)((*current_token)->next)->content;
 	if (!file_name || file_name->flag != WORD)
 		return (-1);
 	if (token->flag == OUTPUT_REDIR)
@@ -19,6 +31,8 @@ int	cmd_redirection(t_cmd **cmd, t_list **current_token)
 	}
 	else if (token->flag == INPUT_REDIR)
 	{
+		if (!file_exists(file_name->word))
+			return (-2);
 		(*cmd)->in_file = file_name->word;
 		(*cmd)->mode = (*cmd)->mode | IN_FILE;
 	}
@@ -72,8 +86,8 @@ int	setup_cmd(t_cmd **cmd, t_list *tokens)
 		token = (t_token *)(current_token->content);
 		if (token->flag == OUTPUT_REDIR || token->flag == INPUT_REDIR)
 			ret = cmd_redirection(cmd, &current_token);
-		if (ret == -1)
-			return (-1); //parse error
+		if (ret < 0)
+			return (-1); //parse error or file not found
 		if (token->flag == WORD)
 			ret = add_arguments(cmd, &current_token);
 		if (ret == -1)

@@ -14,7 +14,7 @@ int	input_redirect(int mode, t_cmd *cmd)
 	if (mode & IN_FILE)
 		fd = open(cmd->in_file, O_RDONLY);
 	else
-		fd = cmd->in_fd;
+		fd = cmd->in_fd;	
 	if (fd == -1)
 		return (-1);
 	dup2(fd, 0);
@@ -58,7 +58,7 @@ void	handler()
 	printf("\n");
 }
 
-void	execute_command(int mode, t_cmd *cmd, char **paths)
+void	execute_command(t_cmd *cmd, char **paths)
 {
 	int		ret;
 	int		pid;
@@ -73,7 +73,7 @@ void	execute_command(int mode, t_cmd *cmd, char **paths)
 	if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
-		ret = fd_setup(mode, cmd);
+		ret = fd_setup(cmd->mode, cmd);
 		if (ret == -1)
 			exit_shell_w_error(0);
 		execv(cmd->path, cmd->params);

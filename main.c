@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   main.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: fbes <fbes@student.codam.nl>                 +#+                     */
+/*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2021/12/03 22:38:41 by jgalloni      ########   odam.nl         */
+/*   Updated: 2021/12/04 02:48:33 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	main(int argc, char **argv, char **envp)
 		
 		ret = parse_command(&cmd, &tokens, prompt);
 		if (ret)
-			execute_command(0, cmd, paths);
+			execute_command(cmd, paths);
 		//free command and token lists
 	}
 }

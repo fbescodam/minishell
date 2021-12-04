@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:46:20 by jgalloni      #+#    #+#                 */
-/*   Updated: 2021/12/03 22:35:00 by jgalloni      ########   odam.nl         */
+/*   Updated: 2021/12/04 02:48:10 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*check_command(char *command, char **paths);
 char	**set_path(void);
 int		input_redirect(int mode, t_cmd *cmd);
 int		output_redirect(int mode, t_cmd *cmd);
-void	execute_command(int mode, t_cmd *cmd, char **paths);
+void	execute_command(t_cmd *cmd, char **paths);
 void	exit_shell(int sig);
 void	exit_shell_w_error(int err);
 #endif
