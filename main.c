@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   main.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: fbes <fbes@student.codam.nl>                 +#+                     */
+/*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2021/11/27 03:24:04 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/04 03:30:02 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 #include "readline/readline.h"
 #include "readline/history.h"
 #include "utils.h"
+#include "tokens.h"
 
 static void	setup_signals(void)
 {
-	printf("setting up signals\n");
 	signal(SIGTERM, exit_shell);
 	signal(SIGHUP, exit_shell);
 	signal(SIGINT, exit_shell);
@@ -31,40 +31,47 @@ static void	setup_signals(void)
 	signal(SIGTSTP, exit_shell);
 }
 
-int	parse_command(t_cmd *cmd, char *prompt)
+int	parse_command(t_cmd **cmd, t_list **tokens, char *prompt)
 {
 	int	ret;
 
-	printf("command: '%s'\n", prompt);
 	if (!prompt)
 		exit_shell_w_error(-1);
-	cmd->params = ft_split(prompt, ' ');
-	if (!cmd->params)
+	ret = tokenize(prompt, tokens);
+	if (ret == -1)
 		exit_shell_w_error(ENOMEM);
-	if (!cmd->params[0])
+	if (!(*tokens))
 		return (0);
-	if (ft_strncmp("exit", cmd->params[0], 5) == 0 && !cmd->params[1])
-		exit_shell(-1);
-	return (1);
+	ret = setup_cmd(cmd, *tokens);
+	if (ret == -1)
+		exit_shell_w_error(ENOMEM);
+	return (ret);
 }
+
+
 
 int	main(int argc, char **argv, char **envp)
 {
+	t_list *tokens;
 	char	*prompt;
-	t_cmd	cmd;
+	t_cmd	*cmd; // this should become a t_list of cmds at some point
 	char	**paths;
 	int		ret;
 	char	buff[60];
 	int		status;
 
-	setup_signals();
+	//treat exit as a command ?
+	
 	paths = set_path();
+	cmd = (t_cmd *)malloc(sizeof(t_cmd));
 	while (1)
 	{
+		setup_signals();
 		prompt = readline("minishell> ");
-		ret = parse_command(&cmd, prompt);
+		
+		ret = parse_command(&cmd, &tokens, prompt);
 		if (ret)
-			execute_command(0, &cmd, paths);
-		//free command list
+			execute_command(cmd, paths);
+		//free command and token lists
 	}
 }
