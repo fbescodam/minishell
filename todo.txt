@@ -1,2 +1,4 @@
 - fix [Ctrl] + [D] prints " exit" on newline instead of current line
 - fix print errno when set by chdir in reserved_cmds.c
+- fix [Ctrl] + [\] signal (see stty -a command and man stty)
+- fix "1 2" as single argument (now sees 1 and 2 as two different ones)
