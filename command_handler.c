@@ -65,9 +65,12 @@ void	execute_command(t_cmd *cmd, char **paths)
 	int		status;
 	int		terminated_process;
 
+	
 	terminated_process = 0;
 	ret = 0;
-	cmd->path = check_command(cmd->tokens, paths);
+	cmd->path = check_command(cmd, paths);
+	if (check_run_reserved_cmds(cmd) <= 0)
+		return ;
 	pid = fork();
 	signal(SIGINT, handler);
 	if (pid == 0)

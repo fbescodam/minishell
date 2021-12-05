@@ -6,27 +6,28 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:46:37 by jgalloni      #+#    #+#                 */
-/*   Updated: 2021/12/05 19:44:18 by jgalloni      ########   odam.nl         */
+/*   Updated: 2021/12/05 20:00:41 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
+#include "utils.h"
 #include "tokens.h"
 #include <stdio.h>
 
-char	*find_cmd(t_list *tokens)
+char	*find_cmd(t_cmd *cmd)
 {
 	t_token	*token;
 	t_list *current;
 	char **params;
 	
-	current = tokens;
+	current = cmd->tokens;
 	while (current)
 	{
 		token = (t_token *)(current->content);
 		if (token->flag == WORD)
 		{
 			params = (char **)(token->content);
+			cmd->params = params;
 			return (params[0]);
 		}
 		current = current->next;
@@ -34,7 +35,7 @@ char	*find_cmd(t_list *tokens)
 	return (0);
 }
 
-char	*check_command(t_list *tokens, char **paths)
+char	*check_command(t_cmd *cmd, char **paths)
 {
 	char *command;
 	char	*new_path;
@@ -42,7 +43,7 @@ char	*check_command(t_list *tokens, char **paths)
 	int		i;
 
 	i = 0;
-	command = find_cmd(tokens);
+	command = find_cmd(cmd);
 	if (access(command, R_OK) == 0)
 		return (command);
 	temp = ft_strjoin("/", command);

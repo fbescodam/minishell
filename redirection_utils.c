@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   redirection_utils.c                                :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2021/12/05 19:59:59 by jgalloni      #+#    #+#                 */
+/*   Updated: 2021/12/05 20:00:01 by jgalloni      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <fcntl.h>
 #include <unistd.h>
 #include "utils.h"
@@ -14,7 +26,7 @@ int	input_redirect(int mode, t_cmd *cmd)
 	if (mode & IN_FILE)
 		fd = open(cmd->in_file, O_RDONLY);
 	else
-		fd = cmd->in_fd;	
+		fd = cmd->in_fd;
 	if (fd == -1)
 		return (-1);
 	dup2(fd, 0);
@@ -52,7 +64,3 @@ int	fd_setup(int mode, t_cmd *cmd)
 		return (-1);
 	return (ret);
 }
-
-
-
-
