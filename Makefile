@@ -6,7 +6,7 @@
 #    By: fbes <fbes@student.codam.nl>                 +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/26 23:07:45 by fbes          #+#    #+#                  #
-#    Updated: 2021/11/27 03:25:31 by fbes          ########   odam.nl          #
+#    Updated: 2021/11/27 03:35:06 by fbes          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,4 +46,7 @@ fclean:
 
 re: fclean all
 
-.PHONY: all clean fclean re bonus
+dependencies:
+	brew install readline
+
+.PHONY: all clean fclean re bonus dependencies
