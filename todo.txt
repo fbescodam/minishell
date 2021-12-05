@@ -42,7 +42,7 @@ ttyname				N		Get the name of a terminal from a file descriptor
 ttyslot				N		Legacy! Find the slot (?) of a terminal in some file (https://man7.org/linux/man-pages/man3/ttyslot.3.html)
 ioctl				N		Talk with devices in /dev/ folder, supposedly? (https://tldp.org/LDP/lkmpg/2.4/html/x856.html)
 getenv				Y		Get the value of an environment variable, such as PATH
-tcsetattr			N		Set the terminal's attributes or something (?)
+tcsetattr			N		Set the terminal's attributes or something (?) (https://www.ibm.com/docs/en/zos/2.1.0?topic=functions-tcsetattr-set-attributes-terminal#rttcsa)
 tcgetattr			N		Get the terminal's attributes or something (?)
 tgetent				N		Load a termcap routine (?)
 tgetflag			N		Get boolean entry for a termcap routine (?)
