@@ -68,7 +68,7 @@ void	execute_command(t_cmd *cmd, char **paths)
 	
 	terminated_process = 0;
 	cmd->path = check_command(cmd, paths);
-	if (cmd->path)
+	if (cmd->params)
 	{
 		ret = check_run_reserved_cmds(cmd);
 		if (ret < 0)
@@ -85,6 +85,8 @@ void	execute_command(t_cmd *cmd, char **paths)
 		ret = setup_cmd(cmd);
 		if (ret == -1)
 			exit_shell_w_error(0);
+		if (!cmd->params)
+			exit(errno);
 		execv(cmd->path, cmd->params);
 		if (!cmd->path)
 			exit_shell_w_error(127);
