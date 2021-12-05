@@ -3,87 +3,39 @@
 #include "utils.h"
 #include <stdio.h>
 #include <fcntl.h>
+#include <errno.h>
 
-int	file_exists(char *name)
-{
-	int	fd;
-
-	fd = open(name, O_RDONLY);
-	if (fd < 0)
-	{
-		perror("minishell");
-		return (0);
-	}
-	close(fd);
-	return (1);
-}
-
-int	cmd_redirection(t_cmd **cmd, t_list **current_token)
+int	cmd_redirection(t_cmd *cmd, t_list **current_token)
 {
 	t_token *token;
-	t_token *file_name;
+	int	ret;
 
+	ret = 1;
 	token = (t_token *)((*current_token)->content);
-	file_name = (t_token *)((*current_token)->next)->content;
-	if (!file_name || file_name->flag != WORD)
-		return (-1);
 	if (token->flag == OUTPUT_REDIR)
 	{
-		(*cmd)->out_file = file_name->word;
-		(*cmd)->mode = (*cmd)->mode | OUT_FILE;
+		cmd->out_file = token->content;
+		cmd->mode = cmd->mode | OUT_FILE;
+		ret = output_redirect(cmd->mode, cmd);
 	}
 	else if (token->flag == INPUT_REDIR)
 	{
-		if (!file_exists(file_name->word))
-			return (0);
-		(*cmd)->in_file = file_name->word;
-		(*cmd)->mode = (*cmd)->mode | IN_FILE;
+		cmd->in_file = token->content;
+		cmd->mode = cmd->mode | IN_FILE;
+		ret = input_redirect(cmd->mode, cmd);
 	}
-	*current_token = (*current_token)->next;
-	*current_token = (*current_token)->next;
-	return (1);
+	return (ret);
 }
 
-int		add_arguments(t_cmd **cmd, t_list **current_token)
-{
-	int	argc;
-	t_token	*token;
-	t_list	*iter;
-	int	i;
-
-	argc = 0;
-	iter = *current_token;
-	token = (t_token *)(iter->content);
-	while (iter && token->flag == WORD)
-	{
-		argc++;
-		iter = iter->next;
-		if (iter)
-			token = (t_token *)(iter->content);
-	}
-	(*cmd)->params = (char **)malloc(sizeof(char *) * (argc + 1));
-	if (!((*cmd)->params))
-		return (-1);
-	((*cmd)->params)[argc] = 0;
-	i = 0;
-	while (i < argc)
-	{
-		token = (t_token *)((*current_token)->content);
-		((*cmd)->params)[i] = token->word;
-		(*current_token) = (*current_token)->next;
-		i++;
-	}
-	return (1);
-}
-
-int	setup_cmd(t_cmd **cmd, t_list *tokens)
+int	setup_cmd(t_cmd *cmd)
 {
 	t_list *current_token;
 	t_token *token;
 	int	ret;
 
-	(*cmd)->mode = 0;
-	current_token = tokens;
+	cmd->mode = 0;
+	current_token = cmd->tokens;
+	ret = 1;
 	while (current_token)
 	{
 		token = (t_token *)(current_token->content);
@@ -91,10 +43,46 @@ int	setup_cmd(t_cmd **cmd, t_list *tokens)
 			ret = cmd_redirection(cmd, &current_token);
 		if (ret <= 0)
 			return (ret); //parse error or file not found
-		if (token->flag == WORD)
-			ret = add_arguments(cmd, &current_token);
-		if (ret == -1)
-			return (-1); // malloc error
+		if (token->flag == WORD) 
+		{
+			//check if command is exit or variable setting
+			cmd->params = token->content;
+		}
+		current_token = current_token->next;
 	}
 	return (1);
+}
+
+void	handler()
+{
+	printf("\n");
+}
+
+void	execute_command(t_cmd *cmd, char **paths)
+{
+	int		ret;
+	int		pid;
+	int		status;
+	int		terminated_process;
+
+	terminated_process = 0;
+	ret = 0;
+	cmd->path = check_command(cmd->tokens, paths);
+	pid = fork();
+	signal(SIGINT, handler);
+	if (pid == 0)
+	{
+		signal(SIGINT, SIG_DFL);
+		ret = setup_cmd(cmd);
+		if (ret == -1)
+			exit_shell_w_error(0);
+		execv(cmd->path, cmd->params);
+		if (!cmd->path)
+			exit_shell_w_error(127);
+		exit_shell_w_error(0);
+	}
+	while (terminated_process != pid)
+		terminated_process = wait(&status);
+	if (((status) & 0x7f) == 0)
+		errno = ((status) & 0xff00) >> 8;
 }

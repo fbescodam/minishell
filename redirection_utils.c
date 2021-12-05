@@ -53,36 +53,6 @@ int	fd_setup(int mode, t_cmd *cmd)
 	return (ret);
 }
 
-void	handler()
-{
-	printf("\n");
-}
 
-void	execute_command(t_cmd *cmd, char **paths)
-{
-	int		ret;
-	int		pid;
-	int		status;
-	int		terminated_process;
 
-	terminated_process = 0;
-	ret = 0;
-	cmd->path = check_command((cmd->params)[0], paths);
-	pid = fork();
-	signal(SIGINT, handler);
-	if (pid == 0)
-	{
-		signal(SIGINT, SIG_DFL);
-		ret = fd_setup(cmd->mode, cmd);
-		if (ret == -1)
-			exit_shell_w_error(0);
-		execv(cmd->path, cmd->params);
-		if (!cmd->path)
-			exit_shell_w_error(127);
-		exit_shell_w_error(0);
-	}
-	while (terminated_process != pid)
-		terminated_process = wait(&status);
-	if (((status) & 0x7f) == 0)
-		errno = ((status) & 0xff00) >> 8;
-}
+

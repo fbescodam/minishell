@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:46:20 by jgalloni      #+#    #+#                 */
-/*   Updated: 2021/12/04 02:48:10 by jgalloni      ########   odam.nl         */
+/*   Updated: 2021/12/05 18:58:39 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct t_cmd_utils{
 	int		mode;
 	char	**params;
 	char	*path;
+	t_list	*tokens;
 }t_cmd;
 
 # define IN_FILE 8
@@ -29,9 +30,8 @@ typedef struct t_cmd_utils{
 # define OUT_FILE 2
 # define OUT_FD 1
 
-int	setup_cmd(t_cmd **cmd, t_list *tokens);
 void	stop_server(int sig);
-char	*check_command(char *command, char **paths);
+char	*check_command(t_list *tokens, char **paths);
 char	**set_path(void);
 int		input_redirect(int mode, t_cmd *cmd);
 int		output_redirect(int mode, t_cmd *cmd);

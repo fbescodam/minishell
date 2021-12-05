@@ -11,20 +11,20 @@ int		add_operator_token(char *prompt, t_list **tokens, int *i)
 		return (0);
 	if (prompt[0] == '<' && prompt[1] == '<')
 	{
-		ret = setup_operator_token(tokens, INPUT_REDIR_APPEND);
+		ret = setup_operator_token(tokens, INPUT_REDIR_APPEND, prompt + 1, i);
 		*i = *i + 1;
 	}
 	else if (prompt[0] == '>' && prompt[1] == '>')
 	{
-		ret = setup_operator_token(tokens, OUTPUT_REDIR_APPEND);
+		ret = setup_operator_token(tokens, OUTPUT_REDIR_APPEND, prompt + 1, i);
 		*i = *i + 1;
 	}
 	else if (prompt[0] == '<')
-		ret = setup_operator_token(tokens, INPUT_REDIR);
+		ret = setup_operator_token(tokens, INPUT_REDIR, prompt, i);
 	else if (prompt[0] == '>')
-		ret = setup_operator_token(tokens, OUTPUT_REDIR);
+		ret = setup_operator_token(tokens, OUTPUT_REDIR, prompt, i);
 	else
-		ret = setup_operator_token(tokens, PIPE);
+		ret = setup_operator_token(tokens, PIPE, prompt, i);
 	return (ret);
 }
 
@@ -34,7 +34,6 @@ int		add_word_tokens(char *words, t_list **tokens)
 	t_token	*new;
 	t_list	*new_instance;
 	int ret;
-	int	i;
 
 	words_list = ft_split(words, ' ');
 	if (!words_list)
@@ -44,16 +43,9 @@ int		add_word_tokens(char *words, t_list **tokens)
 		//free word_list
 		return (0);
 	}
-	i = 0;
-	while (words_list[i])
-	{
-		ret = setup_word_token(tokens, words_list[i]);
-		if (ret == -1)
-			return (-1);
-		i++;
-	}
-	free(words_list);
-	printf("OH JESUS\n");
+	ret = setup_word_token(tokens, words_list);
+	if (ret == -1)
+		return (-1);
 	return (1);
 }
 
@@ -83,7 +75,17 @@ void	print_token_list(t_list *tokens)
 	{
 		token = (t_token *)(current_token->content);
 		if (token->flag == WORD)
-			printf("THIS TOKEN IS  WORD-TYPE : '%s'\n", token->word);
+		{
+			printf("THIS TOKEN IS  WORD-TYPE :\n");
+			int i = 0;
+			char **params = (char **)(token->content);
+			while (params[i])
+			{
+				printf("'%s', ", params[i]);
+				i++;
+			}
+			printf("\n");
+		}
 		else if (token->flag == INPUT_REDIR)
 			printf("THIS TOKEN IS INPUT_REDIR\n");
 		else if (token->flag == OUTPUT_REDIR)

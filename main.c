@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2021/12/04 03:30:02 by jgalloni      ########   odam.nl         */
+/*   Updated: 2021/12/05 18:56:52 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,20 @@ static void	setup_signals(void)
 	signal(SIGTSTP, exit_shell);
 }
 
-int	parse_command(t_cmd **cmd, t_list **tokens, char *prompt)
+int	parse_command(t_cmd *cmd, char *prompt)
 {
 	int	ret;
 
 	if (!prompt)
 		exit_shell_w_error(-1);
-	ret = tokenize(prompt, tokens);
+	ret = tokenize(prompt, &(cmd->tokens));
 	if (ret == -1)
 		exit_shell_w_error(ENOMEM);
-	if (!(*tokens))
+	if (!(cmd->tokens))
 		return (0);
-	ret = setup_cmd(cmd, *tokens);
-	if (ret == -1)
-		exit_shell_w_error(ENOMEM);
+	//ret = setup_cmd(cmd, *tokens);
+	//if (ret == -1)
+	//	exit_shell_w_error(ENOMEM);
 	return (ret);
 }
 
@@ -69,7 +69,7 @@ int	main(int argc, char **argv, char **envp)
 		setup_signals();
 		prompt = readline("minishell> ");
 		
-		ret = parse_command(&cmd, &tokens, prompt);
+		ret = parse_command(cmd, prompt);
 		if (ret)
 			execute_command(cmd, paths);
 		//free command and token lists

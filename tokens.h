@@ -3,14 +3,14 @@
 
 typedef struct token{
 
-char	*word;
+void	*content;
 int		flag;
 
 }t_token;
 
 int		tokenize(char *prompt, t_list **tokens);
-int	setup_operator_token(t_list **tokens, int flag);
-int	setup_word_token(t_list **tokens, char *words);
+int	setup_operator_token(t_list **tokens, int flag, char *pos, int *i);
+int	setup_word_token(t_list **tokens, char **words);
 
 
 #define WORD 1
