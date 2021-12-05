@@ -14,7 +14,7 @@ int	input_redirect(int mode, t_cmd *cmd)
 	if (mode & IN_FILE)
 		fd = open(cmd->in_file, O_RDONLY);
 	else
-		fd = cmd->in_fd;	
+		fd = cmd->in_fd;
 	if (fd == -1)
 		return (-1);
 	dup2(fd, 0);
@@ -65,6 +65,8 @@ void	execute_command(t_cmd *cmd, char **paths)
 	int		status;
 	int		terminated_process;
 
+	if (check_run_reserved_cmds(cmd) <= 0)
+		return ;
 	terminated_process = 0;
 	ret = 0;
 	cmd->path = check_command((cmd->params)[0], paths);

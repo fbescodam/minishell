@@ -6,13 +6,14 @@
 #    By: fbes <fbes@student.codam.nl>                 +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/26 23:07:45 by fbes          #+#    #+#                  #
-#    Updated: 2021/12/05 17:34:41 by fbes          ########   odam.nl          #
+#    Updated: 2021/12/05 18:02:19 by fbes          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME =		minishell
 
-SRCS =		main.c exit.c redirection_utils.c setup.c tokenize.c token_setup.c command_handler.c
+SRCS =		main.c exit.c redirection_utils.c setup.c tokenize.c token_setup.c \
+			command_handler.c reserved_cmds.c
 
 HEADERS =	utils.h
 
@@ -25,7 +26,8 @@ CFLAGS = -fsanitize=address
 all: $(NAME)
 
 $(NAME): $(OBJS) $(HEADERS) libft/libft.a
-	$(CC) $(CFLAGS) $(INCLUDES) $(SRCS) -lreadline -L /Users/$(USER)/.brew/opt/readline/lib libft/libft.a -o $(NAME)
+	$(CC) $(CFLAGS) $(INCLUDES) $(SRCS) -lreadline \
+	-L /Users/$(USER)/.brew/opt/readline/lib libft/libft.a -o $(NAME)
 
 .c.o:
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
