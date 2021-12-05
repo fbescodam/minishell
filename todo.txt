@@ -62,4 +62,6 @@ tputs				N		Apply padding to a terminfo string and output it
 - fix [Ctrl] + [\] signal (see stty -a command and man stty)
 - fix "1 2" as single argument (now sees 1 and 2 as two different ones)
 - minishell getting stuck when entering just a | as a command
+- Execve instead of execv (exported variables should be passed to executable)
+- after parsing a variable with var=value, run the next argument as a command
 - CHECK FOR LEAKS

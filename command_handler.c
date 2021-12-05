@@ -68,11 +68,14 @@ void	execute_command(t_cmd *cmd, char **paths)
 	
 	terminated_process = 0;
 	cmd->path = check_command(cmd, paths);
-	ret = check_run_reserved_cmds(cmd);
-	if (ret < 0)
-		exit_shell_w_error(0);
-	else if (ret == 0)
-		return ;
+	if (cmd->path)
+	{
+		ret = check_run_reserved_cmds(cmd);
+		if (ret < 0)
+			exit_shell_w_error(0);
+		else if (ret == 0)
+			return ;
+	}
 	ret = 0;
 	pid = fork();
 	signal(SIGINT, handler);
