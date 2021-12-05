@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:46:37 by jgalloni      #+#    #+#                 */
-/*   Updated: 2021/12/05 20:00:41 by jgalloni      ########   odam.nl         */
+/*   Updated: 2021/12/05 20:16:22 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*check_command(t_cmd *cmd, char **paths)
 
 	i = 0;
 	command = find_cmd(cmd);
-	if (access(command, R_OK) == 0)
+	if (command && command[0] == '.' && command[1] == '/' && access(command, R_OK) == 0)
 		return (command);
 	temp = ft_strjoin("/", command);
 	while (paths[i])
