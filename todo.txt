@@ -1,3 +1,59 @@
+METHOD				USED?	DESCRIPTION
+readline			Y		Waits for user input and returns the input when Enter is pressed
+rl_clear_history	N		Clears readline's history (how? why??)
+rl_on_new_line		Y		Regenerates readline's previous prompt on a new line
+rl_replace_line		Y		Replace the contents of readline's buffer
+rl_redisplay		Y		Change what's displayed in the terminal to reflect current contents of readline's buffer
+add_history			N		Add a line to the user's history
+printf				Y		Prints a line of text into the terminal
+malloc				Y		Allocates memory
+free				Y		Frees allocated memory
+write				Y		Write bytes to a file descriptor
+access				Y		Check if user may access a file in a given way
+open				Y		Open a file into a file descriptor
+read				Y		Read bytes from a file descriptor
+close				Y		Close a file descriptor
+fork				Y		Create a new fork, running alongside current process
+wait				Y		Wait for a process to exit before continuing
+waitpid				N		Wait for a process to exit before continuing
+wait3				N		Wait for a process to exit before continuing with extra options (see man wait3)
+wait4				N		Wait for a process to exit before continuing with extra options (see man wait4)
+signal				Y		Set a signal handler to handle a certain signal from another process
+sigaction			N		Set an advanced signal handler to handle a certain signal from another process
+kill				Y		Send a signal to another process
+exit				Y		Exit the current process
+getcwd				N		Get current working directory pathname (pwd!)
+chdir				Y		Change directories (cd!)
+stat				N		Get a file's information, even without permission, although all directories in the pathname must be searchable (https://pubs.opengroup.org/onlinepubs/009696799/functions/stat.html)
+lstat				N		Like stat above, just does NOT follow symbolic links (will display info about the symbolic link instead)
+fstat				N		Obtains information about an open file using a file descriptor
+unlink				N		Remove a file from a path. Path is only deleted from disk after all file descriptors to path have been closed!
+execve				N		Execute a file with arguments and an environment path or other info
+dup					N		Duplicate an existing file descriptor
+dup2				N		Duplicate an existing file descriptor into an existing one, existing one is closed if it was still open
+pipe				Y		Creates a pipe (an object that allows unidirectional data flow) and allocates a pair of file descriptors for it (a read and a write one)
+opendir				N		Opens a directory and returns a pointer to a directory stream, used for readdir below
+readdir				N		Returns a pointer to the next directory entry, returns NULL upon reaching the last one.
+closedir			N		Close a directory stream and free associated memory
+strerror			N		Get error message from error number errno
+perror				Y		Print an error message, prepended with a string
+isatty				N		Check if a file descriptor is a terminal (for example fd 1 and 2)
+ttyname				N		Get the name of a terminal from a file descriptor
+ttyslot				N		Legacy! Find the slot (?) of a terminal in some file (https://man7.org/linux/man-pages/man3/ttyslot.3.html)
+ioctl				N		Talk with devices in /dev/ folder, supposedly? (https://tldp.org/LDP/lkmpg/2.4/html/x856.html)
+getenv				Y		Get the value of an environment variable, such as PATH
+tcsetattr			N		Set the terminal's attributes or something (?)
+tcgetattr			N		Get the terminal's attributes or something (?)
+tgetent				N		Load a termcap routine (?)
+tgetflag			N		Get boolean entry for a termcap routine (?)
+tgetnum				N		Get numeric entry for a termcap routine (?)
+tgetstr				N		Get string entry for a termcap routine, use tputs (below) to output to terminal
+tgoto				N		Instantiate parameters into given capability (what???)
+tputs				N		Apply padding to a terminfo string and output it
+
+
+
+
 - fix [Ctrl] + [D] prints " exit" on newline instead of current line
 - fix print errno when set by chdir in reserved_cmds.c
 - fix [Ctrl] + [\] signal (see stty -a command and man stty)
