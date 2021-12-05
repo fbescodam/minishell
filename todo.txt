@@ -1,0 +1,2 @@
+- fix [Ctrl] + [D] prints " exit" on newline instead of current line
+- fix print errno when set by chdir in reserved_cmds.c
