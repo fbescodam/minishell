@@ -66,7 +66,7 @@ int	setup_word_token(t_list **tokens, char **words)
 	new = (t_token *)malloc(sizeof(t_token));
 	if (!new)
 		return (ENOMEM);
-	new->flag = WORD;
+	new->flag = CMD;
 	new->content = words;
 	if (!(*tokens))
 	{

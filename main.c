@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2021/12/06 15:48:08 by jgalloni      ########   odam.nl         */
+/*   Updated: 2021/12/06 21:33:23 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@
 #include "tokens.h"
 #include "custom_errors.h"
 
+/*
+ * @brief Assigns signal-handling functions to signals
+ */
+
 static void	setup_signals(void)
 {
 	signal(SIGTERM, sig_handler);
@@ -31,6 +35,13 @@ static void	setup_signals(void)
 	signal(SIGQUIT, sig_handler);
 	signal(SIGTSTP, sig_handler);
 }
+
+/*
+ * @brief Parses the user's prompt into a list of tokens
+ * prompt is null on EOF signal
+ * @return : 0 when nothing should be executed, 1 when parsed tokens can be
+ * ended on to execution
+ */
 
 int	parse_command(t_cmd *cmd, char *prompt)
 {
@@ -76,6 +87,8 @@ int	main(int argc, char **argv, char **envp)
 		ret = parse_command(cmd, prompt);
 		if (ret)
 			execute_command(cmd, paths);
+			system("leaks minishell");
 		//free command and token lists
 	}
+	
 }

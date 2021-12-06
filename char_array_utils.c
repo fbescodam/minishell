@@ -2,6 +2,10 @@
 #include <stdlib.h>
 #include "tokens.h"
 
+/*
+ * @brief Counts and returns how many strings in an array of type char **
+ */
+
 int		char_array_len(char **arr)
 {
 	int	i;
@@ -11,6 +15,10 @@ int		char_array_len(char **arr)
 		i++;
 	return (i);
 }
+
+/*
+ * @brief Appends strings **from array **to array
+ */
 
 void	append_char_array(char **from, char **to)
 {
@@ -29,6 +37,12 @@ void	append_char_array(char **from, char **to)
 	to[i + j] = 0;
 }
 
+/*
+ * @brief Re-allocates the params array of cmd to fit more arguments
+ * : this is needed when argument tokens are broken up by other types
+ * for example : ' cat main.c > output setup.c '
+ * @return : 0 on success, -1 on malloc error
+ */
 
 int		add_arguments(t_cmd **cmd, t_token	*token)
 {

@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:46:37 by jgalloni      #+#    #+#                 */
-/*   Updated: 2021/12/05 21:01:02 by jgalloni      ########   odam.nl         */
+/*   Updated: 2021/12/06 20:20:17 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*find_cmd(t_cmd *cmd)
 	while (current)
 	{
 		token = (t_token *)(current->content);
-		if (token->flag == WORD)
+		if (token->flag == CMD)
 		{
 			params = (char **)(token->content);
 			cmd->params = params;

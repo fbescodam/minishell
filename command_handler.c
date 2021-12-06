@@ -6,6 +6,12 @@
 #include <errno.h>
 #include "custom_errors.h"
 
+/*
+ * @brief Loop through tokens and do all necessary configurations before 
+ * execution (redirection, setting up a char ** array to be passed to execve)
+ * @return : 0 on success, errno on failure
+ */
+
 int	setup_cmd(t_cmd *cmd)
 {
 	t_list *current_token;
@@ -19,9 +25,9 @@ int	setup_cmd(t_cmd *cmd)
 	while (current_token)
 	{
 		token = (t_token *)(current_token->content);
-		if (token->flag == OUTPUT_REDIR || token->flag == INPUT_REDIR)
+		if (token->flag == OUTPUT_REDIR || token->flag == INPUT_REDIR || token->flag == PIPE_IN || token->flag == PIPE_OUT)
 			ret = cmd_redirection(cmd, &current_token);
-		else if (token->flag == WORD)
+		else if (token->flag == CMD)
 			ret = add_arguments(&cmd, token);
 		if (ret == -1)
 			return (errno);
@@ -34,6 +40,14 @@ void	handler()
 {
 	printf("\n");
 }
+
+/*
+ * @brief The child process defaults its own signal options, configures the cmd,
+ * and executed it when applicable. 
+ * @exit : in case of errors during configuration, in case of null parameters 
+ * (no tokens found of type command) , if command is reserved and thus will be
+ * run by parent , on execution error
+ */
 
 void	child_process(t_cmd *cmd)
 {
@@ -52,6 +66,12 @@ void	child_process(t_cmd *cmd)
 		exit_shell_w_error(127);
 	exit_shell_w_error(0);
 }
+
+/*
+ * @brief The parent surveys the child's activity: some preliminary checks are
+ * done on the command, the child starts handling execution and parent waits
+ * If child finds a reserved cmd, it will be run by parent
+ */
 
 void	execute_command(t_cmd *cmd, char **paths)
 {

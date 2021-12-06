@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:59 by jgalloni      #+#    #+#                 */
-/*   Updated: 2021/12/06 15:43:39 by jgalloni      ########   odam.nl         */
+/*   Updated: 2021/12/06 20:27:38 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@
 #include <signal.h>
 #include "readline/readline.h"
 #include "custom_errors.h"
+
+/*
+ * @brief Handle signals 
+ * SIGINT is ctrl c
+ * -1 is passed in case of EOF
+ */
 
 void	sig_handler(int sig)
 {
@@ -38,6 +44,10 @@ void	sig_handler(int sig)
     	rl_redisplay();
 	}
 }
+
+/*
+ * @brief Prints a custom or errno message and exits the process
+ */
 
 void	exit_shell_w_error(int err)
 {

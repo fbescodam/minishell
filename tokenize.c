@@ -26,7 +26,7 @@ int		add_operator_token(char *prompt, t_list **tokens, int *i)
 	else if (prompt[0] == '>')
 		ret = setup_operator_token(tokens, OUTPUT_REDIR, prompt, i);
 	else
-		ret = setup_operator_token(tokens, PIPE, prompt, i);
+		ret = setup_pipe(tokens);
 	return (ret);
 }
 
@@ -72,9 +72,9 @@ void	print_token_list(t_list *tokens)
 	while (current_token)
 	{
 		token = (t_token *)(current_token->content);
-		if (token->flag == WORD)
+		if (token->flag == CMD)
 		{
-			printf("THIS TOKEN IS  WORD-TYPE :\n");
+			printf("THIS TOKEN IS  CMD-TYPE :\n");
 			int i = 0;
 			char **params = (char **)(token->content);
 			while (params[i])
@@ -92,7 +92,7 @@ void	print_token_list(t_list *tokens)
 			printf("THIS TOKEN IS INPUT_REDIR_APPEND\n");
 		else if (token->flag == OUTPUT_REDIR_APPEND)
 			printf("THIS TOKEN IS OUTPUT_REDIR_APPEND\n");
-		else if (token->flag == PIPE)
+		else if (token->flag == PIPE_IN || token->flag == PIPE_OUT)
 			printf("THIS TOKEN IS PIPE\n");
 		else
 			printf("TOKEN UNKNOWN, %d\n", token->flag);
