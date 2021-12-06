@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2021/12/06 21:33:23 by jgalloni      ########   odam.nl         */
+/*   Updated: 2021/12/06 21:36:19 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ int	main(int argc, char **argv, char **envp)
 		ret = parse_command(cmd, prompt);
 		if (ret)
 			execute_command(cmd, paths);
-			system("leaks minishell");
 		//free command and token lists
 	}
 	
