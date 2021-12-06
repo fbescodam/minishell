@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <errno.h>
+#include "custom_errors.h"
 
 int	cmd_redirection(t_cmd *cmd, t_list **current_token)
 {
@@ -60,7 +61,20 @@ void	handler()
 
 void	child_process(t_cmd *cmd)
 {
-	
+	int	ret;
+
+	signal(SIGINT, SIG_DFL);
+	ret = setup_cmd(cmd);
+	if (ret == -1)
+		exit_shell_w_error(0);
+	if (!cmd->params)				// no cmd tokens found
+		exit(errno);
+	if (is_reserved(cmd))
+		exit (RESERVED);
+	execv(cmd->path, cmd->params);	// if not a reserved command, run it with execv
+	if (!cmd->path)
+		exit_shell_w_error(127);
+	exit_shell_w_error(0);
 }
 
 void	execute_command(t_cmd *cmd, char **paths)
@@ -69,36 +83,20 @@ void	execute_command(t_cmd *cmd, char **paths)
 	int		pid;
 	int		status;
 	int		terminated_process;
-
 	
 	terminated_process = 0;
 	cmd->path = check_command(cmd, paths);
-	if (cmd->params)
-	{
-		ret = check_run_reserved_cmds(cmd);
-		if (ret < 0)
-			exit_shell_w_error(0);
-		else if (ret == 0)
-			return ;
-	}
-	ret = 0;
 	pid = fork();
 	signal(SIGINT, handler);
 	if (pid == 0)
-	{
-		signal(SIGINT, SIG_DFL);
-		ret = setup_cmd(cmd);
-		if (ret == -1)
-			exit_shell_w_error(0);
-		if (!cmd->params)
-			exit(errno);
-		execv(cmd->path, cmd->params);
-		if (!cmd->path)
-			exit_shell_w_error(127);
-		exit_shell_w_error(0);
-	}
+		child_process(cmd);
 	while (terminated_process != pid)
 		terminated_process = wait(&status);
 	if (((status) & 0x7f) == 0)
 		errno = ((status) & 0xff00) >> 8;
-}
+	if (errno != RESERVED)
+		return ;
+	ret = check_run_reserved_cmds(cmd);
+	if (ret < 0)
+		perror("minishell");
+}	

@@ -3,5 +3,5 @@
 
 # define PARSE_ERROR 258
 # define CMDNF 127
-
+# define RESERVED 95
 #endif

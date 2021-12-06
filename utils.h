@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:46:20 by jgalloni      #+#    #+#                 */
-/*   Updated: 2021/12/06 15:33:46 by jgalloni      ########   odam.nl         */
+/*   Updated: 2021/12/06 17:39:29 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct t_cmd_utils{
 
 void	stop_server(int sig);
 char	*check_command(t_cmd *cmd, char **paths);
+int		is_reserved(t_cmd *cmd);
 int		check_run_reserved_cmds(t_cmd *cmd);
 char	**set_path(void);
 int		input_redirect(int mode, t_cmd *cmd);
