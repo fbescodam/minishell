@@ -1,6 +1,8 @@
 #include "libft/libft.h"
 #include "tokens.h"
 #include <stdio.h>
+#include <errno.h>
+#include "custom_errors.h"
 
 char	*next_word(char *str, int *i)
 {
@@ -35,25 +37,25 @@ int	setup_operator_token(t_list **tokens, int flag, char *pos, int *i)
 
 	new = (t_token *)malloc(sizeof(t_token));
 	if (!new)
-		return (-1);
+		return (ENOMEM);
 	new->flag = flag;
 	new->content = next_word(pos + 1, i);
 	if (!(new->content))
-		return (-1); // parse error
+		return (PARSE_ERROR); // parse error
 	if (!(*tokens))
 	{
 		*tokens = ft_lstnew(new);
 		if (!(*tokens))
-			return (-1);
+			return (ENOMEM);
 	}
 	else
 	{
 		new_instance = ft_lstnew(new);
 		if (!new_instance)
-			return (-1);
+			return (ENOMEM);
 		ft_lstadd_back(tokens, new_instance);
 	}
-	return (1);
+	return (0);
 }
 
 int	setup_word_token(t_list **tokens, char **words)
@@ -63,22 +65,22 @@ int	setup_word_token(t_list **tokens, char **words)
 
 	new = (t_token *)malloc(sizeof(t_token));
 	if (!new)
-		return (-1);
+		return (ENOMEM);
 	new->flag = WORD;
 	new->content = words;
 	if (!(*tokens))
 	{
 		*tokens = ft_lstnew(new);
 		if (!(*tokens))
-			return (-1);
+			return (ENOMEM);
 	}
 	else
 	{
 		new_instance = ft_lstnew(new);
 		if (!new_instance)
-			return (-1);
+			return (ENOMEM);
 		ft_lstadd_back(tokens, new_instance);
 	}
-	return (1);
+	return (0);
 }
 

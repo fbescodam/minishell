@@ -58,6 +58,11 @@ void	handler()
 	printf("\n");
 }
 
+void	child_process(t_cmd *cmd)
+{
+	
+}
+
 void	execute_command(t_cmd *cmd, char **paths)
 {
 	int		ret;

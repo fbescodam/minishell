@@ -20,4 +20,6 @@ int	setup_word_token(t_list **tokens, char **words);
 #define OUTPUT_REDIR_APPEND 5
 #define PIPE 6
 
+
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:59 by jgalloni      #+#    #+#                 */
-/*   Updated: 2021/11/27 03:40:18 by jgalloni      ########   odam.nl         */
+/*   Updated: 2021/12/06 15:43:39 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@
 #include <unistd.h>
 #include <signal.h>
 #include "readline/readline.h"
+#include "custom_errors.h"
 
-void	exit_shell(int sig)
+void	sig_handler(int sig)
 {
 	if (sig == 137)
 	{
@@ -45,8 +46,11 @@ void	exit_shell_w_error(int err)
 		printf(" exit\n");
 		exit(errno);
 	}
-	if (err == 127)
-		errno = 127;
+	if (err == CMDNF)
+	{
+		printf("minishell: command not found\n");
+		exit (CMDNF);
+	}
 	perror("minishell");
 	exit(errno);
 }

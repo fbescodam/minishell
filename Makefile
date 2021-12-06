@@ -6,7 +6,7 @@
 #    By: fbes <fbes@student.codam.nl>                 +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/26 23:07:45 by fbes          #+#    #+#                  #
-#    Updated: 2021/12/05 18:02:19 by fbes          ########   odam.nl          #
+#    Updated: 2021/12/05 21:15:28 by jgalloni      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ INCLUDES =	-I lib/libft -I /Users/$(USER)/.brew/opt/readline/include
 
 OBJS =		$(SRCS:.c=.o)
 
-CFLAGS = -fsanitize=address
+CFLAGS = 
 
 all: $(NAME)
 

@@ -3,10 +3,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <errno.h>
 
 int		add_operator_token(char *prompt, t_list **tokens, int *i)
 {
 	int	ret;
+
 	if (prompt[0] == '\0')
 		return (0);
 	if (prompt[0] == '<' && prompt[1] == '<')
@@ -30,23 +32,19 @@ int		add_operator_token(char *prompt, t_list **tokens, int *i)
 
 int		add_word_tokens(char *words, t_list **tokens)
 {
-	char **words_list;
-	t_token	*new;
-	t_list	*new_instance;
-	int ret;
+	char	**words_list;
+	int		ret;
 
 	words_list = ft_split(words, ' ');
 	if (!words_list)
-		return(-1);
-	if ( words_list[0] == 0 || words_list[0][0] == '\0' )
+		return (ENOMEM);
+	if (!(words_list[0])) //can this also happen in split ?  || words_list[0][0] == '\0' 
 	{
-		//free word_list
+		free(words_list);
 		return (0);
 	}
 	ret = setup_word_token(tokens, words_list);
-	if (ret == -1)
-		return (-1);
-	return (1);
+	return (ret);
 }
 
 int		scan_operators(char *prompt)
@@ -116,20 +114,20 @@ int		tokenize(char *prompt, t_list **tokens)
 		next_operator = scan_operators(prompt + i);
 		cmd = ft_substr(prompt + i, 0, next_operator);
 		if (!cmd)
-			return (-1); //proper error hanling goes here
+			return (ENOMEM);
 		if (cmd[0] != '\0')
 			ret = add_word_tokens(cmd, tokens);
-		if (ret == -1)
-			return (-1); //proper error handling goes here
-		ret = add_operator_token(prompt + i + next_operator, tokens, &i);
-		if (ret == -1)
-			return (-1); //proper error handling goes here
 		free(cmd);
+		if (ret != 0)
+			return (ret);
+		ret = add_operator_token(prompt + i + next_operator, tokens, &i);
+		if (ret != 0)
+			return (ret);
 		i += next_operator;
 		if (prompt[i] != '\0')
 			i++;
 	}
 	print_token_list(*tokens);
-	return (1);
+	return (0);
 
 }

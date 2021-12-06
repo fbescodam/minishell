@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2021/12/05 18:56:52 by jgalloni      ########   odam.nl         */
+/*   Updated: 2021/12/06 15:48:08 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,16 @@
 #include "readline/history.h"
 #include "utils.h"
 #include "tokens.h"
+#include "custom_errors.h"
 
 static void	setup_signals(void)
 {
-	signal(SIGTERM, exit_shell);
-	signal(SIGHUP, exit_shell);
-	signal(SIGINT, exit_shell);
-	signal(SIGABRT, exit_shell);
-	signal(SIGQUIT, exit_shell);
-	signal(SIGTSTP, exit_shell);
+	signal(SIGTERM, sig_handler);
+	signal(SIGHUP, sig_handler);
+	signal(SIGINT, sig_handler);
+	signal(SIGABRT, sig_handler);
+	signal(SIGQUIT, sig_handler);
+	signal(SIGTSTP, sig_handler);
 }
 
 int	parse_command(t_cmd *cmd, char *prompt)
@@ -36,16 +37,19 @@ int	parse_command(t_cmd *cmd, char *prompt)
 	int	ret;
 
 	if (!prompt)
-		exit_shell_w_error(-1);
+		exit_shell_w_error(-1); //EOF
 	ret = tokenize(prompt, &(cmd->tokens));
-	if (ret == -1)
-		exit_shell_w_error(ENOMEM);
+	if (ret == PARSE_ERROR)
+	{
+		printf("minishell: syntax error\n");
+		errno = PARSE_ERROR;
+		return (0);
+	}
+	if (ret != 0)
+		exit_shell_w_error(ret);
 	if (!(cmd->tokens))
 		return (0);
-	//ret = setup_cmd(cmd, *tokens);
-	//if (ret == -1)
-	//	exit_shell_w_error(ENOMEM);
-	return (ret);
+	return (1);
 }
 
 
@@ -60,7 +64,7 @@ int	main(int argc, char **argv, char **envp)
 	char	buff[60];
 	int		status;
 
-	//treat exit as a command ?
+	//treat exit as a command 
 	
 	paths = set_path();
 	cmd = (t_cmd *)malloc(sizeof(t_cmd));
