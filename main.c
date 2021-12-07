@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2021/12/07 18:56:07 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/07 19:47:58 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		setup_signals();
-		prompt = readline("minishell> ");
+		prompt = readline("\x1b[1mminishell> \x1b[0m");
 		if (!prompt)
 			exit_shell_w_error(-1);
 		else
