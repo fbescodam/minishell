@@ -54,19 +54,15 @@ tputs				N		Apply padding to a terminfo string and output it
 
 
 
-- exit command
 - variables (+ special case $?)
-- history
 - CHECK "minishell> " printing on [Ctrl] + [C] when in << mode
-- fix [Ctrl] + [D] prints " exit" on newline instead of current line
 - fix [Ctrl] + [\] signal (see stty -a command and man stty)
 - fix "1 2" as single argument (now sees 1 and 2 as two different ones)
-- minishell getting stuck when entering just a | as a command
 - Execve instead of execv (exported variables should be passed to executable)
 - after parsing a variable with var=value, run the next argument as a command
 - cd doesn't work with no arguments
 - write a free command function
 - cleanup flags system using bitmasks or something
 - handle quotes
-- Not nice that we reset PATH from pipe's setup function. 
+- Not nice that we reset PATH from pipe's setup function.
 - CHECK FOR LEAKS

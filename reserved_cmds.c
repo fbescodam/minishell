@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/05 17:50:19 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/06 18:00:25 by jgalloni      ########   odam.nl         */
+/*   Updated: 2021/12/07 18:27:38 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	check_run_reserved_cmds(t_cmd *cmd)
 	if (ft_strncmp("cd\0", cmd->params[0], 3) == 0)
 		return (chdir(cmd->params[1]));
 	if (ft_strncmp("exit\0", cmd->params[0], 5) == 0)
-		exit_shell_w_error(-1);
+		exit_shell_w_error(-2);
 	return (1);
 }
 
