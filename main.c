@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2021/12/06 21:36:19 by jgalloni      ########   odam.nl         */
+/*   Updated: 2021/12/07 18:46:56 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,19 +75,21 @@ int	main(int argc, char **argv, char **envp)
 	char	buff[60];
 	int		status;
 
-	//treat exit as a command 
-	
+	//treat exit as a command
+
 	paths = set_path();
 	cmd = (t_cmd *)malloc(sizeof(t_cmd));
 	while (1)
 	{
 		setup_signals();
 		prompt = readline("minishell> ");
-		
+		//if (!prompt)
+		//	continue ;
 		ret = parse_command(cmd, prompt);
 		if (ret)
 			execute_command(cmd, paths);
 		//free command and token lists
+		ft_free(prompt);
 	}
-	
+
 }
