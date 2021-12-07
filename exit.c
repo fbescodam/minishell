@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:59 by jgalloni      #+#    #+#                 */
-/*   Updated: 2021/12/07 19:42:48 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/07 19:46:43 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ void	sig_handler(int sig)
 	{
 		printf("\n"); // Move to a new line
 		rl_replace_line("", 0); // Clear the previous text
-		printf("\x1b[1A\033[11C\x1b[0J\n");
+		printf("\x1b[1A\033[11C\x1b[0K\n");
 		// Hooray for ANSI Escape Sequences!
 		// \x1b stands for the ESCAPE key, then [1A goes up one line ([2A would go up two lines)
 		// then [12C moves the cursor 12 places to the right
-		// [0J removes all character from that position til the edge of the terminal
+		// [0K removes all character from that position til the end of the line in the terminal
 		rl_on_new_line(); // Regenerate the prompt on a newline
 		rl_redisplay();
 	}
