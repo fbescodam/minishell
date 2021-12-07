@@ -60,7 +60,6 @@ tputs				N		Apply padding to a terminfo string and output it
 - fix "1 2" as single argument (now sees 1 and 2 as two different ones)
 - Execve instead of execv (exported variables should be passed to executable)
 - after parsing a variable with var=value, run the next argument as a command
-- cd doesn't work with no arguments
 - write a free command function
 - cleanup flags system using bitmasks or something
 - handle quotes
