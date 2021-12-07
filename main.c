@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2021/12/07 18:46:56 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/07 18:56:07 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ int	parse_command(t_cmd *cmd, char *prompt)
 {
 	int	ret;
 
-	if (!prompt)
-		exit_shell_w_error(-1); //EOF
 	ret = tokenize(prompt, &(cmd->tokens));
 	if (ret == PARSE_ERROR)
 	{
@@ -83,13 +81,18 @@ int	main(int argc, char **argv, char **envp)
 	{
 		setup_signals();
 		prompt = readline("minishell> ");
-		//if (!prompt)
-		//	continue ;
-		ret = parse_command(cmd, prompt);
-		if (ret)
-			execute_command(cmd, paths);
-		//free command and token lists
-		ft_free(prompt);
+		if (!prompt)
+			exit_shell_w_error(-1);
+		else
+		{
+			ret = parse_command(cmd, prompt);
+			if (ret)
+				execute_command(cmd, paths);
+			if (prompt && *prompt)
+				add_history(prompt);
+			//free command and token lists
+			ft_free(prompt);
+		}
 	}
 
 }
