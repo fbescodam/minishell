@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2021/12/07 19:47:58 by fbes          ########   odam.nl         */
+/*   Updated: 2021/12/08 16:28:39 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	setup_signals(void)
  * @brief Parses the user's prompt into a list of tokens
  * prompt is null on EOF signal
  * @return : 0 when nothing should be executed, 1 when parsed tokens can be
- * ended on to execution
+ * handed on to execution
  */
 
 int	parse_command(t_cmd *cmd, char *prompt)
