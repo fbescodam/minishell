@@ -65,3 +65,4 @@ tputs				N		Apply padding to a terminfo string and output it
 - handle quotes
 - Not nice that we reset PATH from pipe's setup function.
 - CHECK FOR LEAKS
+- a
