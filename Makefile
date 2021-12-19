@@ -6,7 +6,7 @@
 #    By: fbes <fbes@student.codam.nl>                 +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/26 23:07:45 by fbes          #+#    #+#                  #
-#    Updated: 2021/12/06 21:18:26 by jgalloni      ########   odam.nl          #
+#    Updated: 2021/12/20 00:45:03 by fbes          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ INCLUDES =	-I lib/libft -I /Users/$(USER)/.brew/opt/readline/include
 
 OBJS =		$(SRCS:.c=.o)
 
-CFLAGS = 
+CFLAGS =
 
 all: $(NAME)
 
@@ -48,7 +48,11 @@ fclean:
 
 re: fclean all
 
-dependencies:
-	brew install readline
+brew:
+	curl https://brew.42.fr/ | bash
 
-.PHONY: all clean fclean re bonus dependencies
+readline:
+	brew install readline
+	brew link --force readline
+
+.PHONY: all clean fclean re bonus readline brew
