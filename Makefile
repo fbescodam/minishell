@@ -6,7 +6,7 @@
 #    By: fbes <fbes@student.codam.nl>                 +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/26 23:07:45 by fbes          #+#    #+#                  #
-#    Updated: 2021/12/20 00:45:03 by fbes          ########   odam.nl          #
+#    Updated: 2021/12/20 00:48:08 by fbes          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ libft/libft.a:
 	make -C libft
 
 bonus:
-	@echo We did not do the bonus
+	@echo We did not do the bonus yet
 
 clean:
 	rm -f $(OBJS)
