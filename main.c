@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/01/18 21:28:16 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/18 21:31:58 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,20 +65,19 @@ int	parse_command(t_cmd *cmd, char *prompt)
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_list	*tokens;
 	char	*prompt;
 	char	**prompts;
-	char	*command;
 	t_cmd	*cmd; // this should become a t_list of cmds at some point
 	char	**paths;
 	int		ret;
-	char	buff[60];
 	size_t	i;
 
 	//treat exit as a command
 
 	paths = set_path();
 	cmd = (t_cmd *)malloc(sizeof(t_cmd));
+	if (!cmd)
+		sig_handler(137);
 	while (1)
 	{
 		setup_signals();
@@ -105,5 +104,5 @@ int	main(int argc, char **argv, char **envp)
 			ft_free(prompt);
 		}
 	}
-
+	ft_free(cmd);
 }
