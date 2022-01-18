@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2021/12/08 16:28:39 by jgalloni      ########   odam.nl         */
+/*   Updated: 2022/01/18 21:28:16 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,15 @@ int	parse_command(t_cmd *cmd, char *prompt)
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_list *tokens;
+	t_list	*tokens;
 	char	*prompt;
+	char	**prompts;
+	char	*command;
 	t_cmd	*cmd; // this should become a t_list of cmds at some point
 	char	**paths;
 	int		ret;
 	char	buff[60];
-	int		status;
+	size_t	i;
 
 	//treat exit as a command
 
@@ -85,11 +87,20 @@ int	main(int argc, char **argv, char **envp)
 			exit_shell_w_error(-1);
 		else
 		{
-			ret = parse_command(cmd, prompt);
-			if (ret)
-				execute_command(cmd, paths);
 			if (prompt && *prompt)
+			{
+				prompts = ft_split(prompt, ';');
+				i = 0;
+				while (prompts[i])
+				{
+					ret = parse_command(cmd, prompts[i]);
+					if (ret)
+						execute_command(cmd, paths);
+					i++;
+				}
+				ft_free_double_ptr((void **)prompts);
 				add_history(prompt);
+			}
 			//free command and token lists
 			ft_free(prompt);
 		}
