@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/19 22:19:43 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/19 23:02:45 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/19 23:26:59 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,6 @@
 int		mini_exit(t_cmd *cmd);
 int		mini_cd(t_cmd *cmd);
 int		mini_pwd(t_cmd *cmd);
+int		mini_echo(t_cmd *cmd);
 
 #endif
