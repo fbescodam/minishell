@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <errno.h>
+#include "utils.h"
 
 int		add_operator_token(char *prompt, t_list **tokens, int *i)
 {
@@ -100,15 +101,16 @@ void	print_token_list(t_list *tokens)
 	}
 }
 
-int		tokenize(char *prompt, t_list **tokens)
+int		tokenize(char *prompt, t_list **cmds)
 {
 	int	next_operator;
 	char *cmd;
 	int	i;
 	int ret;
+	t_list *tokens;
 
 	i = 0;
-	*tokens = 0;
+	tokens = 0;
 	while (prompt[i])
 	{
 		next_operator = scan_operators(prompt + i);
@@ -116,18 +118,19 @@ int		tokenize(char *prompt, t_list **tokens)
 		if (!cmd)
 			return (ENOMEM);
 		if (cmd[0] != '\0')
-			ret = add_word_tokens(cmd, tokens);
+			ret = add_word_tokens(cmd, &tokens);
 		free(cmd);
 		if (ret != 0)
 			return (ret);
-		ret = add_operator_token(prompt + i + next_operator, tokens, &i);
+		ret = add_operator_token(prompt + i + next_operator, &tokens, &i);
 		if (ret != 0)
 			return (ret);
 		i += next_operator;
 		if (prompt[i] != '\0')
 			i++;
 	}
-	print_token_list(*tokens);
+	((t_cmd *)((*cmds)->content))->tokens = tokens;
+	print_token_list(tokens);
 	return (0);
 
 }

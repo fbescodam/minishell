@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/01/18 21:31:58 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/19 22:24:48 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ static void	setup_signals(void)
  * handed on to execution
  */
 
-int	parse_command(t_cmd *cmd, char *prompt)
+int	parse_command(t_list *cmds, char *prompt)
 {
 	int	ret;
 
-	ret = tokenize(prompt, &(cmd->tokens));
+	ret = tokenize(prompt, &cmds);
 	if (ret == PARSE_ERROR)
 	{
 		printf("minishell: syntax error\n");
@@ -56,18 +56,29 @@ int	parse_command(t_cmd *cmd, char *prompt)
 	}
 	if (ret != 0)
 		exit_shell_w_error(ret);
-	if (!(cmd->tokens))
+	if (!(((t_cmd *)(cmds->content))->tokens))
 		return (0);
 	return (1);
 }
 
+int	setup_cmds(t_list **cmds)
+{
+	t_cmd *cmd;
 
+	cmd = (t_cmd *)malloc(sizeof(t_cmd));
+	if (!cmd)
+		return(ENOMEM);
+	*cmds = ft_lstnew(cmd);
+	if (!cmds)
+		return(ENOMEM);
+	return (0);
+}
 
 int	main(int argc, char **argv, char **envp)
 {
 	char	*prompt;
 	char	**prompts;
-	t_cmd	*cmd; // this should become a t_list of cmds at some point
+	t_list	*cmds; // this should become a t_list of cmds at some point
 	char	**paths;
 	int		ret;
 	size_t	i;
@@ -75,9 +86,9 @@ int	main(int argc, char **argv, char **envp)
 	//treat exit as a command
 
 	paths = set_path();
-	cmd = (t_cmd *)malloc(sizeof(t_cmd));
-	if (!cmd)
-		sig_handler(137);
+	ret = setup_cmds(&cmds);
+	if (ret != 0)
+		exit_shell_w_error(ret);
 	while (1)
 	{
 		setup_signals();
@@ -92,9 +103,9 @@ int	main(int argc, char **argv, char **envp)
 				i = 0;
 				while (prompts[i])
 				{
-					ret = parse_command(cmd, prompts[i]);
+					ret = parse_command(cmds, prompts[i]);
 					if (ret)
-						execute_command(cmd, paths);
+						execute_command((t_cmd*)(cmds->content), paths);
 					i++;
 				}
 				ft_free_double_ptr((void **)prompts);
@@ -104,5 +115,5 @@ int	main(int argc, char **argv, char **envp)
 			ft_free(prompt);
 		}
 	}
-	ft_free(cmd);
+	ft_free(cmds);
 }
