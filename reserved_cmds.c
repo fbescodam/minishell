@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/05 17:50:19 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/19 22:59:04 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/19 23:04:28 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,11 @@
 int	check_run_reserved_cmds(t_cmd *cmd)
 {
 	if (ft_strncmp("cd\0", cmd->params[0], 3) == 0)
-	{
-		if (cmd->params[1])
-			return (chdir(cmd->params[1]));
-		else
-			return (chdir(getenv("HOME")));
-	}
-	else if (ft_strncmp("exit\0", cmd->params[0], 5) == 0)
+		return (mini_cd(cmd));
+	if (ft_strncmp("exit\0", cmd->params[0], 5) == 0)
 		return (mini_exit(cmd));
+	if (ft_strncmp("pwd\0", cmd->params[0], 4) == 0)
+		return (mini_pwd(cmd));
 	return (-1);
 }
 
@@ -40,6 +37,8 @@ int	is_reserved(t_cmd *cmd)
 	if (ft_strncmp("cd\0", cmd->params[0], 3) == 0)
 		return (1);
 	if (ft_strncmp("exit\0", cmd->params[0], 5) == 0)
+		return (1);
+	if (ft_strncmp("pwd\0", cmd->params[0], 4) == 0)
 		return (1);
 	return (0);
 }
