@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:59 by jgalloni      #+#    #+#                 */
-/*   Updated: 2021/12/07 19:46:43 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/19 17:33:29 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	sig_handler(int sig)
 	}
 	else if (sig == -1)
 	{
+		// unused
 		printf("Goodbye\n");
 		exit(0);
 	}

@@ -7,7 +7,7 @@
 #include "custom_errors.h"
 
 /*
- * @brief Loop through tokens and do all necessary configurations before 
+ * @brief Loop through tokens and do all necessary configurations before
  * execution (redirection, setting up a char ** array to be passed to execve)
  * @return : 0 on success, errno on failure
  */
@@ -43,8 +43,8 @@ void	handler()
 
 /*
  * @brief The child process defaults its own signal options, configures the cmd,
- * and executed it when applicable. 
- * @exit : in case of errors during configuration, in case of null parameters 
+ * and executed it when applicable.
+ * @exit : in case of errors during configuration, in case of null parameters
  * (no tokens found of type command) , if command is reserved and thus will be
  * run by parent , on execution error
  */
@@ -79,7 +79,7 @@ void	execute_command(t_cmd *cmd, char **paths)
 	int		pid;
 	int		status;
 	int		terminated_process;
-	
+
 	terminated_process = 0;
 	cmd->path = check_command(cmd, paths);
 	pid = fork();
@@ -95,6 +95,6 @@ void	execute_command(t_cmd *cmd, char **paths)
 	if (errno != RESERVED)
 		return ;
 	ret = check_run_reserved_cmds(cmd);
-	if (ret < 0)
+	if (ret > 0)
 		perror("minishell");
-}	
+}

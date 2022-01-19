@@ -6,19 +6,20 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/05 17:50:19 by fbes          #+#    #+#                 */
-/*   Updated: 2021/12/07 19:52:43 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/19 22:59:04 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
+#include "builtins/builtins.h"
 #	include <stdio.h>
 
 /**
  * @brief Check if given command is a reserved keyword for minishell and if it
  * is, run it.
  * @param cmd Command struct
- * @return Returns 1 if no reserved keyword, 0 if it was and it completed
- * successfully, < 0 on error
+ * @return Returns -1 if no reserved keyword, 0 if it was and it completed
+ * successfully, > 0 on system error (using errno), < 0 on minishell error
  */
 int	check_run_reserved_cmds(t_cmd *cmd)
 {
@@ -29,9 +30,9 @@ int	check_run_reserved_cmds(t_cmd *cmd)
 		else
 			return (chdir(getenv("HOME")));
 	}
-	if (ft_strncmp("exit\0", cmd->params[0], 5) == 0)
-		exit_shell_w_error(-2);
-	return (1);
+	else if (ft_strncmp("exit\0", cmd->params[0], 5) == 0)
+		return (mini_exit(cmd));
+	return (-1);
 }
 
 int	is_reserved(t_cmd *cmd)

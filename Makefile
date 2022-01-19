@@ -6,14 +6,15 @@
 #    By: fbes <fbes@student.codam.nl>                 +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/26 23:07:45 by fbes          #+#    #+#                  #
-#    Updated: 2021/12/20 00:48:08 by fbes          ########   odam.nl          #
+#    Updated: 2022/01/19 23:01:16 by fbes          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME =		minishell
 
-SRCS =		main.c exit.c redirection_utils.c setup.c tokenize.c token_setup.c \
-			command_handler.c reserved_cmds.c char_array_utils.c pipe.c
+SRCS =		main.c signal_handler.c redirection_utils.c setup.c tokenize.c \
+			token_setup.c command_handler.c reserved_cmds.c char_array_utils.c \
+			pipe.c builtins/exit.c builtins/cd.c
 
 HEADERS =	utils.h
 
