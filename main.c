@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/01/19 22:24:48 by jgalloni      ########   odam.nl         */
+/*   Updated: 2022/01/19 23:36:14 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,12 @@ int	setup_cmds(t_list **cmds)
 	return (0);
 }
 
+void	free_cmd(t_cmd *cmd)
+{
+	// add everything that needs to be freed inside struct!!
+	ft_free(cmd);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*prompt;
@@ -115,5 +121,5 @@ int	main(int argc, char **argv, char **envp)
 			ft_free(prompt);
 		}
 	}
-	ft_free(cmds);
+	ft_lstclear(cmds, &free_cmd);
 }
