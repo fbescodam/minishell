@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:46:37 by jgalloni      #+#    #+#                 */
-/*   Updated: 2021/12/06 20:20:17 by jgalloni      ########   odam.nl         */
+/*   Updated: 2022/01/20 00:26:53 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 char	*find_cmd(t_cmd *cmd)
 {
 	t_token	*token;
-	t_list *current;
-	char **params;
-	
+	t_list	*current;
+	char	**params;
+
 	current = cmd->tokens;
 	while (current)
 	{
@@ -28,12 +28,12 @@ char	*find_cmd(t_cmd *cmd)
 		{
 			params = (char **)(token->content);
 			cmd->params = params;
-			return (params[0]);
+			return (ft_strdup(params[0]));
 		}
 		current = current->next;
 	}
 	cmd->params = 0;
-	return (0);
+	return (NULL);
 }
 
 char	*check_command(t_cmd *cmd, char **paths)
@@ -46,7 +46,7 @@ char	*check_command(t_cmd *cmd, char **paths)
 	i = 0;
 	command = find_cmd(cmd);
 	if (!command)
-		return (0);
+		return (NULL);
 	if (command[0] == '.' && command[1] == '/' && access(command, R_OK) == 0)
 		return (command);
 	temp = ft_strjoin("/", command);
@@ -62,14 +62,13 @@ char	*check_command(t_cmd *cmd, char **paths)
 		i++;
 	}
 	free(temp);
-	return (0);
+	return (NULL);
 }
 
 char	**set_path()
 {
 	char	*env;
 	char	**paths;
-
 
 	env = getenv("PATH");
 	paths = ft_split(env, ':');

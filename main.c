@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/01/19 23:59:55 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/20 00:30:26 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,6 @@ int	setup_cmds(t_list **cmds)
 	if (!cmds)
 		return(ENOMEM);
 	return (0);
-}
-
-void	free_cmd(void *cmd)
-{
-	// add everything that needs to be freed inside struct!!
-	ft_free(cmd);
 }
 
 int	main(int argc, char **argv, char **envp)
