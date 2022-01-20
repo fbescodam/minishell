@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:59 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/01/20 00:39:03 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/20 02:06:50 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,6 @@ void	sig_handler(int sig)
 	{
 		write(2, "\nOut of memory\n", 15);
 		exit(ENOMEM);
-	}
-	else if (sig == -1)
-	{
-		// unused
-		printf("Goodbye\n");
-		exit(0);
 	}
 	else if (sig == SIGINT)
 	{
@@ -72,8 +66,9 @@ void	exit_shell_w_error(int err)
 	}
 	else if (err == CMDNF)
 	{
+		// ONLY RUN IN CHILD
 		printf("minishell: command not found\n");
-		exit (CMDNF);
+		exit(CMDNF);
 	}
 	else
 	{

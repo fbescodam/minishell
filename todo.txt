@@ -65,4 +65,4 @@ tputs				N		Apply padding to a terminfo string and output it
 - handle quotes
 - Not nice that we reset PATH from pipe's setup function.
 - "echo test && cat" does not execute cat, it prints it (do we need to add support for && ?)
-- CHECK FOR LEAKS
+- CHECK FOR LEAKS ALSO IN CHILD

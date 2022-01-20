@@ -61,7 +61,7 @@ int		add_arguments(t_cmd **cmd, t_token	*token)
 		return (-1);
 	temp[0] = 0;
 	append_char_array((*cmd)->params, temp);
-	free((*cmd)->params);
+	ft_free_double_ptr((void **)(*cmd)->params);
 	append_char_array((char **)(token->content), temp);
 	(*cmd)->argc += token_size;
 	(*cmd)->params = temp;
