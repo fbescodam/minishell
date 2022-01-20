@@ -56,15 +56,15 @@ void	child_process(t_cmd *cmd)
 	signal(SIGINT, SIG_DFL);
 	ret = setup_cmd(cmd);
 	if (ret != 0)
-		exit_shell_w_error(ret);
+		exit_shell_w_error(cmd, ret);
 	if (!cmd->params)				// no cmd tokens found
 		exit(errno);
 	if (is_reserved(cmd))
 		exit (RESERVED);
 	execv(cmd->path, cmd->params);	// if not a reserved command, run it with execv
 	if (!cmd->path)
-		exit_shell_w_error(127);
-	exit_shell_w_error(0);
+		exit_shell_w_error(cmd, 127);
+	exit_shell_w_error(cmd, 0);
 }
 
 /*
@@ -84,7 +84,7 @@ void	execute_command(t_cmd *cmd, char **paths)
 	cmd->path = check_command(cmd, paths);
 	pid = fork();
 	if (pid == -1)
-		exit_shell_w_error(0);
+		exit_shell_w_error(cmd, 0);
 	signal(SIGINT, handler);
 	if (pid == 0)
 		child_process(cmd);

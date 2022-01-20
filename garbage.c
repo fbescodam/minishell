@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/20 00:30:19 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/20 01:21:28 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/20 19:03:08 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,35 @@
  */
 void	free_token(void *token)
 {
-	if (token)
-	{
-		if (((t_token *)token)->flag != CMD)
-			ft_free(((t_token *)token)->content);
-	}
+	if (!token)
+		return ;
+	if (((t_token *)token)->flag != CMD)
+		ft_free(((t_token *)token)->content);
 	ft_free(token);
 }
 
 void	free_cmd(void *cmd)
 {
-	if (cmd)
-	{
-		ft_free_double_ptr((void **)((t_cmd *)cmd)->params);
-		ft_lstclear(&((t_cmd *)cmd)->tokens, &free_token);
-		ft_free(((t_cmd *)cmd)->path);
-	}
+	if (!cmd)
+		return ;
+	ft_free_double_ptr((void **)((t_cmd *)cmd)->params);
+	ft_lstclear(&((t_cmd *)cmd)->tokens, &free_token);
+	ft_free(((t_cmd *)cmd)->path);
 	ft_free(cmd);
+}
+
+void	free_envar(void *envar)
+{
+	if (!envar)
+		return ;
+	ft_free(((t_envar *)envar)->name);
+	ft_free(((t_envar *)envar)->val);
+	ft_free(envar);
+}
+
+void	free_mini(t_mini *mini)
+{
+	if (!mini)
+		return ;
+	ft_lstclear(&mini->envars, &free_envar);
 }

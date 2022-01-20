@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:59 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/01/20 02:06:50 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/20 18:58:55 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <signal.h>
 #include "readline/readline.h"
 #include "custom_errors.h"
+#include "utils.h"
 
 /**
   * @brief Handle signals
@@ -51,8 +52,13 @@ void	sig_handler(int sig)
   * @param err An error code. If set to -2, nothing is printed.
   */
 
-void	exit_shell_w_error(int err)
+void	exit_shell_w_error(t_cmd *cmd, int err)
 {
+	if (cmd)
+	{
+		free_mini(cmd->mini);
+		free_cmd(cmd);
+	}
 	system("leaks minishell");
 	if (err == -1)
 	{
@@ -73,6 +79,6 @@ void	exit_shell_w_error(int err)
 	else
 	{
 		perror("minishell");
-		exit(errno);
+		exit(err);
 	}
 }

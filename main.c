@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/01/20 02:13:34 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/20 18:43:24 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,27 +55,32 @@ int	parse_command(t_list *cmds, char *prompt)
 		return (0);
 	}
 	if (ret != 0)
-		exit_shell_w_error(ret);
+		exit_shell_w_error((t_cmd *)(cmds->content), ret);
 	if (!(((t_cmd *)(cmds->content))->tokens))
 		return (0);
 	return (1);
 }
 
-int	setup_cmds(t_list **cmds)
+int	setup_cmds(t_mini *mini, t_list **cmds)
 {
 	t_cmd	*cmd;
 
 	cmd = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
 	if (!cmd)
 		return (ENOMEM);
+	cmd->mini = mini;
 	*cmds = ft_lstnew(cmd);
 	if (!cmds)
+	{
+		free(cmd);
 		return (ENOMEM);
+	}
 	return (0);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
+	t_mini	mini;
 	char	*prompt;
 	char	**prompts;
 	t_list	*cmds; // this should become a t_list of cmds at some point
@@ -84,14 +89,14 @@ int	main(int argc, char **argv, char **envp)
 	size_t	i;
 
 	//treat exit as a command
-
+	ft_bzero(&mini, sizeof(t_mini));
 	paths = set_path();
 	while (1)
 	{
 		setup_signals();
 		prompt = readline("\x1b[1mminishell> \x1b[0m");
 		if (!prompt)
-			exit_shell_w_error(-1);
+			exit_shell_w_error(NULL, -1);
 		else
 		{
 			if (prompt && *prompt)
@@ -100,9 +105,9 @@ int	main(int argc, char **argv, char **envp)
 				i = 0;
 				while (prompts[i])
 				{
-					ret = setup_cmds(&cmds);
+					ret = setup_cmds(&mini, &cmds);
 					if (ret != 0)
-						exit_shell_w_error(ret);
+						exit_shell_w_error(NULL, ret);
 					ret = parse_command(cmds, prompts[i]);
 					if (ret)
 						execute_command((t_cmd *)(cmds->content), paths);
@@ -117,4 +122,5 @@ int	main(int argc, char **argv, char **envp)
 		}
 	}
 	ft_lstclear(&cmds, &free_cmd);
+	free_mini(&mini);
 }

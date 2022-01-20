@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:46:20 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/01/20 00:33:04 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/20 18:26:34 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,20 @@
 # include "libft/libft.h"
 # include "tokens.h"
 
+typedef struct s_envar
+{
+	char	*name;
+	char	*val;
+}			t_envar;
+
+typedef struct s_mini
+{
+	t_list	*envars;
+}			t_mini;
+
 typedef struct s_cmd
 {
+	t_mini	*mini;
 	char	*in_file;
 	char	*out_file;
 	int		in_fd;
@@ -43,10 +55,13 @@ int		output_redirect(int mode, t_cmd *cmd);
 int		cmd_redirection(t_cmd *cmd, t_list **current_token);
 void	execute_command(t_cmd *cmd, char **paths);
 void	sig_handler(int sig);
-void	exit_shell_w_error(int err);
+void	exit_shell_w_error(t_cmd *cmd, int err);
 int		char_array_len(char **arr);
 void	append_char_array(char **from, char **to);
 int		add_arguments(t_cmd **cmd, t_token	*token);
+t_envar	*set_envar(t_cmd *cmd, char *name, char *val);
 void	free_cmd(void *cmd);
+void	free_envar(void *envar);
+void	free_mini(t_mini *mini);
 
 #endif

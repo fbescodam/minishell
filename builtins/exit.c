@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/19 22:19:30 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/20 17:54:43 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/20 18:22:50 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ int	mini_exit(t_cmd *cmd)
 		// maybe it is after all? "no arguments" is not stated in the subject
 		// but it is stated for env, so maybe arguments != options in subject
 	}
-	exit_shell_w_error(-2);
+	exit_shell_w_error(cmd, -2);
 	return (0);
 }

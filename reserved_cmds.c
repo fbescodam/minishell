@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/05 17:50:19 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/19 23:26:54 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/20 18:20:32 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ int	check_run_reserved_cmds(t_cmd *cmd)
 		return (mini_pwd(cmd));
 	if (ft_strncmp("echo\0", cmd->params[0], 5) == 0)
 		return (mini_echo(cmd));
+	if (ft_strncmp("export\0", cmd->params[0], 7) == 0)
+		return (mini_export(cmd));
+	if (ft_strncmp("env\0", cmd->params[0], 4) == 0)
+		return (mini_env(cmd));
 	return (-1);
 }
 
@@ -43,6 +47,10 @@ int	is_reserved(t_cmd *cmd)
 	if (ft_strncmp("pwd\0", cmd->params[0], 4) == 0)
 		return (1);
 	if (ft_strncmp("echo\0", cmd->params[0], 5) == 0)
+		return (1);
+	if (ft_strncmp("export\0", cmd->params[0], 7) == 0)
+		return (1);
+	if (ft_strncmp("env\0", cmd->params[0], 4) == 0)
 		return (1);
 	return (0);
 }
