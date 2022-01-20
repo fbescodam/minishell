@@ -56,7 +56,7 @@ int		add_arguments(t_cmd **cmd, t_token	*token)
 		return (0);
 	}
 	token_size = char_array_len((char **)(token->content));
-	temp = (char **)malloc(sizeof(char *) * (*cmd)->argc + token_size + 1);
+	temp = (char **)ft_calloc((*cmd)->argc + token_size + 1, sizeof(char *));
 	if (!temp)
 		return (-1);
 	temp[0] = 0;

@@ -6,17 +6,28 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/20 00:30:19 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/20 00:34:44 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/20 01:21:28 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include "tokens.h"
+	#include <stdio.h>
 
+/**
+ * @brief Free a token struct. The contents are not freed if flag is CMD, as
+ * then the contents were freed in free_cmd (contents is then a reference to
+ * the params pointer in the t_cmd struct).
+ *
+ * @param token the token to free
+ */
 void	free_token(void *token)
 {
 	if (token)
-		ft_free(((t_token *)token)->content);
+	{
+		if (((t_token *)token)->flag != CMD)
+			ft_free(((t_token *)token)->content);
+	}
 	ft_free(token);
 }
 

@@ -24,7 +24,7 @@ char	*next_word(char *str, int *i)
 			break ;
 		*i = *i + 1;
 		j++;
-	}	
+	}
 	if (j - start > 0)
 		return (ft_substr(str, start, j - start));
 	return (0);
@@ -35,7 +35,7 @@ int	setup_operator_token(t_list **tokens, int flag, char *pos, int *i)
 	t_token	*new;
 	t_list	*new_instance;
 
-	new = (t_token *)malloc(sizeof(t_token));
+	new = (t_token *)ft_calloc(1, sizeof(t_token));
 	if (!new)
 		return (ENOMEM);
 	new->flag = flag;
@@ -63,7 +63,7 @@ int	setup_word_token(t_list **tokens, char **words)
 	t_token	*new;
 	t_list	*new_instance;
 
-	new = (t_token *)malloc(sizeof(t_token));
+	new = (t_token *)ft_calloc(1, sizeof(t_token));
 	if (!new)
 		return (ENOMEM);
 	new->flag = CMD;

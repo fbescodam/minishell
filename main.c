@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/01/20 00:30:26 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/20 01:10:30 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,14 @@ int	parse_command(t_list *cmds, char *prompt)
 
 int	setup_cmds(t_list **cmds)
 {
-	t_cmd *cmd;
+	t_cmd	*cmd;
 
-	cmd = (t_cmd *)malloc(sizeof(t_cmd));
+	cmd = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
 	if (!cmd)
-		return(ENOMEM);
+		return (ENOMEM);
 	*cmds = ft_lstnew(cmd);
 	if (!cmds)
-		return(ENOMEM);
+		return (ENOMEM);
 	return (0);
 }
 
@@ -86,9 +86,6 @@ int	main(int argc, char **argv, char **envp)
 	//treat exit as a command
 
 	paths = set_path();
-	ret = setup_cmds(&cmds);
-	if (ret != 0)
-		exit_shell_w_error(ret);
 	while (1)
 	{
 		setup_signals();
@@ -99,17 +96,21 @@ int	main(int argc, char **argv, char **envp)
 		{
 			if (prompt && *prompt)
 			{
+				ret = setup_cmds(&cmds);
+				if (ret != 0)
+					exit_shell_w_error(ret);
 				prompts = ft_split(prompt, ';');
 				i = 0;
 				while (prompts[i])
 				{
 					ret = parse_command(cmds, prompts[i]);
 					if (ret)
-						execute_command((t_cmd*)(cmds->content), paths);
+						execute_command((t_cmd *)(cmds->content), paths);
 					i++;
 				}
 				ft_free_double_ptr((void **)prompts);
 				add_history(prompt);
+				ft_lstclear(&cmds, &free_cmd);
 			}
 			//free command and token lists
 			ft_free(prompt);

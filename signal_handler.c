@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   exit.c                                             :+:    :+:            */
+/*   signal_handler.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:59 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/01/19 17:33:29 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/20 00:39:03 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 
 void	sig_handler(int sig)
 {
+	system("leaks minishell");
 	if (sig == 137)
 	{
 		write(2, "\nOut of memory\n", 15);
@@ -58,6 +59,7 @@ void	sig_handler(int sig)
 
 void	exit_shell_w_error(int err)
 {
+	system("leaks minishell");
 	if (err == -1)
 	{
 		printf("\x1b[1A\033[11Cexit\n");

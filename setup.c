@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:46:37 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/01/20 00:26:53 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/20 01:18:19 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ char	*check_command(t_cmd *cmd, char **paths)
 	if (command[0] == '.' && command[1] == '/' && access(command, R_OK) == 0)
 		return (command);
 	temp = ft_strjoin("/", command);
+	ft_free(command);
 	while (paths[i])
 	{
 		new_path = ft_strjoin(paths[i], temp);

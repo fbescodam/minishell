@@ -11,7 +11,7 @@ t_token		*pipe_token(int *fd, int flag)
 {
 	t_token	*token;
 
-	token = (t_token *)malloc(sizeof(t_token));
+	token = (t_token *)ft_calloc(1, sizeof(t_token));
 	if (!token)
 		return (0);
 	token->content = fd;
@@ -25,7 +25,7 @@ int		pipe_out(t_list **tokens, int *fd)
 	t_token *out_token;
 	t_list *new;
 
-	cmd = (t_cmd *)malloc (sizeof(t_cmd));
+	cmd = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
 	if (!cmd)
 		return (ENOMEM);
 	cmd->tokens = *tokens;
@@ -51,7 +51,7 @@ int		setup_pipe(t_list **tokens)
 
 	if (!(*tokens))
 		return (PARSE_ERROR);
-	fd = (int *)malloc (sizeof(int) * 2);
+	fd = (int *)ft_calloc(2, sizeof(int));
 	if (!fd)
 		return (ENOMEM);
 	ret = pipe(fd);
