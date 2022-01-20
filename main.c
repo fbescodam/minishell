@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/01/20 01:10:30 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/20 02:13:34 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,21 +96,21 @@ int	main(int argc, char **argv, char **envp)
 		{
 			if (prompt && *prompt)
 			{
-				ret = setup_cmds(&cmds);
-				if (ret != 0)
-					exit_shell_w_error(ret);
 				prompts = ft_split(prompt, ';');
 				i = 0;
 				while (prompts[i])
 				{
+					ret = setup_cmds(&cmds);
+					if (ret != 0)
+						exit_shell_w_error(ret);
 					ret = parse_command(cmds, prompts[i]);
 					if (ret)
 						execute_command((t_cmd *)(cmds->content), paths);
 					i++;
+					ft_lstclear(&cmds, &free_cmd);
 				}
 				ft_free_double_ptr((void **)prompts);
 				add_history(prompt);
-				ft_lstclear(&cmds, &free_cmd);
 			}
 			//free command and token lists
 			ft_free(prompt);
