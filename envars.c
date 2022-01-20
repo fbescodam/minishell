@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/20 17:58:55 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/20 19:01:00 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/20 19:06:54 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,11 @@ t_envar	*set_envar(t_cmd *cmd, char *name, char *val)
 	envar->val = ft_strdup(val);
 	list_elem = ft_lstnew(envar);
 	if (!list_elem || !envar->name || !envar->val)
+	{
+		free_envar(envar);
+		ft_free(list_elem);
 		exit_shell_w_error(cmd, ENOMEM);
+	}
 	ft_lstadd_back(&(cmd->mini->envars), (void *)list_elem);
 	return (envar);
 }
