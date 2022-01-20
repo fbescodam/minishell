@@ -3,7 +3,7 @@ minishell
 
 # Stupid shit
 .DS_Store
-.vs_code
+.vscode/*
 
 # Prerequisites
 *.d
