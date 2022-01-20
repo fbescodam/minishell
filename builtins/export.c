@@ -6,14 +6,14 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/20 18:09:11 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/20 18:57:37 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/20 19:18:09 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../utils.h"
 #include "builtins.h"
 #include "errno.h"
-	#include <stdio.h>
+#include <stdio.h>
 
 int	mini_export(t_cmd *cmd)
 {
@@ -27,7 +27,12 @@ int	mini_export(t_cmd *cmd)
 	while (cmd->params[i])
 	{
 		equals_pos = ft_strchr(cmd->params[i], '=');
-		if (equals_pos)
+		if (equals_pos == cmd->params[i])
+		{
+			printf("minishell: export: '%s': not a valid identifier\n",
+				cmd->params[i]);
+		}
+		else if (equals_pos)
 		{
 			*equals_pos = '\0';
 			set_envar(cmd, cmd->params[i], equals_pos + 1);
