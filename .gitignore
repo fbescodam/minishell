@@ -1,6 +1,9 @@
 a.out
 minishell
 
+# Stupid shit
+.DS_Store
+
 # Prerequisites
 *.d
 
