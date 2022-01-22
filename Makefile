@@ -6,7 +6,7 @@
 #    By: fbes <fbes@student.codam.nl>                 +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/26 23:07:45 by fbes          #+#    #+#                  #
-#    Updated: 2022/01/22 19:04:11 by fbes          ########   odam.nl          #
+#    Updated: 2022/01/22 19:42:02 by jgalloni      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRCS =		main.c signal_handler.c redirection_utils.c setup.c tokenize.c \
 			token_setup.c command_handler.c reserved_cmds.c char_array_utils.c \
 			pipe.c builtins/exit.c builtins/cd.c builtins/pwd.c garbage.c \
 			envars.c builtins/echo.c builtins/env.c builtins/export.c \
-			builtins/unset.c
+			builtins/unset.c parse.c
 
 HEADERS =	utils.h
 
