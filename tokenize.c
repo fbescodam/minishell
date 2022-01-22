@@ -48,18 +48,23 @@ int		add_word_tokens(char *words, t_list **tokens)
 	return (ret);
 }
 
-int		scan_operators(char *prompt)
+int		scan_operators(char *prompt, char *operators)
 {
 	int	i;
+	int	k;
 
 	i = 0;
+	k = 0;
 	while (prompt[i])
 	{
-		if (prompt[i] == '<' || prompt[i] == '|' || prompt[i] == '>')
+		while (operators[k])
 		{
-			return (i);
+			if (prompt[i] == operators[k])
+				return (i);
+			k++;
 		}
 		i++;
+		k = 0;
 	}
 	return (i);
 }
@@ -111,9 +116,10 @@ int		tokenize(char *prompt, t_list **cmds)
 
 	i = 0;
 	tokens = 0;
+	ret = 0;
 	while (prompt[i])
 	{
-		next_operator = scan_operators(prompt + i);
+		next_operator = scan_operators(prompt + i, "<>");
 		cmd = ft_substr(prompt + i, 0, next_operator);
 		if (!cmd)
 			return (ENOMEM);
@@ -130,7 +136,7 @@ int		tokenize(char *prompt, t_list **cmds)
 			i++;
 	}
 	((t_cmd *)((*cmds)->content))->tokens = tokens;
-	print_token_list(tokens);
+	//print_token_list(tokens);
 	return (0);
 
 }

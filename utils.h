@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:46:20 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/01/20 18:26:34 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/22 18:40:10 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_envar
 typedef struct s_mini
 {
 	t_list	*envars;
+	char	**paths;
 }			t_mini;
 
 typedef struct s_cmd
@@ -63,5 +64,7 @@ t_envar	*set_envar(t_cmd *cmd, char *name, char *val);
 void	free_cmd(void *cmd);
 void	free_envar(void *envar);
 void	free_mini(t_mini *mini);
+int		scan_operators(char *prompt, char *operators);
+int		add_string_to_array(char ***to, char *from);
 
 #endif

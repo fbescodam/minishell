@@ -1,6 +1,31 @@
 #include "utils.h"
 #include <stdlib.h>
 #include "tokens.h"
+#include <errno.h>
+#include <stdio.h>
+
+int	add_string_to_array(char ***to, char *from)
+{
+	int		arr_size;
+	char	**temp;
+	int		i;
+
+	i = 0;
+	arr_size = char_array_len(*to);
+	temp = ft_calloc(arr_size + 2, sizeof(char *));
+	if (!temp)
+		return (ENOMEM);
+	while((*to)[i])
+	{
+		temp[i] = (*to)[i];
+		i++;	
+	}
+	ft_free(*to);
+	temp[i] = from;
+	temp[i + 1] = 0;
+	*to = temp;
+	return (0);
+}
 
 /*
  * @brief Counts and returns how many strings in an array of type char **

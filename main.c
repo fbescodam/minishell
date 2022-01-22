@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/01/20 18:43:24 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/22 19:26:06 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,19 +78,75 @@ int	setup_cmds(t_mini *mini, t_list **cmds)
 	return (0);
 }
 
+int		split_prompt(char *prompt, char ***prompts, char c)
+{
+	int		ret;
+	int		i;
+	int		next_operator;
+	char	*split;
+
+	i = 0;
+	ret = 0;
+	while (prompt[i])
+	{
+		next_operator = scan_operators(prompt + i, &c);
+		if (prompt[i + next_operator] + 1 == c)
+			return(PARSE_ERROR);
+		split = ft_substr(prompt + i, 0, next_operator);
+		if (!split)
+			return (ENOMEM);
+		if (split[0] != '\0')
+			ret = add_string_to_array(prompts, split);
+		if (ret != 0)
+			return (ret);
+		i += next_operator;
+		if (prompt[i] != '\0')
+			i++;
+	}
+	return (0);
+}
+
+int	parse_prompt(char *prompt, t_list *cmds, t_mini *mini)
+{
+	size_t	i;
+	char	**prompts;
+	int		ret;
+
+	if (prompt && *prompt)
+	{
+		if (prompt[0] == ';')
+			return (PARSE_ERROR);
+		prompts = ft_calloc(1, sizeof(char *));
+		ret = split_prompt(prompt, &prompts, ';');
+		i = 0;
+		while (prompts[i])
+		{
+			ret = setup_cmds(mini, &cmds);
+			if (ret != 0)
+				exit_shell_w_error(NULL, ret);
+			ret = parse_command(cmds, prompts[i]);
+			if (ret)
+				execute_command((t_cmd *)(cmds->content), mini->paths);
+			i++;
+			ft_lstclear(&cmds, &free_cmd);
+		}
+		ft_free_double_ptr((void **)prompts);
+		add_history(prompt);
+	}
+	ft_free(prompt);
+	return(ret);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_mini	mini;
 	char	*prompt;
-	char	**prompts;
-	t_list	*cmds; // this should become a t_list of cmds at some point
-	char	**paths;
+	t_list	*cmds;
 	int		ret;
 	size_t	i;
 
-	//treat exit as a command
 	ft_bzero(&mini, sizeof(t_mini));
-	paths = set_path();
+	mini.paths = set_path();
 	while (1)
 	{
 		setup_signals();
@@ -98,29 +154,8 @@ int	main(int argc, char **argv, char **envp)
 		if (!prompt)
 			exit_shell_w_error(NULL, -1);
 		else
-		{
-			if (prompt && *prompt)
-			{
-				prompts = ft_split(prompt, ';');
-				i = 0;
-				while (prompts[i])
-				{
-					ret = setup_cmds(&mini, &cmds);
-					if (ret != 0)
-						exit_shell_w_error(NULL, ret);
-					ret = parse_command(cmds, prompts[i]);
-					if (ret)
-						execute_command((t_cmd *)(cmds->content), paths);
-					i++;
-					ft_lstclear(&cmds, &free_cmd);
-				}
-				ft_free_double_ptr((void **)prompts);
-				add_history(prompt);
-			}
-			//free command and token lists
-			ft_free(prompt);
-		}
+			parse_prompt(prompt, cmds, &mini);
 	}
-	ft_lstclear(&cmds, &free_cmd);
+	ft_lstclear(&cmds, &free_cmd); //how does the program evnen ever get here
 	free_mini(&mini);
 }
