@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   cd.c                                               :+:    :+:            */
+/*   ft_lstget.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/01/19 22:47:09 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/22 18:39:44 by fbes          ########   odam.nl         */
+/*   Created: 2022/01/22 18:34:28 by fbes          #+#    #+#                 */
+/*   Updated: 2022/01/22 18:50:20 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../utils.h"
-#include "../custom_errors.h"
-#include <errno.h>
+#include "libft.h"
 
-int	mini_cd(t_cmd *cmd)
+/**
+ * Get an item from a linked list at index
+ * @param *lst	The list to go through
+ * @param index	The index of the item to find
+ */
+t_list	*ft_lstget(t_list *lst, size_t index)
 {
-	char	*home;
-	int		ret;
+	t_list	*temp;
 
-	// add check to see if path exists!
-	if (cmd->params[1])
-		ret = chdir(cmd->params[1]);
-	else
+	temp = lst;
+	while (index > 0)
 	{
-		home = getenv("HOME");
-		if (!home)
-			exit_shell_w_error(cmd, ERR_ENV_NOT_SET);
-		ret = chdir(home);
+		temp = temp->next;
+		if (!temp)
+			return (NULL);
+		index--;
 	}
-	if (ret < 0)
-		return (errno);
-	return (0);
+	return (temp);
 }

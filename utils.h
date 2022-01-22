@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:46:20 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/01/22 18:07:32 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/22 18:33:52 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ void	exit_shell_w_error(t_cmd *cmd, int err);
 int		char_array_len(char **arr);
 void	append_char_array(char **from, char **to);
 int		add_arguments(t_cmd **cmd, t_token	*token);
+int		get_envar_as_list(t_list **list, t_cmd *cmd, char *name);
+int		get_envar(t_envar **envar, t_cmd *cmd, char *name);
 t_envar	*set_envar(t_cmd *cmd, char *name, char *val);
 void	free_cmd(void *cmd);
 void	free_envar(void *envar);
