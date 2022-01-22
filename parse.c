@@ -9,7 +9,6 @@
 #include "utils.h"
 #include "tokens.h"
 #include "custom_errors.h"
-#include "parse.h"
 
 int	parse_command(t_list *cmds, char *prompt)
 {
@@ -56,6 +55,26 @@ int		split_prompt(char *prompt, char ***prompts, char c)
 	}
 	return (0);
 }
+
+/* int	split_pipe(char	*prompt, t_list **cmds, t_mini *mini)
+{
+	int		ret;
+	char	**commands;
+	int		i;
+
+	if (prompt[0] == '|')
+		return (PARSE_ERROR);
+	commands = ft_calloc(1, sizeof(char *));
+	ret = split_prompt(prompt, commands, '|');
+	i = 0;
+	while (commands[i])
+	{
+		i++;
+		//if necessary, add pipe in token to command
+		//parse command
+		//if necessary, add pipe out token to command
+	}
+} */
 
 int	parse_prompt(char *prompt, t_list *cmds, t_mini *mini)
 {

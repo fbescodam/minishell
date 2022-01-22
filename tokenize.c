@@ -136,7 +136,7 @@ int		tokenize(char *prompt, t_list **cmds)
 			i++;
 	}
 	((t_cmd *)((*cmds)->content))->tokens = tokens;
-	//print_token_list(tokens);
+	print_token_list(tokens);
 	return (0);
 
 }

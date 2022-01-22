@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:46:37 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/01/22 19:42:55 by jgalloni      ########   odam.nl         */
+/*   Updated: 2022/01/22 21:10:07 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,14 @@ char	*check_command(t_cmd *cmd, char **paths)
 int	setup_cmds(t_mini *mini, t_list **cmds)
 {
 	t_cmd	*cmd;
+	t_list	*cmd_instance;
 
 	cmd = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
 	if (!cmd)
 		return (ENOMEM);
 	cmd->mini = mini;
-	*cmds = ft_lstnew(cmd);
+	if (!(*cmds))
+		*cmds = ft_lstnew(cmd);
 	if (!cmds)
 	{
 		free(cmd);
