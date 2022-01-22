@@ -6,18 +6,30 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/19 22:47:09 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/20 19:17:15 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/22 18:39:44 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../utils.h"
-#include "builtins.h"
+#include "../custom_errors.h"
+#include <errno.h>
 
 int	mini_cd(t_cmd *cmd)
 {
+	char	*home;
+	int		ret;
+
 	// add check to see if path exists!
 	if (cmd->params[1])
-		return (chdir(cmd->params[1]));
+		ret = chdir(cmd->params[1]);
 	else
-		return (chdir(getenv("HOME")));
+	{
+		home = getenv("HOME");
+		if (!home)
+			exit_shell_w_error(cmd, ERR_ENV_NOT_SET);
+		ret = chdir(home);
+	}
+	if (ret < 0)
+		return (errno);
+	return (0);
 }

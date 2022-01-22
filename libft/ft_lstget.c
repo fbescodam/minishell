@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   env.c                                              :+:    :+:            */
+/*   ft_lstget.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/01/20 18:11:32 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/22 17:50:27 by fbes          ########   odam.nl         */
+/*   Created: 2022/01/22 18:34:28 by fbes          #+#    #+#                 */
+/*   Updated: 2022/01/22 18:50:20 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "../utils.h"
+#include "libft.h"
 
-int	mini_env(t_cmd *cmd)
+/**
+ * Get an item from a linked list at index
+ * @param *lst	The list to go through
+ * @param index	The index of the item to find
+ */
+t_list	*ft_lstget(t_list *lst, size_t index)
 {
 	t_list	*temp;
 
-	temp = cmd->mini->envars;
-	while (temp)
+	temp = lst;
+	while (index > 0)
 	{
-		printf("%s=%s\n", ((t_envar *)temp->content)->name,
-			((t_envar *)temp->content)->val);
 		temp = temp->next;
+		if (!temp)
+			return (NULL);
+		index--;
 	}
-	return (0);
+	return (temp);
 }

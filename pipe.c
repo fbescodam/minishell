@@ -36,7 +36,7 @@ int		pipe_out(t_list **tokens, int *fd)
 	if (!new)
 		return (ENOMEM);
 	ft_lstadd_back(tokens, new);
-	execute_command(cmd, set_path());
+	execute_command(cmd, get_path());
 	//free cmd and its contents
 	close(fd[1]);
 	return (0);

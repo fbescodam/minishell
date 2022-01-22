@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:59 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/01/20 18:58:55 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/22 18:03:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,14 @@ void	exit_shell_w_error(t_cmd *cmd, int err)
 	system("leaks minishell");
 	if (err == -1)
 	{
+		// exit normally, printing exit
 		printf("\x1b[1A\033[11Cexit\n");
 		rl_replace_line("exit", 1);
 		exit(errno);
 	}
 	else if (err == -2)
 	{
+		// exit normally but without printing exit
 		exit(errno);
 	}
 	else if (err == CMDNF)
@@ -75,6 +77,16 @@ void	exit_shell_w_error(t_cmd *cmd, int err)
 		// ONLY RUN IN CHILD
 		printf("minishell: command not found\n");
 		exit(CMDNF);
+	}
+	else if (err < 0)
+	{
+		printf("minishell: an error occurred (code %d)\n", err);
+		exit(1);
+	}
+	else if (err < -255)
+	{
+		printf("minishell: a major error occurred (code %d)\n", err);
+		exit(2);
 	}
 	else
 	{

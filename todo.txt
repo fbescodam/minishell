@@ -68,3 +68,4 @@ tputs				N		Apply padding to a terminfo string and output it
 - CHECK FOR LEAKS ALSO IN CHILD
 - add free functions to exiting functions to prevent leaks on errors/crashes
 - RESERVED custom exit code is same as EMULTIHOP in errno, should change it
+- take a look at our custom error codes and their handling

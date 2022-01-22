@@ -1,38 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   echo.c                                             :+:    :+:            */
+/*   unset.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/01/19 23:15:08 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/22 17:50:16 by fbes          ########   odam.nl         */
+/*   Created: 2022/01/22 17:50:09 by fbes          #+#    #+#                 */
+/*   Updated: 2022/01/22 18:50:01 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
 #include "../utils.h"
+#include "../libft/libft.h"
 
-int	mini_echo(t_cmd *cmd)
+int	mini_unset(t_cmd *cmd)
 {
 	size_t	i;
-	char	add_nl;
+	int		index;
+	t_list	*to_unset;
+	t_list	*previous;
 
-	add_nl = 1;
+	if (char_array_len(cmd->params) < 2)
+		return (0);
 	i = 1;
-	while (cmd->params[i] && ft_strncmp("-n\0", cmd->params[i], 3) == 0)
-	{
-		add_nl = 0;
-		i++;
-	}
 	while (cmd->params[i])
 	{
-		ft_putstr_fd(cmd->params[i], 1);
-		if (cmd->params[i + 1])
-			ft_putchar_fd(' ', 1);
+		index = get_envar_as_list(&to_unset, cmd, cmd->params[i]);
+		if (index > -1)
+		{
+			if (index > 0)
+			{
+				previous = ft_lstget(cmd->mini->envars, index - 1);
+				previous->next = to_unset->next;
+			}
+			else
+				cmd->mini->envars = to_unset->next;
+			ft_lstdelone(to_unset, &free_envar);
+		}
 		i++;
 	}
-	if (add_nl)
-		ft_putchar_fd('\n', 1);
 	return (0);
 }

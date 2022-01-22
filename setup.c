@@ -6,13 +6,15 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:46:37 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/01/20 01:18:19 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/22 18:07:32 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
+#include "custom_errors.h"
 #include "tokens.h"
 #include <stdio.h>
+#include <errno.h>
 
 char	*find_cmd(t_cmd *cmd)
 {
@@ -66,13 +68,16 @@ char	*check_command(t_cmd *cmd, char **paths)
 	return (NULL);
 }
 
-char	**set_path()
+char	**get_path(void)
 {
 	char	*env;
 	char	**paths;
 
 	env = getenv("PATH");
+	if (!env)
+		exit_shell_w_error(NULL, ERR_PATH_MISSING);
 	paths = ft_split(env, ':');
-	//protect this laterrrr
+	if (!paths)
+		exit_shell_w_error(NULL, ENOMEM);
 	return (paths);
 }
