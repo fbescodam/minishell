@@ -6,13 +6,12 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/19 23:15:08 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/19 23:27:59 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/22 17:50:16 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 #include "../utils.h"
-#include "builtins.h"
 
 int	mini_echo(t_cmd *cmd)
 {

@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/01/20 18:43:24 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/22 18:07:32 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	main(int argc, char **argv, char **envp)
 
 	//treat exit as a command
 	ft_bzero(&mini, sizeof(t_mini));
-	paths = set_path();
+	paths = get_path();
 	while (1)
 	{
 		setup_signals();
