@@ -29,7 +29,7 @@ int	parse_command(t_list *cmds, char *prompt)
 	return (1);
 }
 
-int		split_prompt(char *prompt, char ***prompts, char c)
+int		split_prompt(char *prompt, char ***prompts, char *c)
 {
 	int		ret;
 	int		i;
@@ -40,8 +40,8 @@ int		split_prompt(char *prompt, char ***prompts, char c)
 	ret = 0;
 	while (prompt[i])
 	{
-		next_operator = scan_operators(prompt + i, &c);
-		if (prompt[i + next_operator] + 1 == c)
+		next_operator = scan_operators(prompt + i, c);
+		if (prompt[i + next_operator] + 1 == *c)
 			return(PARSE_ERROR);
 		split = ft_substr(prompt + i, 0, next_operator);
 		if (!split)
@@ -68,7 +68,7 @@ int	parse_prompt(char *prompt, t_list *cmds, t_mini *mini)
 		if (prompt[0] == ';')
 			return (PARSE_ERROR);
 		prompts = ft_calloc(1, sizeof(char *));
-		ret = split_prompt(prompt, &prompts, ';');
+		ret = split_prompt(prompt, &prompts, ";");
 		i = 0;
 		while (prompts[i])
 		{

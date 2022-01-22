@@ -6,7 +6,7 @@
 #    By: fbes <fbes@student.codam.nl>                 +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/26 23:07:45 by fbes          #+#    #+#                  #
-#    Updated: 2022/01/22 19:42:02 by jgalloni      ########   odam.nl          #
+#    Updated: 2022/01/22 22:19:24 by fbes          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS) $(HEADERS) libft/libft.a
 	$(CC) $(CFLAGS) $(INCLUDES) $(SRCS) -lreadline \
-	-L /Users/$(USER)/.brew/opt/readline/lib libft/libft.a -o $(NAME)
+	-L /Users/$(USER)/.brew/opt/readline/lib libft/libft.a -o $(NAME) -fsanitize=address
 
 .c.o:
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
