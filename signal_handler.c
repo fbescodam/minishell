@@ -27,7 +27,7 @@
 
 void	sig_handler(int sig)
 {
-	system("leaks minishell");
+	// system("leaks minishell");
 	if (sig == 137)
 	{
 		write(2, "\nOut of memory\n", 15);
@@ -59,7 +59,7 @@ void	exit_shell_w_error(t_cmd *cmd, int err)
 		free_mini(cmd->mini);
 		free_cmd(cmd);
 	}
-	system("leaks minishell");
+	// system("leaks minishell");
 	if (err == -1)
 	{
 		// exit normally, printing exit
