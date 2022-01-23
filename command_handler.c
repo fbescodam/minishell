@@ -90,6 +90,8 @@ void	execute_command(t_cmd *cmd, char **paths)
 		child_process(cmd);
 	while (terminated_process != pid)
 		terminated_process = wait(&status);
+	if (cmd->out_fd)
+		close(cmd->out_fd);
 	if (((status) & 0x7f) == 0)
 		errno = ((status) & 0xff00) >> 8;
 	if (errno != RESERVED)

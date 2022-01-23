@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:59 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/01/22 18:03:05 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/23 18:00:19 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,26 @@ void	sig_handler(int sig)
 	}
 }
 
+void	error_handler(t_cmd *cmd, int err)
+{
+	if (err == PARSE_ERROR)
+	{
+		printf("minishell : syntax error\n");
+		errno = PARSE_ERROR;
+	}
+	else
+		exit_shell_w_error(cmd, err);
+}
+
 /**
   * @brief Prints a custom or errno message and exits the process
   * @param err An error code. If set to -2, nothing is printed.
   */
 
+
 void	exit_shell_w_error(t_cmd *cmd, int err)
 {
-	if (cmd)
+	if (cmd)			//@Freek free the whole list of cmds instead of one!
 	{
 		free_mini(cmd->mini);
 		free_cmd(cmd);

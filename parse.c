@@ -15,17 +15,11 @@ int	parse_command(t_list *cmds, char *prompt)
 	int	ret;
 
 	ret = tokenize(prompt, &cmds);
-	if (ret == PARSE_ERROR)
-	{
-		printf("minishell: syntax error\n");
-		errno = PARSE_ERROR;
-		return (0);
-	}
-	if (ret != 0)
-		exit_shell_w_error((t_cmd *)(cmds->content), ret);
+	if (ret != 0 && ret != -1)
+		return (ret);
 	if (!(((t_cmd *)(cmds->content))->tokens))
-		return (0);
-	return (1);
+		return (-1);
+	return (0);
 }
 
 int		split_prompt(char *prompt, char ***prompts, char *c)
@@ -56,32 +50,48 @@ int		split_prompt(char *prompt, char ***prompts, char *c)
 	return (0);
 }
 
-/* int	split_pipe(char	*prompt, t_list **cmds, t_mini *mini)
+int	split_pipe(char	*prompt, t_list **cmds, t_mini *mini)
 {
 	int		ret;
 	char	**commands;
 	int		i;
 	t_list	*current_cmd;
+	int		*fd;
 
 	if (prompt[0] == '|')
 		return (PARSE_ERROR);
 	commands = ft_calloc(1, sizeof(char *));
-	ret = split_prompt(prompt, commands, '|');
+	ret = split_prompt(prompt, &commands, "|");
 	i = 0;
 	while (commands[i])
 	{
 		current_cmd = setup_cmds(mini, cmds);
 		if (current_cmd == NULL)
 				exit_shell_w_error(NULL, ret);
-		//if necessary, add pipe in token to command
+		if (i > 0)
+			pipe_in(current_cmd->content, &fd);
 		ret = parse_command(current_cmd, commands[i]);
-		if (!ret)
+		if (ret != 0 && ret != -1)
 			return (ret);
-		//if necessary, add pipe out token to command
+		if (commands[i + 1])
+			pipe_out(current_cmd->content, &fd);
 		i++;
 	}
+	free(commands);
 	return (0);
-} */
+}
+
+void	execute_command_list(t_list *cmds, t_mini *mini)
+{
+	t_list	*current;
+
+	current = cmds;
+	while(current != NULL)
+	{
+		execute_command((t_cmd *)(current->content), mini->paths);
+		current = current->next;
+	}
+}
 
 int	parse_prompt(char *prompt, t_list *cmds, t_mini *mini)
 {
@@ -98,15 +108,11 @@ int	parse_prompt(char *prompt, t_list *cmds, t_mini *mini)
 		i = 0;
 		while (prompts[i])
 		{
-			cmds = setup_cmds(mini, &cmds);
-			if (ret != 0)
-				exit_shell_w_error(NULL, ret);
-			ret = parse_command(cmds, prompts[i]);
-			if (ret)
-				execute_command((t_cmd *)(cmds->content), mini->paths);
-			i++;
-			ft_lstclear(&cmds, &free_cmd);
+			ret = split_pipe(prompts[i], &cmds, mini);
+			i++;		
 		}
+		execute_command_list(cmds, mini);
+		ft_lstclear(&cmds, &free_cmd);
 		ft_free_double_ptr((void **)prompts);
 		add_history(prompt);
 	}

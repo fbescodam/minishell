@@ -6,14 +6,14 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:46:20 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/01/23 17:09:49 by jgalloni      ########   odam.nl         */
+/*   Updated: 2022/01/23 20:22:10 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
 # include "libft/libft.h"
-# include "tokens.h"
+
 
 typedef struct s_envar
 {
@@ -40,6 +40,8 @@ typedef struct s_cmd
 	t_list	*tokens;
 	int		argc;
 }				t_cmd;
+
+# include "tokens.h"
 
 # define IN_FILE 8
 # define IN_FD 4
@@ -70,5 +72,7 @@ int		scan_operators(char *prompt, char *operators);
 int		add_string_to_array(char ***to, char *from);
 t_list	*setup_cmds(t_mini *mini, t_list **cmds);
 int		char_array_len(char **arr);
+void	error_handler(t_cmd *cmd, int err);
+void	print_token_list(t_list *tokens);
 
 #endif

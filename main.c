@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/01/22 21:50:32 by jgalloni      ########   odam.nl         */
+/*   Updated: 2022/01/23 18:01:14 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,21 @@ int	main(int argc, char **argv, char **envp)
 	char	*prompt;
 	t_list	*cmds;
 	int		ret;
-	size_t	i;
 
 	ft_bzero(&mini, sizeof(t_mini));
 	mini.paths = get_path();
 	cmds = 0;
 	while (1)
 	{
+		ret = 0;
 		setup_signals();
 		prompt = readline("\x1b[1mminishell> \x1b[0m");
 		if (!prompt)
 			exit_shell_w_error(NULL, -1);
 		else
-			parse_prompt(prompt, cmds, &mini);
+			ret = parse_prompt(prompt, cmds, &mini);
+		if (ret != 0)
+			error_handler(NULL, ret);		//@Freek free the whole list of cmds instead of one!
 	}
 	ft_lstclear(&cmds, &free_cmd); //how does the program evnen ever get here
 	free_mini(&mini);

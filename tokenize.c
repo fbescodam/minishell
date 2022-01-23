@@ -26,8 +26,6 @@ int		add_operator_token(char *prompt, t_list **tokens, int *i)
 		ret = setup_operator_token(tokens, INPUT_REDIR, prompt, i);
 	else if (prompt[0] == '>')
 		ret = setup_operator_token(tokens, OUTPUT_REDIR, prompt, i);
-	else
-		ret = setup_pipe(tokens);
 	return (ret);
 }
 
@@ -74,6 +72,8 @@ void	print_token_list(t_list *tokens)
 	t_list *current_token;
 	t_token *token;
 
+	if (!tokens)
+		return;
 	current_token = tokens;
 	while (current_token)
 	{
@@ -99,7 +99,7 @@ void	print_token_list(t_list *tokens)
 		else if (token->flag == OUTPUT_REDIR_APPEND)
 			printf("THIS TOKEN IS OUTPUT_REDIR_APPEND\n");
 		else if (token->flag == PIPE_IN || token->flag == PIPE_OUT)
-			printf("THIS TOKEN IS PIPE\n");
+			printf("THIS TOKEN IS PIPE : FLAG : %d : INFD : %d, OUTFD: %d\n", token->flag, *((int *)(token->content)), *(((int *)(token->content))+ 1));
 		else
 			printf("TOKEN UNKNOWN, %d\n", token->flag);
 		current_token = current_token->next;
@@ -115,8 +115,8 @@ int		tokenize(char *prompt, t_list **cmds)
 	t_list *tokens;
 
 	i = 0;
-	tokens = 0;
 	ret = 0;
+	tokens = ((t_cmd *)((*cmds)->content))->tokens;
 	while (prompt[i])
 	{
 		next_operator = scan_operators(prompt + i, "<>");
@@ -136,7 +136,6 @@ int		tokenize(char *prompt, t_list **cmds)
 			i++;
 	}
 	((t_cmd *)((*cmds)->content))->tokens = tokens;
-	print_token_list(tokens);
 	return (0);
 
 }

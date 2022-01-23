@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/05 19:59:59 by jgalloni      #+#    #+#                 */
-/*   Updated: 2021/12/06 21:20:16 by jgalloni      ########   odam.nl         */
+/*   Updated: 2022/01/23 22:07:24 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,13 @@ int	cmd_redirection(t_cmd *cmd, t_list **current_token)
 	}
 	else if (token->flag == PIPE_OUT)
 	{
-		cmd->out_fd = ((int*)(token->content))[1];
+		cmd->out_fd = *(((int*)(token->content))+ 1);
 		cmd->mode = OUT_FD;
 		ret = output_redirect(cmd->mode, cmd);
 	}
 	else if (token->flag == PIPE_IN)
 	{
+		close(4);
 		cmd->in_fd = ((int*)(token->content))[0];
 		cmd->mode = IN_FD;
 		ret = input_redirect(cmd->mode, cmd);

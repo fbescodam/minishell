@@ -11,7 +11,7 @@ t_token		*pipe_token(int *fd, int flag)
 {
 	t_token	*token;
 
-	token = (t_token *)ft_calloc(1, sizeof(t_token));
+	token = (t_token *)malloc(sizeof(t_token));
 	if (!token)
 		return (0);
 	token->content = fd;
@@ -19,30 +19,43 @@ t_token		*pipe_token(int *fd, int flag)
 	return (token);
 }
 
-int		pipe_out(t_list **tokens, int *fd)
+int		pipe_out(t_cmd *cmd, int **fd)
 {
-	t_cmd *cmd;
 	t_token *out_token;
 	t_list *new;
+	int		ret;
 
-	cmd = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
-	if (!cmd)
+	*fd = (int *)malloc (sizeof(int) * 2);
+	if (!fd)
 		return (ENOMEM);
-	cmd->tokens = *tokens;
-	out_token = pipe_token(fd, PIPE_OUT);
+	ret = pipe(*fd);
+	cmd->out_fd = (*fd)[1];
+	if (ret < 0)
+		return (errno);
+	out_token = pipe_token(*fd, PIPE_OUT);
 	if (!out_token)
 		return (ENOMEM);
 	new = ft_lstnew(out_token);
 	if (!new)
 		return (ENOMEM);
-	ft_lstadd_back(tokens, new);
-	execute_command(cmd, get_path());
-	//free cmd and its contents
-	close(fd[1]);
+	ft_lstadd_back(&(cmd->tokens), new);
 	return (0);
 }
 
-int		setup_pipe(t_list **tokens)
+int	pipe_in(t_cmd *cmd, int **fd)
+{
+	t_token	*in_token;
+
+	in_token = pipe_token(*fd, PIPE_IN);
+	if (!in_token)
+		return (ENOMEM);
+	cmd->tokens = ft_lstnew(in_token);
+	if (!(cmd->tokens))
+		return(ENOMEM);
+	return(0);
+}
+
+/* int		setup_pipe(t_list **tokens, t_list **cmds)
 {
 	t_list *new;
 	t_token *in_token;
@@ -51,7 +64,7 @@ int		setup_pipe(t_list **tokens)
 
 	if (!(*tokens))
 		return (PARSE_ERROR);
-	fd = (int *)ft_calloc(2, sizeof(int));
+	fd = (int *)malloc (sizeof(int) * 2);
 	if (!fd)
 		return (ENOMEM);
 	ret = pipe(fd);
@@ -60,12 +73,7 @@ int		setup_pipe(t_list **tokens)
 	ret = pipe_out(tokens, fd);
 	if (ret != 0)
 		return (ret);
-	in_token = pipe_token(fd, PIPE_IN);
-	if (!in_token)
-		return (ENOMEM);
-	new = ft_lstnew(in_token);
-	if (!new)
-		return (ENOMEM);
-	*tokens = ft_lstnew(in_token);
-	return (0);
-}
+	ret = pipe_in(fd, cmds);
+	
+	return (ret);
+} */
