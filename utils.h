@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:46:20 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/01/22 20:42:07 by jgalloni      ########   odam.nl         */
+/*   Updated: 2022/01/23 17:09:49 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	free_envar(void *envar);
 void	free_mini(t_mini *mini);
 int		scan_operators(char *prompt, char *operators);
 int		add_string_to_array(char ***to, char *from);
-int		setup_cmds(t_mini *mini, t_list **cmds);
+t_list	*setup_cmds(t_mini *mini, t_list **cmds);
 int		char_array_len(char **arr);
 
 #endif

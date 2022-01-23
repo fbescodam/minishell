@@ -98,7 +98,7 @@ int	parse_prompt(char *prompt, t_list *cmds, t_mini *mini)
 		i = 0;
 		while (prompts[i])
 		{
-			ret = setup_cmds(mini, &cmds);
+			cmds = setup_cmds(mini, &cmds);
 			if (ret != 0)
 				exit_shell_w_error(NULL, ret);
 			ret = parse_command(cmds, prompts[i]);

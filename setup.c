@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:46:37 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/01/22 22:03:27 by jgalloni      ########   odam.nl         */
+/*   Updated: 2022/01/23 17:10:14 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ t_list	*setup_cmds(t_mini *mini, t_list **cmds)
 	if (!cmd)
 		return (NULL);
 	cmd->mini = mini;
-	cmd_instance ft_lstnew(cmd);
+	cmd_instance = ft_lstnew(cmd);
 	if (!cmd_instance)
 	{
 		free(cmd);
