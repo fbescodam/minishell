@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:46:37 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/01/22 21:10:07 by jgalloni      ########   odam.nl         */
+/*   Updated: 2022/01/22 22:03:27 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,23 +68,26 @@ char	*check_command(t_cmd *cmd, char **paths)
 	return (NULL);
 }
 
-int	setup_cmds(t_mini *mini, t_list **cmds)
+t_list	*setup_cmds(t_mini *mini, t_list **cmds)
 {
 	t_cmd	*cmd;
 	t_list	*cmd_instance;
 
 	cmd = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
 	if (!cmd)
-		return (ENOMEM);
+		return (NULL);
 	cmd->mini = mini;
-	if (!(*cmds))
-		*cmds = ft_lstnew(cmd);
-	if (!cmds)
+	cmd_instance ft_lstnew(cmd);
+	if (!cmd_instance)
 	{
 		free(cmd);
-		return (ENOMEM);
+		return(NULL);
 	}
-	return (0);
+	if (!(*cmds))
+		*cmds = cmd_instance;
+	else
+		ft_lstadd_back(cmds, cmd_instance);
+	return (cmd_instance);
 }
 
 char	**get_path(void)

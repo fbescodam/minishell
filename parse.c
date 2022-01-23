@@ -61,6 +61,7 @@ int		split_prompt(char *prompt, char ***prompts, char c)
 	int		ret;
 	char	**commands;
 	int		i;
+	t_list	*current_cmd;
 
 	if (prompt[0] == '|')
 		return (PARSE_ERROR);
@@ -69,11 +70,17 @@ int		split_prompt(char *prompt, char ***prompts, char c)
 	i = 0;
 	while (commands[i])
 	{
-		i++;
+		current_cmd = setup_cmds(mini, cmds);
+		if (current_cmd == NULL)
+				exit_shell_w_error(NULL, ret);
 		//if necessary, add pipe in token to command
-		//parse command
+		ret = parse_command(current_cmd, commands[i]);
+		if (!ret)
+			return (ret);
 		//if necessary, add pipe out token to command
+		i++;
 	}
+	return (0);
 } */
 
 int	parse_prompt(char *prompt, t_list *cmds, t_mini *mini)

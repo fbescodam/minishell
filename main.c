@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/01/22 19:42:48 by jgalloni      ########   odam.nl         */
+/*   Updated: 2022/01/22 21:50:32 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	main(int argc, char **argv, char **envp)
 
 	ft_bzero(&mini, sizeof(t_mini));
 	mini.paths = get_path();
+	cmds = 0;
 	while (1)
 	{
 		setup_signals();
