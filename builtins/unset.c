@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/22 17:50:09 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/22 18:50:01 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/24 17:31:52 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	mini_unset(t_cmd *cmd)
 	i = 1;
 	while (cmd->params[i])
 	{
-		index = get_envar_as_list(&to_unset, cmd, cmd->params[i]);
+		index = get_envar_as_list(&to_unset, cmd->mini->envars, cmd->params[i]);
 		if (index > -1)
 		{
 			if (index > 0)

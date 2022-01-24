@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:59 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/01/23 18:00:19 by jgalloni      ########   odam.nl         */
+/*   Updated: 2022/01/24 19:09:01 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	error_handler(t_cmd *cmd, int err)
 {
 	if (err == PARSE_ERROR)
 	{
-		printf("minishell : syntax error\n");
+		printf("minishell: syntax error\n");
 		errno = PARSE_ERROR;
 	}
 	else
@@ -88,7 +88,13 @@ void	exit_shell_w_error(t_cmd *cmd, int err)
 	{
 		// ONLY RUN IN CHILD
 		printf("minishell: command not found\n");
+		errno = CMDNF;
 		exit(CMDNF);
+	}
+	else if (err == PARSE_ERROR)
+	{
+		printf("minishell: syntax error from exit_shell_w_error\n");
+		errno = PARSE_ERROR;
 	}
 	else if (err < 0)
 	{
@@ -100,9 +106,14 @@ void	exit_shell_w_error(t_cmd *cmd, int err)
 		printf("minishell: a major error occurred (code %d)\n", err);
 		exit(2);
 	}
-	else
+	else if (errno)
 	{
 		perror("minishell");
+		exit(err);
+	}
+	else
+	{
+		printf("minishell: %s\n", strerror(err));
 		exit(err);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:45:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/01/23 18:01:14 by jgalloni      ########   odam.nl         */
+/*   Updated: 2022/01/24 18:09:30 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,10 @@ int	main(int argc, char **argv, char **envp)
 		if (!prompt)
 			exit_shell_w_error(NULL, -1);
 		else
+		{
+			add_history(prompt);
 			ret = parse_prompt(prompt, cmds, &mini);
+		}
 		if (ret != 0)
 			error_handler(NULL, ret);		//@Freek free the whole list of cmds instead of one!
 	}

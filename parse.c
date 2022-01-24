@@ -104,18 +104,28 @@ int	parse_prompt(char *prompt, t_list *cmds, t_mini *mini)
 		if (prompt[0] == ';')
 			return (PARSE_ERROR);
 		prompts = ft_calloc(1, sizeof(char *));
+		if (!prompts)
+			exit_shell_w_error((t_cmd *)((*cmds).content), ENOMEM); // TODO free all cmds! also in all cases below...
+		ret = parse_envars(mini->envars, &prompt);
+		if (ret == -1)
+			exit_shell_w_error(NULL, ENOMEM);
+		else if (ret == -2)
+			return (PARSE_ERROR);
+		else if (ret == -3)
+			return (PARSE_ERROR);	// TODO add handler for unclosed single quote
+		else if (ret < 0)
+			exit_shell_w_error(NULL, errno);
 		ret = split_prompt(prompt, &prompts, ";");
 		i = 0;
 		while (prompts[i])
 		{
 			ret = split_pipe(prompts[i], &cmds, mini);
-			i++;		
+			i++;
 		}
 		execute_command_list(cmds, mini);
 		ft_lstclear(&cmds, &free_cmd);
 		ft_free_double_ptr((void **)prompts);
-		add_history(prompt);
 	}
 	ft_free(prompt);
-	return(ret);
+	return (ret);
 }

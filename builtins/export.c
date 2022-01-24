@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/20 18:09:11 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/20 19:18:09 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/24 19:15:41 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,11 @@ int	mini_export(t_cmd *cmd)
 		else if (equals_pos)
 		{
 			*equals_pos = '\0';
-			set_envar(cmd, cmd->params[i], equals_pos + 1);
+			if (ft_strschr(cmd->params[i], "${}"))
+				printf("minishell: export: '%s': not a valid identifier\n",
+					cmd->params[i]);
+			else
+				set_envar(cmd, cmd->params[i], equals_pos + 1);
 		}
 		i++;
 	}

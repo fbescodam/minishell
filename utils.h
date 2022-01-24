@@ -6,41 +6,13 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:46:20 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/01/23 20:22:10 by jgalloni      ########   odam.nl         */
+/*   Updated: 2022/01/24 18:01:37 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
 # include "libft/libft.h"
-
-
-typedef struct s_envar
-{
-	char	*name;
-	char	*val;
-}			t_envar;
-
-typedef struct s_mini
-{
-	t_list	*envars;
-	char	**paths;
-}			t_mini;
-
-typedef struct s_cmd
-{
-	t_mini	*mini;
-	char	*in_file;
-	char	*out_file;
-	int		in_fd;
-	int		out_fd;
-	int		mode;
-	char	**params;
-	char	*path;
-	t_list	*tokens;
-	int		argc;
-}				t_cmd;
-
 # include "tokens.h"
 
 # define IN_FILE 8
@@ -62,9 +34,10 @@ void	exit_shell_w_error(t_cmd *cmd, int err);
 int		char_array_len(char **arr);
 void	append_char_array(char **from, char **to);
 int		add_arguments(t_cmd **cmd, t_token	*token);
-int		get_envar_as_list(t_list **list, t_cmd *cmd, char *name);
-int		get_envar(t_envar **envar, t_cmd *cmd, char *name);
+int		get_envar_as_list(t_list **list, t_list *envars, char *name);
+int		get_envar(t_envar **envar, t_list *envars, char *name);
 t_envar	*set_envar(t_cmd *cmd, char *name, char *val);
+int		parse_envars(t_list *envars, char **str);
 void	free_cmd(void *cmd);
 void	free_envar(void *envar);
 void	free_mini(t_mini *mini);

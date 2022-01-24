@@ -69,3 +69,5 @@ tputs				N		Apply padding to a terminfo string and output it
 - add free functions to exiting functions to prevent leaks on errors/crashes
 - RESERVED custom exit code is same as EMULTIHOP in errno, should change it
 - take a look at our custom error codes and their handling
+- minishell might have to run a command given as argument for the program too (run "bash aaaa" as example)
+- add support for unclosed quotes (both ' and ", for ' there's something to work with already but " is just not there yet). Also test with echo ${a"} (first expects a " then a } and then it should error, like in bash)
