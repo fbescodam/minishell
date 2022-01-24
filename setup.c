@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/26 23:46:37 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/01/23 22:04:02 by jgalloni      ########   odam.nl         */
+/*   Updated: 2022/01/24 17:26:09 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,9 @@ char	**get_path(void)
 
 	env = getenv("PATH");
 	if (!env)
-		exit_shell_w_error(NULL, ERR_PATH_MISSING);
+		env = ft_calloc(1, sizeof(char));
+	if (!env)
+		exit_shell_w_error(NULL, ENOMEM);
 	paths = ft_split(env, ':');
 	if (!paths)
 		exit_shell_w_error(NULL, ENOMEM);
