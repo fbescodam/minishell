@@ -6,7 +6,7 @@
 #    By: fbes <fbes@student.codam.nl>                 +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/26 14:25:38 by fbes          #+#    #+#                  #
-#    Updated: 2022/01/22 18:38:07 by fbes          ########   odam.nl          #
+#    Updated: 2022/01/24 17:47:45 by fbes          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ SRCS =		ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
 			ft_ptrlen.c ft_abs.c ft_isneg.c ft_biggest.c ft_itoa_base.c \
 			ft_ptoa.c ft_get_next_line.c ft_strnlen.c ft_free.c ft_realloc.c \
 			ft_lstsort.c ft_iswhitespace.c ft_free_double_ptr.c ft_strclen.c \
-			ft_lstget.c
+			ft_lstget.c ft_smallest.c ft_strschr.c
 
 OBJS =		$(SRCS:.c=.o)
 

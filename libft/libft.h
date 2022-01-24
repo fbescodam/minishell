@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 14:35:23 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/22 18:36:57 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/24 17:47:41 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ t_list			*ft_lstmap(t_list *lst,
 					void *(*f)(void *), void (*del)(void *));
 unsigned int	ft_abs(int n);
 int				ft_biggest(int a, int b);
+int				ft_smallest(int a, int b);
 char			*ft_itoa_base(unsigned int n, char *base);
 char			*ft_ptoa(intptr_t ptr);
 int				ft_get_next_line(int fd, char **line);
@@ -86,5 +87,6 @@ void			*ft_realloc(void *ptr, size_t old_size, size_t new_size);
 void			*ft_free(void *freeable);
 void			**ft_free_double_ptr(void **freeable);
 void			ft_lstsort(t_list **lst, int (*f)(void *, void *));
+char			*ft_strschr(char const *str, char const *set);
 
 #endif
