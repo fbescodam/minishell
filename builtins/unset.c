@@ -6,12 +6,12 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/22 17:50:09 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/24 17:31:52 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/25 22:11:45 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../utils.h"
-#include "../libft/libft.h"
+#include "utils.h"
+#include "libft.h"
 
 int	mini_unset(t_cmd *cmd)
 {

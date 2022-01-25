@@ -6,12 +6,12 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/19 22:47:09 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/24 16:25:35 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/25 22:10:52 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../utils.h"
-#include "../custom_errors.h"
+#include "utils.h"
+#include "custom_errors.h"
 #include <errno.h>
 
 int	mini_cd(t_cmd *cmd)

@@ -6,13 +6,13 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/19 23:02:13 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/22 18:13:10 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/25 22:11:35 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <errno.h>
-#include "../utils.h"
+#include "utils.h"
 
 int	mini_pwd(t_cmd *cmd)
 {

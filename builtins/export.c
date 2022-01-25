@@ -6,11 +6,11 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/20 18:09:11 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/24 19:15:41 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/25 22:11:29 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../utils.h"
+#include "utils.h"
 #include "builtins.h"
 #include "errno.h"
 #include <stdio.h>

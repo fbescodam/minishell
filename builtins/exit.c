@@ -6,12 +6,12 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/19 22:19:30 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/23 18:00:40 by jgalloni      ########   odam.nl         */
+/*   Updated: 2022/01/25 22:11:27 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include "../utils.h"
+#include "utils.h"
 
 int	mini_exit(t_cmd *cmd)
 {

@@ -6,12 +6,12 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/20 18:11:32 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/22 17:50:27 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/25 22:11:22 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include "../utils.h"
+#include "utils.h"
 
 int	mini_env(t_cmd *cmd)
 {

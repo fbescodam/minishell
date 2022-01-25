@@ -2,10 +2,9 @@
 #include "error_handling.h"
 #include "signal_handling.h"
 
-/*
- * @brief Assigns signal-handling functions to signals
- */
-
+/**
+  * @brief Assigns signal-handling functions to signals
+  */
 void	setup_signals(void)
 {
 	signal(SIGTERM, sig_handler);
@@ -52,7 +51,7 @@ void	setup_envars(t_mini *mini, char **envp)	//*set_envar(t_cmd *cmd, char *name
 		ft_lstadd_back(&(mini->envars), current_env);
 		i++;
 	}
-	
+
 }
 
 void	setup_mini(t_mini *mini, char **envp)

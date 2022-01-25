@@ -5,7 +5,7 @@
 #include "readline/readline.h"
 #include "readline/history.h"
 
-int	 main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
 	t_mini	mini;
 	char	*prompt;
