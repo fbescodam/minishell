@@ -30,6 +30,7 @@ void	free_cmd(void *cmd)
 
 void	free_envar(void *envar)
 {
+	return ;			// TODO: free envars after reimplementing them
 	if (!envar)
 		return ;
 	ft_free(((t_envar *)envar)->name);
@@ -41,7 +42,9 @@ void	free_mini(t_mini *mini)
 {
 	if (!mini)
 		return ;
-	ft_lstclear(&mini->envars, &free_envar);
-	ft_lstclear(&mini->cmds, &free_cmd);
+	if (mini->envars)
+		ft_lstclear(&mini->envars, &free_envar);
+	if (mini->cmds)
+		ft_lstclear(&mini->cmds, &free_cmd);
 	ft_free_double_ptr((void **)mini->paths);
 }
