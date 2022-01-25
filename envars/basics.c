@@ -20,6 +20,7 @@ t_ditem	*get_envar(t_dlist *envars, char *name)
 	temp = envars->first;
 	while (i < envars->size)
 	{
+		// TODO: change this to use hashes instead for speeddddd
 		if (ft_strncmp(((t_envar *)temp->content)->name, name, name_len) == 0)
 			return (temp);
 		temp = temp->next;

@@ -6,11 +6,11 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 19:07:21 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/01 21:23:16 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/25 23:58:53 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stddef.h>
 
 /**
  * Compare byte strings of the same length

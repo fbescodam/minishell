@@ -6,11 +6,11 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 19:47:41 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/01 21:25:55 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/26 00:00:44 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stddef.h>
 
 /**
  * Search for a character in a string

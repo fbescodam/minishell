@@ -6,11 +6,11 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 19:24:26 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/01 21:26:32 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/26 00:01:16 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stddef.h>
 
 /**
  * Get the length of a string
