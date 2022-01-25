@@ -12,13 +12,13 @@ int	main(int argc, char **argv, char **envp)
 	int		ret;
 
 	setup_mini(&mini, envp);
-	print_envars(mini);
+	print_envars(&mini);
 	while (1)
 	{
 		setup_signals();
 		prompt = readline("\x1b[1mminishell> \x1b[0m");
 		if (!prompt)
-			force_exit(mini, 0);
+			force_exit(&mini, 0);
 		printf("PROMPT : %s\n", prompt);
 	}
 }

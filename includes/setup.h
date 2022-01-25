@@ -4,7 +4,7 @@
 # include "structs.h"
 
 
-int			setup_mini(t_mini **mini, char **envp);
+int			setup_mini(t_mini *mini, char **envp);
 void		setup_signals(void);
 
 #endif
