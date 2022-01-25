@@ -1,3 +1,5 @@
+#include <signal.h>
+#include <stdlib.h>
 #include "structs.h"
 #include "error_handling.h"
 #include "signal_handling.h"
