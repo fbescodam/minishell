@@ -10,8 +10,9 @@ typedef struct s_token {
 
 typedef struct s_envar
 {
-	char	*name;
-	char	*val;
+	unsigned int	hash;
+	char			*name;
+	char			*val;
 }			t_envar;
 
 typedef struct s_mini
