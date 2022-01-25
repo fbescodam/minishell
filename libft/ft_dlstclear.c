@@ -6,10 +6,11 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/25 18:12:34 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/25 21:59:39 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/25 22:58:50 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
 
 void	ft_dlstclear(t_dlist *list, void (*del)(void *))

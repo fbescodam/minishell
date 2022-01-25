@@ -6,10 +6,11 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 14:13:01 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/01 21:58:40 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/25 22:51:41 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
 
 /**

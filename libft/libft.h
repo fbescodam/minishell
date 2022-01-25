@@ -6,15 +6,15 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 14:35:23 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/25 22:01:38 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/25 22:47:13 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include <unistd.h>
-# include <stdlib.h>
+# include <stddef.h>
+# include <stdint.h>
 
 # define BUFFER_SIZE 1024
 

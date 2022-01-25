@@ -6,10 +6,11 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 18:37:56 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/01 21:25:13 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/25 22:48:52 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "libft.h"
 
 static int	ptr_loop(intptr_t ptr, int fd)

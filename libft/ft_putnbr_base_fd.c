@@ -6,10 +6,11 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 17:49:16 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/01 21:24:53 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/25 22:48:23 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "libft.h"
 
 static int	is_valid_base(char *base)
