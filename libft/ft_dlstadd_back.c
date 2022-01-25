@@ -6,12 +6,17 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/25 18:29:35 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/25 18:31:44 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/25 22:59:40 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * Add an item to the back of a double linked list
+ * @param list The list to append to
+ * @param item The item to add
+ */
 void	ft_dlstadd_back(t_dlist *list, t_ditem *item)
 {
 	t_ditem	*last;
