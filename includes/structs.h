@@ -17,7 +17,7 @@ typedef struct s_envar
 
 typedef struct s_mini
 {
-	t_list	*envars;
+	t_dlist	*envars;
 	char	**paths;
 	t_list	*cmds;
 	int		status;

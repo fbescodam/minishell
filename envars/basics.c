@@ -1,6 +1,7 @@
 #include "../libft/libft.h"
 #include "structs.h"
 #include "utils.h"
+	#include <stdio.h>
 
 /**
  * @brief Get an environment variable from the list as item, by name
@@ -76,7 +77,7 @@ int	set_envar(t_dlist *envars, char *name, char *val)
 	t_envar		*envar;
 	t_ditem		*list_item;
 
-	get_envar(envars, name);
+	envar = get_envar(envars, name);
 	if (envar)
 		return (replace_envar_value(envar, ft_strdup(val)));
 	envar = ft_calloc(1, sizeof(t_envar));

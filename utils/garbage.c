@@ -43,7 +43,7 @@ void	free_mini(t_mini *mini)
 	if (!mini)
 		return ;
 	if (mini->envars)
-		ft_lstclear(&mini->envars, &free_envar);
+		ft_dlstclear(mini->envars, &free_envar);
 	if (mini->cmds)
 		ft_lstclear(&mini->cmds, &free_cmd);
 	ft_free_double_ptr((void **)mini->paths);
