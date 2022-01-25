@@ -1,2 +1,3 @@
 - If the path in ENV is unset or changed, change the path in mini also
 - replace  write / printf errors with our custom fd_putstring function
+- if a path contains a / character, assume it's absolute or relative and try and access the file, DO NOT look in path and if it does not, then only check path
