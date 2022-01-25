@@ -6,12 +6,14 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/06 18:00:05 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/01/25 18:34:52 by jgalloni      ########   odam.nl         */
+/*   Updated: 2022/01/25 22:09:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUSTOM_ERRORS_H
 # define CUSTOM_ERRORS_H
+
+# include <errno.h>
 
 /* system errors (1 and above) */
 
@@ -26,7 +28,5 @@
 # define PARSE_ERROR 258
 # define CMDNF 127
 # define RESERVED 95
-
-#include <errno.h>
 
 #endif
