@@ -1,7 +1,7 @@
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
-# include "libft/libft.h"
+# include "../libft/libft.h"
 
 typedef struct s_token {
 	void		*content;

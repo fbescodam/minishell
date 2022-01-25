@@ -2,7 +2,7 @@ NAME =		minishell
 
 SRCS =		debug_utils.c error_handling.c main.c setup.c signal_handler.c
 
-INCLUDES =	-I lib/libft -I /Users/$(USER)/.brew/opt/readline/include
+INCLUDES =	-I includes -I lib/libft -I /Users/$(USER)/.brew/opt/readline/include
 
 OBJS =		$(SRCS:.c=.o)
 
