@@ -1,6 +1,7 @@
 NAME =		minishell
 
-SRCS =		debug_utils.c error_handling.c main.c setup.c signal_handler.c
+SRCS =		utils/debugging.c error_handling.c main.c setup.c signal_handler.c \
+			utils/garbage.c
 
 INCLUDES =	-I includes -I lib/libft -I /Users/$(USER)/.brew/opt/readline/include
 
