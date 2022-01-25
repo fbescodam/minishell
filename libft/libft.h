@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 14:35:23 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/24 17:47:41 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/25 22:01:38 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,19 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }				t_list;
+
+typedef struct s_ditem
+{
+	void			*content;
+	struct s_ditem	*prev;
+	struct s_ditem	*next;
+}				t_ditem;
+
+typedef struct s_dlist
+{
+	size_t			size;
+	t_ditem			*first;
+}				t_dlist;
 
 void			*ft_memset(void *s, int c, size_t n);
 void			ft_bzero(void *s, size_t n);
@@ -76,6 +89,7 @@ void			ft_lstclear(t_list **lst, void (*del)(void *));
 void			ft_lstiter(t_list *lst, void (*f)(void *));
 t_list			*ft_lstmap(t_list *lst,
 					void *(*f)(void *), void (*del)(void *));
+void			ft_lstsort(t_list **lst, int (*f)(void *, void *));
 unsigned int	ft_abs(int n);
 int				ft_biggest(int a, int b);
 int				ft_smallest(int a, int b);
@@ -86,7 +100,18 @@ size_t			ft_strnlen(const char *s, size_t maxlen);
 void			*ft_realloc(void *ptr, size_t old_size, size_t new_size);
 void			*ft_free(void *freeable);
 void			**ft_free_double_ptr(void **freeable);
-void			ft_lstsort(t_list **lst, int (*f)(void *, void *));
 char			*ft_strschr(char const *str, char const *set);
+t_ditem			*ft_ditemnew(void *content);
+void			ft_dlstadd_back(t_dlist *list, t_ditem *item);
+void			ft_dlstadd_front(t_dlist *list, t_ditem *item);
+void			ft_dlstclear(t_dlist *list, void (*del)(void *));
+void			ft_dlstdelone(t_ditem *item, void (*del)(void *));
+t_ditem			*ft_dlstget(t_dlist *list, size_t index);
+void			ft_dlstiter(t_dlist *list, void (*f)(void *));
+t_ditem			*ft_dlstlast(t_dlist *list);
+t_dlist			*ft_dlstmap(t_dlist *list, void *(*f)(void *),
+					void (*del)(void *));
+t_dlist			*ft_dlstnew(void);
+void			ft_dlstrem(t_dlist *list, size_t index);
 
 #endif
