@@ -1,0 +1,2 @@
+- If the path in ENV is unset or changed, change the path in mini also
+- replace  write / printf errors with our custom fd_putstring function

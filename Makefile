@@ -1,24 +1,6 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: fbes <fbes@student.codam.nl>                 +#+                      #
-#                                                    +#+                       #
-#    Created: 2021/11/26 23:07:45 by fbes          #+#    #+#                  #
-#    Updated: 2022/01/23 19:27:24 by jgalloni      ########   odam.nl          #
-#                                                                              #
-# **************************************************************************** #
-
 NAME =		minishell
 
-SRCS =		main.c signal_handler.c redirection_utils.c setup.c tokenize.c \
-			token_setup.c command_handler.c reserved_cmds.c char_array_utils.c \
-			pipe.c builtins/exit.c builtins/cd.c builtins/pwd.c garbage.c \
-			envars.c builtins/echo.c builtins/env.c builtins/export.c \
-			builtins/unset.c parse.c
-
-HEADERS =	utils.h
+SRCS =		debug_utils.c error_handling.c main.c setup.c signal_handler.c
 
 INCLUDES =	-I lib/libft -I /Users/$(USER)/.brew/opt/readline/include
 

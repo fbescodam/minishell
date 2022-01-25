@@ -1,95 +1,19 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   setup.c                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2021/11/26 23:46:37 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/01/24 17:26:09 by fbes          ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
+#include "structs.h"
+#include "error_handling.h"
+#include "signal_handling.h"
 
-#include "utils.h"
-#include "custom_errors.h"
-#include "tokens.h"
-#include <stdio.h>
-#include <errno.h>
+/*
+ * @brief Assigns signal-handling functions to signals
+ */
 
-char	*find_cmd(t_cmd *cmd)
+void	setup_signals(void)
 {
-	t_token	*token;
-	t_list	*current;
-	char	**params;
-
-	current = cmd->tokens;
-	while (current)
-	{
-		token = (t_token *)(current->content);
-		if (token->flag == CMD)
-		{
-			params = (char **)(token->content);
-			cmd->params = params;
-			return (ft_strdup(params[0]));
-		}
-		current = current->next;
-	}
-	cmd->params = 0;
-	return (NULL);
-}
-
-char	*check_command(t_cmd *cmd, char **paths)
-{
-	char	*command;
-	char	*new_path;
-	char	*temp;
-	int		i;
-
-	i = 0;
-	command = find_cmd(cmd);
-	if (!command)
-		return (NULL);
-	if (command[0] == '.' && command[1] == '/' && access(command, R_OK) == 0)
-		return (command);
-	temp = ft_strjoin("/", command);
-	ft_free(command);
-	while (paths[i])
-	{
-		new_path = ft_strjoin(paths[i], temp);
-		if (new_path && access(new_path, R_OK) == 0)
-		{
-			free(temp);
-			return (new_path);
-		}
-		free(new_path);
-		i++;
-	}
-	free(temp);
-	return (NULL);
-}
-
-t_list	*setup_cmds(t_mini *mini, t_list **cmds)
-{
-	t_cmd	*cmd;
-	t_list	*cmd_instance;
-
-	cmd = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
-	if (!cmd)
-		return (NULL);
-	cmd->mini = mini;
-	cmd->tokens = 0;
-	cmd->out_fd = 0;
-	cmd_instance = ft_lstnew(cmd);
-	if (!cmd_instance)
-	{
-		free(cmd);
-		return(NULL);
-	}
-	if (!(*cmds))
-		*cmds = cmd_instance;
-	else
-		ft_lstadd_back(cmds, cmd_instance);
-	return (cmd_instance);
+	signal(SIGTERM, sig_handler);
+	signal(SIGHUP, sig_handler);
+	signal(SIGINT, sig_handler);
+	signal(SIGABRT, sig_handler);
+	signal(SIGQUIT, sig_handler);
+	signal(SIGTSTP, sig_handler);
 }
 
 char	**get_path(void)
@@ -101,9 +25,38 @@ char	**get_path(void)
 	if (!env)
 		env = ft_calloc(1, sizeof(char));
 	if (!env)
-		exit_shell_w_error(NULL, ENOMEM);
+		force_exit(NULL, ENOMEM);
 	paths = ft_split(env, ':');
 	if (!paths)
-		exit_shell_w_error(NULL, ENOMEM);
+		force_exit(NULL, ENOMEM);
 	return (paths);
+}
+
+void	setup_envars(t_mini *mini, char **envp)	//*set_envar(t_cmd *cmd, char *name, char *val)
+{
+	int		i;
+	t_list	*current_env;
+
+	mini->paths = get_path();
+	if (!envp)
+		return ;
+	mini->envars = ft_lstnew(envp[0]);
+	if (!(mini->envars))
+		force_exit(mini, ENOMEM);
+	i = 1;
+	while (envp[i])
+	{
+		current_env = ft_lstnew(envp[i]);
+		if (!current_env)
+			force_exit(mini, ENOMEM);
+		ft_lstadd_back(&(mini->envars), current_env);
+		i++;
+	}
+	
+}
+
+void	setup_mini(t_mini *mini, char **envp)
+{
+	ft_bzero(mini, sizeof(t_mini));
+	setup_envars(mini, envp);
 }
