@@ -6,7 +6,7 @@
 #    By: fbes <fbes@student.codam.nl>                 +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/26 14:25:38 by fbes          #+#    #+#                  #
-#    Updated: 2022/01/25 21:54:52 by fbes          ########   odam.nl          #
+#    Updated: 2022/01/25 23:29:20 by fbes          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRCS =		ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
 			ft_lstget.c ft_smallest.c ft_strschr.c \
 			ft_ditemnew.c ft_dlstadd_back.c ft_dlstadd_front.c ft_dlstclear.c \
 			ft_dlstdelone.c ft_dlstget.c ft_dlstiter.c ft_dlstlast.c \
-			ft_dlstmap.c ft_dlstnew.c
+			ft_dlstmap.c ft_dlstnew.c ft_dlstrem.c
 
 OBJS =		$(SRCS:.c=.o)
 
