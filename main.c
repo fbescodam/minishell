@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "setup.h"
+#include "envars.h"
 #include "debug.h"
 #include "error_handling.h"
 #include "readline/readline.h"
@@ -19,6 +20,9 @@ int	main(int argc, char **argv, char **envp)
 		prompt = readline("\x1b[1mminishell> \x1b[0m");
 		if (!prompt)
 			force_exit(&mini, 0);
-		printf("PROMPT : %s\n", prompt);
+		printf("PROMPT : \"%s\"\n", prompt);
+		parse_envars(mini.envars, &prompt);
+		printf("PARSED PROMPT : \"%s\"\n", prompt);
+		ft_free(prompt);
 	}
 }

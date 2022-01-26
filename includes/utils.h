@@ -1,6 +1,8 @@
 #ifndef UTILS_H
 # define UTILS_H
 
+# include "structs.h"
+
 void	free_token(void *token);
 void	free_cmd(void *cmd);
 void	free_envar(void *envar);

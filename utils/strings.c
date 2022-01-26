@@ -1,3 +1,6 @@
+#include <stdlib.h>
+#include "../libft/libft.h"
+
 /**
  * @brief Skip over single quotes in a string
  *
