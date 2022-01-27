@@ -1,10 +1,13 @@
-#include "include/structs.h"
+
 #include <stdio.h>
-#include "include/custom_errors.h"
+#include <stdlib.h>
+#include "structs.h"
+#include "utils.h"
+#include "custom_errors.h"
 
 void	force_exit(t_mini *mini, int err)
 {
-	//freemini
+	free_mini(mini);
 	exit(err);
 }
 

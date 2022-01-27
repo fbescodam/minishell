@@ -1,4 +1,4 @@
-#include "include/custom_errors.h"
+#include "custom_errors.h"
 #include "libft/libft.h"
 
 int		scan_operators(char *prompt, char *operators)

@@ -1,9 +1,10 @@
 NAME =		minishell
 
-SRCS =		debug_utils.c error_handling.c main.c setup.c signal_handler.c \
-			parse.c parse_utils.c utils/char_array_utils.c
+SRCS =		utils/debugging.c error_handling.c main.c setup.c signal_handler.c \
+			utils/garbage.c envars/basics.c envars/parser.c utils/strings.c \
+			envars/helpers.c parse.c parse_utils.c utils/char_array_utils.c
 
-INCLUDES =	-I lib/libft -I /Users/$(USER)/.brew/opt/readline/include
+INCLUDES =	-I includes -I lib/libft -I /Users/$(USER)/.brew/opt/readline/include
 
 OBJS =		$(SRCS:.c=.o)
 

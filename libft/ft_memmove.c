@@ -6,11 +6,11 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 17:14:02 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/01 21:23:41 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/25 23:59:04 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stddef.h>
 
 /**
  * Copy a certain amount of bytes from one place to another. In case destination

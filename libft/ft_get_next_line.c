@@ -6,10 +6,12 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/11 15:30:52 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/01 21:20:09 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/25 22:56:44 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
+#include <stdlib.h>
 #include "libft.h"
 
 static size_t	ft_strnlen_nl(const char *s, size_t maxlen)

@@ -1,15 +1,10 @@
 #include <signal.h>
-#include "include/custom_errors.h"
+#include "custom_errors.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "readline/readline.h"
 
-/**
-  * @brief Handle signals
-  * SIGINT is ctrl c
-  * -1 is passed in case of EOF
-  */
 void	sig_handler(int sig)
 {
 	// system("leaks minishell");

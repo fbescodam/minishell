@@ -6,15 +6,15 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 14:35:23 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/25 22:01:38 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/25 23:56:17 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include <unistd.h>
-# include <stdlib.h>
+# include <stddef.h>
+# include <stdint.h>
 
 # define BUFFER_SIZE 1024
 
@@ -101,6 +101,7 @@ void			*ft_realloc(void *ptr, size_t old_size, size_t new_size);
 void			*ft_free(void *freeable);
 void			**ft_free_double_ptr(void **freeable);
 char			*ft_strschr(char const *str, char const *set);
+unsigned int	ft_strhash(const char *str, size_t length);
 t_ditem			*ft_ditemnew(void *content);
 void			ft_dlstadd_back(t_dlist *list, t_ditem *item);
 void			ft_dlstadd_front(t_dlist *list, t_ditem *item);
@@ -112,6 +113,6 @@ t_ditem			*ft_dlstlast(t_dlist *list);
 t_dlist			*ft_dlstmap(t_dlist *list, void *(*f)(void *),
 					void (*del)(void *));
 t_dlist			*ft_dlstnew(void);
-void			ft_dlstrem(t_dlist *list, size_t index);
+void			ft_dlstrem(t_dlist *list, size_t index, void (*del)(void *));
 
 #endif

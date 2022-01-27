@@ -6,11 +6,11 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 16:31:33 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/01 21:22:52 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/25 23:58:44 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stddef.h>
 
 /**
  * Copy a precise amount of bytes from one pointer to the other, or until

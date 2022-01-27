@@ -1,11 +1,13 @@
-#include "include/structs.h"
-#include "include/error_handling.h"
-#include "include/signal_handling.h"
+#include <signal.h>
+#include <stdlib.h>
+#include "structs.h"
+#include "error_handling.h"
+#include "signal_handling.h"
+#include "envars.h"
 
-/*
- * @brief Assigns signal-handling functions to signals
- */
-
+/**
+  * @brief Assigns signal-handling functions to signals
+  */
 void	setup_signals(void)
 {
 	signal(SIGTERM, sig_handler);
@@ -16,6 +18,9 @@ void	setup_signals(void)
 	signal(SIGTSTP, sig_handler);
 }
 
+/**
+ * @brief Get the system PATH variable
+ */
 char	**get_path(void)
 {
 	char	*env;
@@ -32,28 +37,51 @@ char	**get_path(void)
 	return (paths);
 }
 
-void	setup_envars(t_mini *mini, char **envp)	//*set_envar(t_cmd *cmd, char *name, char *val)
+/**
+ * @brief Export the envp variables into our environment variables list
+ *
+ * @param mini The main struct
+ * @param envp The envp variables list
+ * @return Returns 0 on error, 1 on success
+ */
+int	setup_envars(t_mini *mini, char **envp)
 {
-	int		i;
-	char	*envar_value_pos;
+	size_t		i;
+	char		*temp;
+	char		*equals;
 
 	mini->paths = get_path();
 	if (!envp)
-		return ;
-	i = 0;
+		return (1);
+	i = 1;
 	while (envp[i])
 	{
-		envar_value_pos = ft_strchr(envp[i], ':');
-		*envar_value_pos = '\0';
-		envar_value_pos = envar_value_pos + 1;
-		//set_envar(mini, envp[i], envar_value_pos);
+		temp = ft_strdup(envp[i]);
+		if (!temp)
+			return (0);
+		equals = ft_strchr(temp, '=');
+		*equals = '\0';
+		set_envar(mini->envars, temp, equals + 1);
+		free(temp);
 		i++;
 	}
-	
+	return (1);
 }
 
-void	setup_mini(t_mini *mini, char **envp)
+/**
+ * @brief Set up the mini struct
+ *
+ * @param mini The mini struct
+ * @param envp Envp
+ * @return Returns 0 on error, 1 on success
+ */
+int	setup_mini(t_mini *mini, char **envp)
 {
 	ft_bzero(mini, sizeof(t_mini));
-	//setup_envars(mini, envp);
+	mini->envars = ft_dlstnew();
+	if (!mini->envars)
+		return (0);
+	if (!setup_envars(mini, envp))
+		return (0);
+	return (1);
 }

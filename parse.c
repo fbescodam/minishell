@@ -1,9 +1,10 @@
-#include "include/structs.h"
-#include "include/custom_errors.h"
-#include "include/parse.h"
-#include "include/debug.h"
-#include "include/error_handling.h"
+#include "structs.h"
+#include "custom_errors.h"
+#include "parse.h"
+#include "debug.h"
+#include "error_handling.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 //MANAGE THE MEMORY STRTRIM IS ALLOCATING CONTINUOUSLY
 
