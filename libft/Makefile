@@ -6,7 +6,7 @@
 #    By: fbes <fbes@student.codam.nl>                 +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/26 14:25:38 by fbes          #+#    #+#                  #
-#    Updated: 2022/01/25 23:56:23 by fbes          ########   odam.nl          #
+#    Updated: 2022/01/27 17:27:31 by fbes          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,14 +30,17 @@ SRCS =		ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
 			ft_dlstdelone.c ft_dlstget.c ft_dlstiter.c ft_dlstlast.c \
 			ft_dlstmap.c ft_dlstnew.c ft_dlstrem.c
 
-OBJS =		$(SRCS:.c=.o)
+OBJS_F =	$(SRCS:.c=.o)
+
+OBJS =		$(addprefix obj/,$(OBJS_F))
 
 CFLAGS =	-Wall -Wextra -Werror -pedantic -std=c89
 
 all: $(NAME)
 
-.c.o:
-	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
+obj/%.o: %.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
 	ar rc $(NAME) $(OBJS)
@@ -45,10 +48,10 @@ $(NAME): $(OBJS)
 bonus: $(NAME)
 
 clean:
-	rm -f $(OBJS)
+	rm -rf obj
 
 fclean:
-	rm -f $(OBJS) $(NAME)
+	rm -rf obj $(NAME)
 
 re: fclean all
 

@@ -30,11 +30,11 @@ bonus:
 	@echo We did not do the bonus yet
 
 clean:
-	rm -f $(OBJS)
+	rm -rf obj
 	make -C libft clean
 
 fclean:
-	rm -f $(OBJS) $(NAME)
+	rm -rf obj $(NAME)
 	make -C libft fclean
 
 re: fclean all
