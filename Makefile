@@ -7,9 +7,7 @@ SRCS =		src/utils/debugging.c src/error_handling.c src/main.c src/setup.c \
 
 INCLUDES =	-I includes -I libft -I /Users/$(USER)/.brew/opt/readline/include
 
-OBJS_F =	$(SRCS:.c=.o)
-
-OBJS =		$(subst src/,obj/,$(OBJS_F))
+OBJS =		$(subst src/,obj/,$(SRCS:.c=.o))
 
 CFLAGS =
 

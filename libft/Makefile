@@ -6,7 +6,7 @@
 #    By: fbes <fbes@student.codam.nl>                 +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/26 14:25:38 by fbes          #+#    #+#                  #
-#    Updated: 2022/01/27 17:27:31 by fbes          ########   odam.nl          #
+#    Updated: 2022/01/27 17:32:02 by fbes          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,9 +30,7 @@ SRCS =		ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
 			ft_dlstdelone.c ft_dlstget.c ft_dlstiter.c ft_dlstlast.c \
 			ft_dlstmap.c ft_dlstnew.c ft_dlstrem.c
 
-OBJS_F =	$(SRCS:.c=.o)
-
-OBJS =		$(addprefix obj/,$(OBJS_F))
+OBJS =		$(addprefix obj/,$(SRCS:.c=.o))
 
 CFLAGS =	-Wall -Wextra -Werror -pedantic -std=c89
 
