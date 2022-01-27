@@ -26,6 +26,7 @@ int	main(int argc, char **argv, char **envp)
 		//if (ret != 0)
 		//	error_manager(&mini, ret);
 		parse_envars(mini.envars, &prompt);
+		printf("prompt: \"%s\"\n", prompt);
 		ft_free(prompt);
 	}
 }

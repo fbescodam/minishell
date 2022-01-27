@@ -1,5 +1,5 @@
 #include "custom_errors.h"
-#include "libft/libft.h"
+#include "../libft/libft.h"
 
 int		scan_operators(char *prompt, char *operators)
 {
@@ -35,12 +35,12 @@ char	*skip_chars(char *prompt, char *mask_set)
 		{
 			if (prompt[i] == mask_set[k])
 				k++;
-			else 
+			else
 				return (prompt + i);
 		}
 		i++;
 		k = 0;
 	}
 	return (prompt + i);
-	
+
 }

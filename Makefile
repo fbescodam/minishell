@@ -1,12 +1,15 @@
 NAME =		minishell
 
-SRCS =		utils/debugging.c error_handling.c main.c setup.c signal_handler.c \
-			utils/garbage.c envars/basics.c envars/parser.c utils/strings.c \
-			envars/helpers.c parse.c parse_utils.c utils/char_array_utils.c
+SRCS =		src/utils/debugging.c src/error_handling.c src/main.c src/setup.c \
+			src/signal_handler.c src/utils/garbage.c src/envars/basics.c \
+			src/envars/parser.c src/utils/strings.c src/envars/helpers.c \
+			src/parse.c src/parse_utils.c src/utils/char_array_utils.c
 
-INCLUDES =	-I includes -I lib/libft -I /Users/$(USER)/.brew/opt/readline/include
+INCLUDES =	-I includes -I libft -I /Users/$(USER)/.brew/opt/readline/include
 
-OBJS =		$(SRCS:.c=.o)
+OBJS_F =	$(SRCS:.c=.o)
+
+OBJS =		$(subst src/,obj/,$(OBJS_F))
 
 CFLAGS =
 
@@ -16,7 +19,8 @@ $(NAME): $(OBJS) $(HEADERS) libft/libft.a
 	$(CC) $(CFLAGS) $(INCLUDES) $(SRCS) -lreadline \
 	-L /Users/$(USER)/.brew/opt/readline/lib libft/libft.a -o $(NAME) -fsanitize=address
 
-.c.o:
+obj/%.o: src/%.c
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 libft/libft.a:
