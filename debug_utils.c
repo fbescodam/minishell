@@ -1,14 +1,15 @@
-#include "structs.h"
+#include "include/structs.h"
 #include <stdio.h>
 
-void print_envars(t_mini *mini)
-{
-	t_list *current;
 
-	current = mini->envars;
-	while (current)
+void	print_char_array(char **arr)
+{
+	int i;
+
+	i = 0;
+	while (arr[i])
 	{
-		printf("%s\n", (char *)(current->content));
-		current = current->next;
+		printf("STR:%s:\n", arr[i]);
+		i++;
 	}
 }

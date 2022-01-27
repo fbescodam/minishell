@@ -1,6 +1,6 @@
-#include "structs.h"
-#include "error_handling.h"
-#include "signal_handling.h"
+#include "include/structs.h"
+#include "include/error_handling.h"
+#include "include/signal_handling.h"
 
 /*
  * @brief Assigns signal-handling functions to signals
@@ -35,21 +35,18 @@ char	**get_path(void)
 void	setup_envars(t_mini *mini, char **envp)	//*set_envar(t_cmd *cmd, char *name, char *val)
 {
 	int		i;
-	t_list	*current_env;
+	char	*envar_value_pos;
 
 	mini->paths = get_path();
 	if (!envp)
 		return ;
-	mini->envars = ft_lstnew(envp[0]);
-	if (!(mini->envars))
-		force_exit(mini, ENOMEM);
-	i = 1;
+	i = 0;
 	while (envp[i])
 	{
-		current_env = ft_lstnew(envp[i]);
-		if (!current_env)
-			force_exit(mini, ENOMEM);
-		ft_lstadd_back(&(mini->envars), current_env);
+		envar_value_pos = ft_strchr(envp[i], ':');
+		*envar_value_pos = '\0';
+		envar_value_pos = envar_value_pos + 1;
+		//set_envar(mini, envp[i], envar_value_pos);
 		i++;
 	}
 	
@@ -58,5 +55,5 @@ void	setup_envars(t_mini *mini, char **envp)	//*set_envar(t_cmd *cmd, char *name
 void	setup_mini(t_mini *mini, char **envp)
 {
 	ft_bzero(mini, sizeof(t_mini));
-	setup_envars(mini, envp);
+	//setup_envars(mini, envp);
 }
