@@ -5,7 +5,7 @@
 #include "envars.h"
 #include "custom_errors.h"
 
-static int	parse_envar_fail(int err, char *parsed_str)
+static int	parse_envar_fail(char *parsed_str, int err)
 {
 	ft_free(parsed_str);
 	return (err);
@@ -30,7 +30,6 @@ static int	fetch_n_replace_envar(t_dlist *envars, char **parsed_str,
 	char	*var_name;
 	char	*temp;
 
-	// TODO free before return! parse_envar_fail()
 	if (**var_start == '{')
 		*(*var_start - 1) = '\0';
 	**var_start = '\0';
@@ -59,7 +58,7 @@ static int	replace_str_with_parsed(char **str, char *parsed_str, char *var_end)
 	if (*parsed_str != '\0')
 	{
 		if (!join_parsed_str(&parsed_str, var_end))
-			return (-1);
+			return (parse_envar_fail(parsed_str, ENOMEM));
 		ft_free(*str);
 		*str = parsed_str;
 	}
@@ -80,18 +79,17 @@ int	parse_envars(t_dlist *envars, char **str)
 	char	*var_end;
 	int		ret;
 
-	// TODO free parsed_str before return, use parse_envar_fail
 	parsed_str = ft_calloc(1, sizeof(char));
 	if (!parsed_str)
-		return (ENOMEM);
+		return (parse_envar_fail(parsed_str, ENOMEM));
 	if (!find_var_name_start(*str, &var_start))
-		return (PARSE_ERROR);
+		return (parse_envar_fail(parsed_str, PARSE_ERROR));
 	var_end = *str;
 	while (var_start && *var_start)
 	{
 		ret = fetch_n_replace_envar(envars, &parsed_str, &var_start, &var_end);
-		if (ret < 0)
-			return (ret);
+		if (ret != 0)
+			return (parse_envar_fail(parsed_str, ret));
 	}
 	return (replace_str_with_parsed(str, parsed_str, var_end));
 }
