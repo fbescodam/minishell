@@ -5,3 +5,4 @@
 - send environment variables with execve
 - escape characters should work, even outside of double quotes (echo \")
 - fix line overflow in readline
+- make "'"' work: should have an ' as one argument and then error out because of an unclosed ' parameter
