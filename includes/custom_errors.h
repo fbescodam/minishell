@@ -9,8 +9,8 @@
 /* minor errors (between -3 and -254) */
 
 /* major errors (below -255) */
-# define ERR_PATH_MISSING -255		// PATH system env variable not set
-# define ERR_ENV_NOT_SET -256		// other expected system env var not set
+# define ERR_PATH_MISSING -255		// unused: PATH environment variable not set
+# define ERR_ENV_NOT_SET -256		// other expected environment var not set
 
 /* TODO change these error codes */
 # define PARSE_ERROR 258
