@@ -49,3 +49,16 @@ char	*find_var_name_end(char *str)
 		return (chr);
 	return (ft_strchr(str, '\0'));
 }
+
+int	set_mini_paths(t_mini *mini, t_ditem *list_item)
+{
+	if (mini->paths)
+		ft_free_double_ptr((void **)mini->paths);
+	mini->paths = ft_split(((t_envar *)list_item->content)->val, ':');
+	if (!mini->paths)
+	{
+		ft_dlstdelone(list_item, &free_envar);
+		return (0);
+	}
+	return (1);
+}

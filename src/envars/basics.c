@@ -1,6 +1,7 @@
 #include "libft.h"
 #include "structs.h"
 #include "utils.h"
+#include "envars.h"
 	#include <stdio.h>
 
 /**
@@ -57,7 +58,7 @@ int	replace_envar_value(t_envar *envar, char *new_val)
 {
 	if (!new_val)
 		return (0);
-	ft_free(envar->val);
+	ft_free(&envar->val);
 	envar->val = new_val;
 	if (!envar->val)
 		return (0);
@@ -72,12 +73,12 @@ int	replace_envar_value(t_envar *envar, char *new_val)
  * @param val The value of the variable to set
  * @return Returns 0 on failure, 1 on success
  */
-int	set_envar(t_dlist *envars, char *name, char *val)
+int	set_envar(t_mini *mini, char *name, char *val)
 {
 	t_envar		*envar;
 	t_ditem		*list_item;
 
-	envar = get_envar(envars, name);
+	envar = get_envar(mini->envars, name);
 	if (envar)
 		return (replace_envar_value(envar, ft_strdup(val)));
 	envar = ft_calloc(1, sizeof(t_envar));
@@ -92,6 +93,8 @@ int	set_envar(t_dlist *envars, char *name, char *val)
 		ft_dlstdelone(list_item, &free_envar);
 		return (0);
 	}
-	ft_dlstadd_back(envars, list_item);
+	if (envar->hash == PATH_HASH && !set_mini_paths(mini, list_item))
+		return (0);
+	ft_dlstadd_back(mini->envars, list_item);
 	return (1);
 }

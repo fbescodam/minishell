@@ -19,25 +19,6 @@ void	setup_signals(void)
 }
 
 /**
- * @brief Get the system PATH variable
- */
-char	**get_path(void)
-{
-	char	*env;
-	char	**paths;
-
-	env = getenv("PATH");
-	if (!env)
-		env = ft_calloc(1, sizeof(char));
-	if (!env)
-		force_exit(NULL, ENOMEM);
-	paths = ft_split(env, ':');
-	if (!paths)
-		force_exit(NULL, ENOMEM);
-	return (paths);
-}
-
-/**
  * @brief Export the envp variables into our environment variables list
  *
  * @param mini The main struct
@@ -50,7 +31,6 @@ int	setup_envars(t_mini *mini, char **envp)
 	char		*temp;
 	char		*equals;
 
-	mini->paths = get_path();
 	if (!envp)
 		return (1);
 	i = 1;
@@ -61,9 +41,15 @@ int	setup_envars(t_mini *mini, char **envp)
 			return (0);
 		equals = ft_strchr(temp, '=');
 		*equals = '\0';
-		set_envar(mini->envars, temp, equals + 1);
+		set_envar(mini, temp, equals + 1);
 		free(temp);
 		i++;
+	}
+	if (!mini->paths)
+	{
+		mini->paths = ft_split("", ':');
+		if (!mini->paths)
+			return (0);
 	}
 	return (1);
 }
