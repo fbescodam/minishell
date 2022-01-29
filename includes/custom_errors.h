@@ -15,6 +15,6 @@
 /* TODO change these error codes */
 # define PARSE_ERROR 258
 # define CMDNF 127
-# define RESERVED 95
+# define RESERVED -95
 
 #endif
