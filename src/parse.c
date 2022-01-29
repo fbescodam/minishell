@@ -10,34 +10,44 @@
 // if " is found, check if it closes, if not parse error
 // if it closes add split until operator, but also add quoted text all in one string
 
+// this will not work now though because there is no difference in my parsing between "     " cat    and "     " | cat
+// "         " cat should stick together, "      " | cat should be two strings. Skip the characters within quotes
+// the parse_cmd stage will then separate them in different arguments
+
 int	double_quote_check(char *prompt, int first_quote_index)
 {
-	int	close_index;
+	int		close_index;
+	char	quote[2];
 
+	quote[0] = prompt[first_quote_index];
+	quote[1] = '\0';
 	prompt += (first_quote_index + 1);
-	close_index = scan_operators(prompt, "\"", 1);
+	close_index = scan_operators(prompt, quote, 0);
 	if (prompt[close_index] == '\0')
 		return (-1);
-	return (first_quote_index);
+	return (first_quote_index + close_index);
 }
 
 int	next_operator_index(char *prompt, char *set)
 {
 	int		next_operator;
+	int		end_quote_index;
 
+	end_quote_index = 0;
 	next_operator = skip_chars(prompt, " ") - prompt;
 	if (prompt[next_operator] == '\0')
 		return (0);
 	if (prompt[next_operator] == *set)
 		return (-1);
-	next_operator = scan_operators(prompt, set, 1);
-	if (prompt[next_operator] == '\"' || prompt[next_operator] == '\'')
-		return (double_quote_check(prompt, next_operator));
-	if (prompt[next_operator] == '\0')
-		return (next_operator);
-	if (prompt[next_operator + 1] == *set)
+	next_operator = scan_operators(prompt, "\'\"", 0);
+	if (prompt[next_operator] != '\0')
+		end_quote_index = double_quote_check(prompt, next_operator);
+	next_operator = scan_operators(prompt + end_quote_index, set, 0);
+	if (prompt[end_quote_index + next_operator] == '\0')
+		return (end_quote_index + next_operator);
+	if (prompt[next_operator + end_quote_index + 1] == *set)
 		return (-1);
-	return(next_operator);
+	return(next_operator + end_quote_index);
 }
 
 //function that splits string until index, adds split string to an array
@@ -88,11 +98,11 @@ int	split_prompt(char *from, char ***to, char *set)
 		if (ret != 0)
 			return (ret);
 		from += nxt_op;
-		if (*from == '\"' || *from == '\'')
-			ret = add_quoted_string(from, to);
-		if (ret < 0)
-			return (ENOMEM);
-		from += ret;
+		//if (*from == '\"' || *from == '\'')
+		//	ret = add_quoted_string(from, to);
+		//if (ret < 0)
+		//	return (ENOMEM);
+		//from += ret;
 		if (*from != '\0')
 			from++;
 	}
@@ -113,6 +123,7 @@ int	parse_prompt(t_mini *mini, char *prompt)
 		if (ret != 0)
 			return (ret);
 		print_char_array(prompt_split);
+		//ret = setup_cmds(mini, prompt_split);
 	}
 	//system("leaks minishell");
 	return (0);
