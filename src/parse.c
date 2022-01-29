@@ -31,7 +31,7 @@ int	next_operator_index(char *prompt, char *set)
 	if (prompt[next_operator] == *set)
 		return (-1);
 	next_operator = scan_operators(prompt, set, 1);
-	if (prompt[next_operator] == '\"')
+	if (prompt[next_operator] == '\"' || prompt[next_operator] == '\'')
 		return (double_quote_check(prompt, next_operator));
 	if (prompt[next_operator] == '\0')
 		return (next_operator);
@@ -40,7 +40,7 @@ int	next_operator_index(char *prompt, char *set)
 	return(next_operator);
 }
 
-//function that adds split string until index, adds split string to an array
+//function that splits string until index, adds split string to an array
 int		split_and_add(char *from, char ***to, int split_index)
 {
 	char	*split;
@@ -73,22 +73,22 @@ int		add_quoted_string(char *from, char ***to)
 int	split_prompt(char *from, char ***to, char *set)
 {
 	int		ret;
-	int		next_operator;
+	int		nxt_op;
 	char	*split;
 
 	ret = 0;
 	while (*from)
 	{
-		next_operator = next_operator_index(from, set);
-		if (next_operator < 0)
+		nxt_op = next_operator_index(from, set);
+		if (nxt_op < 0)
 			return(PARSE_ERROR);
-		if (next_operator == 0 && from[next_operator] != '\"')
+		if (nxt_op == 0 && from[nxt_op] != '\"' && from[nxt_op] != '\'')
 			return (0);
-		ret = split_and_add(from, to, next_operator);
+		ret = split_and_add(from, to, nxt_op);
 		if (ret != 0)
 			return (ret);
-		from += next_operator;
-		if (*from == '\"')
+		from += nxt_op;
+		if (*from == '\"' || *from == '\'')
 			ret = add_quoted_string(from, to);
 		if (ret < 0)
 			return (ENOMEM);
@@ -97,7 +97,6 @@ int	split_prompt(char *from, char ***to, char *set)
 			from++;
 	}
 	return (0);
-	
 }
 
 int	parse_prompt(t_mini *mini, char *prompt)
@@ -110,7 +109,7 @@ int	parse_prompt(t_mini *mini, char *prompt)
 		prompt_split = ft_calloc(1, sizeof(char *));
 		if (!prompt_split)
 			force_exit(mini, ENOMEM);
-		ret = split_prompt(prompt, &prompt_split, ";");
+		ret = split_prompt(prompt, &prompt_split, "|");
 		if (ret != 0)
 			return (ret);
 		print_char_array(prompt_split);
