@@ -1,7 +1,7 @@
 #include "custom_errors.h"
 #include "../libft/libft.h"
 
-int		scan_operators(char *prompt, char *operators)
+int		scan_operators(char *prompt, char *operators, int quote_is_operator)
 {
 	int	i;
 	int	k;
@@ -13,6 +13,8 @@ int		scan_operators(char *prompt, char *operators)
 		while (operators[k])
 		{
 			if (prompt[i] == operators[k])
+				return (i);
+			if (prompt[i] == '\"' && quote_is_operator)
 				return (i);
 			k++;
 		}

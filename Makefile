@@ -15,7 +15,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS) $(HEADERS) libft/libft.a
 	$(CC) $(CFLAGS) $(INCLUDES) $(SRCS) -lreadline \
-	-L /Users/$(USER)/.brew/opt/readline/lib libft/libft.a -o $(NAME) -fsanitize=address
+	-L /Users/$(USER)/.brew/opt/readline/lib libft/libft.a -o $(NAME) 
 
 obj/%.o: src/%.c
 	@mkdir -p $(dir $@)
