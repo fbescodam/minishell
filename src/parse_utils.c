@@ -14,7 +14,7 @@ int		scan_operators(char *prompt, char *operators, int quote_is_operator)
 		{
 			if (prompt[i] == operators[k])
 				return (i);
-			if (prompt[i] == '\"' && quote_is_operator)
+			if ((prompt[i] == '\"' || prompt[i] == '\'') && quote_is_operator)
 				return (i);
 			k++;
 		}
