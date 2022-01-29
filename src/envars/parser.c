@@ -63,8 +63,6 @@ static int	replace_str_with_parsed(char **str, char *parsed_str, char *var_end)
 		ft_free(*str);
 		*str = parsed_str;
 	}
-	remove_character(str, '\'');
-	remove_character(str, '\"');
 	return (0);
 }
 

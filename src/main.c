@@ -22,10 +22,11 @@ int	main(int argc, char **argv, char **envp)
 		prompt = readline("\x1b[1mminishell> \x1b[0m");
 		if (!prompt)
 			force_exit(&mini, 0);
+		add_history(prompt);
+		parse_envars(mini.envars, &prompt);
 		ret = parse_prompt(&mini, prompt);
 		if (ret != 0)
 			error_manager(&mini, ret);
-		parse_envars(mini.envars, &prompt);
 		//printf("prompt: \"%s\"\n", prompt);
 		ft_free(prompt);
 	}
