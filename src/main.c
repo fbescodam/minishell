@@ -23,11 +23,16 @@ int	main(int argc, char **argv, char **envp)
 		if (!prompt)
 			force_exit(&mini, 0);
 		add_history(prompt);
-		parse_envars(mini.envars, &prompt);
-		ret = parse_prompt(&mini, prompt);
+		ret = parse_envars(mini.envars, &prompt);
 		if (ret != 0)
 			error_manager(&mini, ret);
-		//printf("prompt: \"%s\"\n", prompt);
+		else
+		{
+			ret = parse_prompt(&mini, prompt);
+			if (ret != 0)
+				error_manager(&mini, ret);
+			//printf("prompt: \"%s\"\n", prompt);
+		}
 		ft_free(prompt);
 	}
 }
