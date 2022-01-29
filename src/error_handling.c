@@ -8,6 +8,7 @@
 void	force_exit(t_mini *mini, int err)
 {
 	free_mini(mini);
+	system("leaks minishell");
 	exit(err);
 }
 

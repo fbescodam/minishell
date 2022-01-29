@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/25 18:37:06 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/25 23:06:35 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/29 20:50:39 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,14 @@
 void	ft_dlstiter(t_dlist *list, void (*f)(void *))
 {
 	t_ditem	*item;
+	size_t	i;
 
+	i = 0;
 	item = list->first;
-	while (item)
+	while (i < list->size)
 	{
 		(*f)(item->content);
 		item = item->next;
+		i++;
 	}
 }

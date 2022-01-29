@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/25 21:48:31 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/25 22:01:02 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/29 20:50:13 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,14 @@ t_dlist	*ft_dlstmap(t_dlist *list, void *(*f)(void *), void (*del)(void *))
 	t_dlist	*new_list;
 	t_ditem	*old_elem;
 	t_ditem	*new_elem;
+	size_t	i;
 
 	new_list = ft_dlstnew();
 	if (!new_list)
 		return (NULL);
+	i = 0;
 	old_elem = list->first;
-	while (old_elem)
+	while (i < list->size)
 	{
 		new_elem = ft_ditemnew((*f)(old_elem->content));
 		if (!new_elem)
@@ -41,6 +43,7 @@ t_dlist	*ft_dlstmap(t_dlist *list, void *(*f)(void *), void (*del)(void *))
 		}
 		ft_dlstadd_back(new_list, new_elem);
 		old_elem = old_elem->next;
+		i++;
 	}
 	return (new_list);
 }

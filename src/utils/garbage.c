@@ -30,7 +30,6 @@ void	free_cmd(void *cmd)
 
 void	free_envar(void *envar)
 {
-	return ;			// TODO: free envars after reimplementing them
 	if (!envar)
 		return ;
 	ft_free(((t_envar *)envar)->name);

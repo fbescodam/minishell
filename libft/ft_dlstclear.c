@@ -6,12 +6,13 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/25 18:12:34 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/25 23:04:21 by fbes          ########   odam.nl         */
+/*   Updated: 2022/01/29 20:57:03 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libft.h"
+	#include <stdio.h>
 
 /**
  * Clear a double linked list and free the entirity of its existence
@@ -22,15 +23,18 @@ void	ft_dlstclear(t_dlist *list, void (*del)(void *))
 {
 	t_ditem		*item;
 	t_ditem		*next_item;
+	size_t		i;
 
 	if (list)
 	{
+		i = 0;
 		item = list->first;
-		while (item)
+		while (i < list->size)
 		{
 			next_item = item->next;
-			del(item);
+			ft_dlstdelone(item, del);
 			item = next_item;
+			i++;
 		}
 		free(list);
 	}
