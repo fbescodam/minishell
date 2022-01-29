@@ -1,7 +1,7 @@
 #ifndef ENVARS_H
 # define ENVARS_H
 
-# include "../libft/libft.h"
+# include "libft.h"
 # include "structs.h"
 
 # define PATH_HASH 0x68081897

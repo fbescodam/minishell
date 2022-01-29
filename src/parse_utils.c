@@ -1,5 +1,5 @@
 #include "custom_errors.h"
-#include "../libft/libft.h"
+#include "libft.h"
 
 int		scan_operators(char *prompt, char *operators, int quote_is_operator)
 {

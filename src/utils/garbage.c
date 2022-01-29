@@ -1,6 +1,6 @@
 #include "structs.h"
 // #include "tokens.h"
-#include "../libft/libft.h"
+#include "libft.h"
 
 /**
  * @brief Free a token struct. The contents are not freed if flag is CMD, as
