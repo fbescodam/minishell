@@ -18,11 +18,14 @@ int	main(int argc, char **argv, char **envp)
 	setup_mini(&mini, envp);
 	while (1)
 	{
-		setup_signals();
-		prompt = readline("\x1b[1mminishell> \x1b[0m");
+		setup_signals(&mini);
+		prompt = readline("\001\x1b[1m\002minishell> \001\x1b[0m\002");
 		if (!prompt)
 			force_exit(&mini, 0);
 		add_history(prompt);
+		ret = parse_set_envars_b4_comm(&mini, &prompt);
+		if (ret != 0)
+			error_manager(&mini, ret);
 		ret = parse_envars(mini.envars, &prompt);
 		if (ret != 0)
 			error_manager(&mini, ret);
@@ -31,7 +34,7 @@ int	main(int argc, char **argv, char **envp)
 			ret = parse_prompt(&mini, prompt);
 			if (ret != 0)
 				error_manager(&mini, ret);
-			//printf("prompt: \"%s\"\n", prompt);
+			printf("prompt: \"%s\"\n", prompt);
 		}
 		ft_free(prompt);
 	}

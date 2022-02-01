@@ -4,7 +4,7 @@ SRCS =		src/utils/debugging.c src/error_handling.c src/main.c src/setup.c \
 			src/signal_handler.c src/utils/garbage.c src/envars/basics.c \
 			src/envars/parser.c src/utils/strings.c src/envars/helpers.c \
 			src/parse.c src/parse_utils.c src/utils/char_array_utils.c \
-			src/setup_cmds.c src/parse_redirections.c
+			src/setup_cmds.c src/parse_redirections.c src/envars/set.c
 
 INCLUDES =	-I includes -I libft -I /Users/$(USER)/.brew/opt/readline/include
 
@@ -16,7 +16,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS) $(HEADERS) libft/libft.a
 	$(CC) $(CFLAGS) $(INCLUDES) $(SRCS) -lreadline \
-	-L /Users/$(USER)/.brew/opt/readline/lib libft/libft.a -o $(NAME) 
+	-L /Users/$(USER)/.brew/opt/readline/lib libft/libft.a -o $(NAME)
 
 obj/%.o: src/%.c
 	@mkdir -p $(dir $@)

@@ -49,3 +49,30 @@ int	remove_character(char **str, char rem)
 	}
 	return (any_change);
 }
+
+/**
+ * @brief Replace spaces with the NULL character if they're not in between
+ * apostrophes. To be used with ft_strmapi.
+ *
+ * @param pos The position of the character in the string
+ * @param c The character in the string
+ * @return The character to replace the current position with
+ */
+char	replace_space_with_null(unsigned int pos, char c)
+{
+	static char		in_quotes;
+	static char		last_quote;
+
+	if (pos == 0)
+		in_quotes = 0;
+	if (!in_quotes && (c == '\"' || c == '\''))
+	{
+		in_quotes = 1;
+		last_quote = c;
+	}
+	else if (in_quotes && c == last_quote)
+		in_quotes = 0;
+	else if (!in_quotes && c == ' ')
+		return ('\0');
+	return (c);
+}

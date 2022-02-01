@@ -58,7 +58,7 @@ int	replace_envar_value(t_envar *envar, char *new_val)
 {
 	if (!new_val)
 		return (0);
-	ft_free(&envar->val);
+	ft_free(envar->val);
 	envar->val = new_val;
 	if (!envar->val)
 		return (0);
@@ -68,12 +68,13 @@ int	replace_envar_value(t_envar *envar, char *new_val)
 /**
  * @brief Add a variable to the list of environment variables
  *
- * @param envars The list of environment variables
+ * @param mini The main mini struct
  * @param name The name of the variable to set
  * @param val The value of the variable to set
+ * @param export Whether or not the variable should be exported to execve
  * @return Returns 0 on failure, 1 on success
  */
-int	set_envar(t_mini *mini, char *name, char *val)
+int	set_envar(t_mini *mini, char *name, char *val, int export)
 {
 	t_envar		*envar;
 	t_ditem		*list_item;
@@ -87,6 +88,7 @@ int	set_envar(t_mini *mini, char *name, char *val)
 	envar->hash = ft_strhash(name, ft_strlen(name));
 	envar->name = ft_strdup(name);
 	envar->val = ft_strdup(val);
+	envar->export = export;
 	list_item = ft_ditemnew(envar);
 	if (!list_item || !envar->name || !envar->val)
 	{
