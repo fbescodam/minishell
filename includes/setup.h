@@ -5,6 +5,6 @@
 
 
 int			setup_mini(t_mini *mini, char **envp);
-int			setup_signals(void);
+int			setup_signals(t_mini *mini);
 
 #endif

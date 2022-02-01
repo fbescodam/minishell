@@ -7,15 +7,23 @@
 
 /**
   * @brief Assigns signal-handling functions to signals
+  * SIGINT = Ctrl + C, interrupt process
+  * SIGTERM = terminate software
+  * SIGABRT = abort program
+  * SIGQUIT = quit program
+  * SIGTSTP = stop signal generated from keyboard
   */
-void	setup_signals(void)
+void	setup_signals(t_mini *mini)
 {
-	signal(SIGTERM, sig_handler);
-	signal(SIGHUP, sig_handler);
-	signal(SIGINT, sig_handler);
-	signal(SIGABRT, sig_handler);
-	signal(SIGQUIT, sig_handler);
-	signal(SIGTSTP, sig_handler);
+	if (signal(SIGTERM, sig_handler) == SIG_ERR ||
+		signal(SIGABRT, sig_handler) == SIG_ERR ||
+		signal(SIGQUIT, sig_handler) == SIG_ERR ||
+		signal(SIGTSTP, sig_handler) == SIG_ERR ||
+		signal(SIGINT, sig_handler) == SIG_ERR)
+	{
+		error_manager(mini, errno);
+		force_exit(mini, errno);
+	}
 }
 
 /**

@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "readline/readline.h"
@@ -11,7 +10,10 @@ void	force_exit(t_mini *mini, int err)
 	free_mini(mini);
 	rl_clear_history();
 	system("leaks minishell");
-	exit(err);
+	if (!err)
+		exit(mini->status);
+	else
+		exit(err);
 }
 
 void	error_manager(t_mini *mini, int err)

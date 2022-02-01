@@ -18,7 +18,7 @@ int	main(int argc, char **argv, char **envp)
 	setup_mini(&mini, envp);
 	while (1)
 	{
-		setup_signals();
+		setup_signals(&mini);
 		prompt = readline("\001\x1b[1m\002minishell> \001\x1b[0m\002");
 		if (!prompt)
 			force_exit(&mini, 0);
