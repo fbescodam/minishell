@@ -37,4 +37,8 @@ typedef struct s_cmd
 	int		argc;
 }				t_cmd;
 
+#define OUT_FILE 1
+#define IN_FILE 2
+#define IN_FILE_DOUBLE 3
+
 #endif
