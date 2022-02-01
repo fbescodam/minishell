@@ -2,8 +2,7 @@
 - if a path contains a / character, assume it's absolute or relative and try and access the file, DO NOT look in path and if it does not, then only check path
 - add support for export var_name after setting var_name with just var_name=value (setting it without export)
 - send environment variables with execve
-- fix line overflow in readline
 - make "'"' work: should have an ' as one argument and then error out because of an unclosed ' parameter
-- Ctrl + C should not clear the entire command, should only remove the ^C
+- //// Ctrl + C should not clear the entire command, should only remove the ^C (should it really?)
 - test with: "< /usr/share/dict/words cat | cat > out" (should not get stuck)
 - ioctl to check pipe byte limit
