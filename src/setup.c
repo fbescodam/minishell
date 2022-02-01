@@ -49,7 +49,7 @@ int	setup_envars(t_mini *mini, char **envp)
 			return (0);
 		equals = ft_strchr(temp, '=');
 		*equals = '\0';
-		if (!set_envar(mini, temp, equals + 1))
+		if (!set_envar(mini, temp, equals + 1, 1))
 			return (0);
 		free(temp);
 		i++;
@@ -60,7 +60,7 @@ int	setup_envars(t_mini *mini, char **envp)
 		if (!mini->paths)
 			return (0);
 	}
-	if (!set_envar(mini, "?", "0"))
+	if (!set_envar(mini, "?", "0", 0))
 		return (0);
 	return (1);
 }

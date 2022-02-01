@@ -23,6 +23,9 @@ int	main(int argc, char **argv, char **envp)
 		if (!prompt)
 			force_exit(&mini, 0);
 		add_history(prompt);
+		ret = parse_set_envars_b4_comm(&mini, &prompt);
+		if (ret != 0)
+			error_manager(&mini, ret);
 		ret = parse_envars(mini.envars, &prompt);
 		if (ret != 0)
 			error_manager(&mini, ret);
@@ -31,7 +34,7 @@ int	main(int argc, char **argv, char **envp)
 			ret = parse_prompt(&mini, prompt);
 			if (ret != 0)
 				error_manager(&mini, ret);
-			//printf("prompt: \"%s\"\n", prompt);
+			printf("prompt: \"%s\"\n", prompt);
 		}
 		ft_free(prompt);
 	}

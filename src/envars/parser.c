@@ -66,9 +66,10 @@ static int	replace_str_with_parsed(char **str, char *parsed_str, char *var_end)
 }
 
 /**
- * @brief Find and replace environment variables in a string
+ * @brief Find and replace environment variables in a string, plus parse ones
+ * set with var=value before any commands
  *
- * @param envars A list of environment variables
+ * @param envars A list of environment variables to work with
  * @param str A pointer to the string to search and replace in
  * @return Returns 0 on success, everything else is an error (see error_manager)
  */

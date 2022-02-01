@@ -9,5 +9,6 @@ void	free_envar(void *envar);
 void	free_mini(t_mini *mini);
 int 	skip_over_single_quotes(char **str);
 int		remove_character(char **str, char rem);
+char	replace_space_with_null(unsigned int pos, char c);
 
 #endif

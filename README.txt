@@ -1,6 +1,5 @@
 - replace  write / printf errors with our custom fd_putstring function
 - if a path contains a / character, assume it's absolute or relative and try and access the file, DO NOT look in path and if it does not, then only check path
-- add support for export var_name after setting var_name with just var_name=value (setting it without export)
 - send environment variables with execve
 - make "'"' work: should have an ' as one argument and then error out because of an unclosed ' parameter
 - //// Ctrl + C should not clear the entire command, should only remove the ^C (should it really?)
