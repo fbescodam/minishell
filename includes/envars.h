@@ -14,5 +14,6 @@ int			replace_envar_value(t_envar *envar, char *new_val);
 int			set_envar(t_mini *mini, char *name, char *val);
 int			parse_envars(t_dlist *envars, char **str);
 int			set_mini_paths(t_mini *mini, t_ditem *list_item);
+void		set_mini_status(t_mini *mini, int status_code);
 
 #endif

@@ -1,5 +1,6 @@
 #include "libft.h"
 #include "utils.h"
+#include "envars.h"
 
 /**
  * @brief Find the start of a variable name in a string
@@ -61,4 +62,17 @@ int	set_mini_paths(t_mini *mini, t_ditem *list_item)
 		return (0);
 	}
 	return (1);
+}
+
+void	set_mini_status(t_mini *mini, int status_code)
+{
+	t_envar	*quest;
+
+	mini->status = status_code;
+	quest = get_envar(mini->envars, "?");
+	if (quest)
+	{
+		ft_free(quest->val);
+		quest->val = ft_itoa(status_code);
+	}
 }

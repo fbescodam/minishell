@@ -6,3 +6,5 @@
 - //// Ctrl + C should not clear the entire command, should only remove the ^C (should it really?)
 - test with: "< /usr/share/dict/words cat | cat > out" (should not get stuck)
 - ioctl to check pipe byte limit
+- check if single quote is in between double quotes for envar parsing
+- envar parsing: test=b, test=b$test should set test to bb... but $test=a should not set b to a. for first thing, can use parse_envars with the string to set it to, should work as long as it's allocated
