@@ -32,26 +32,13 @@ int	add_string_to_array(char ***to, char *from)
 	while((*to)[i])
 	{
 		temp[i] = (*to)[i];
-		i++;	
+		i++;
 	}
 	ft_free(*to);
 	temp[i] = from;
 	temp[i + 1] = 0;
 	*to = temp;
 	return (0);
-}
-
-void	free_char_array(char **arr)
-{
-	int	i;
-
-	i = 0;
-	while (arr[i])
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
 }
 
 

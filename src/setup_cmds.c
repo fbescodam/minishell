@@ -53,7 +53,7 @@ int	add_params(char *prompt, int len, char ***dest)
 		ret = add_string_to_array(dest, split[i]);
 		if (ret != 0)
 		{
-			free_char_array(*dest);
+			ft_free_double_ptr(*dest);
 			return (-1);
 		}
 		i++;
@@ -70,7 +70,7 @@ int	parse_operator(char *prompt, int index, t_cmd *cmd)
 		ret = parse_input_redir(prompt + index, cmd);
 	//else if (prompt[index] == '<')
 	//	ret = parse_input_redir(prompt + index, cmd);
-	else if (prompt[index] == '\'' || prompt[index] == '\"') 
+	else if (prompt[index] == '\'' || prompt[index] == '\"')
 		ret = add_quoted_strings(prompt + index, &(cmd->params));
 	return(ret);
 }

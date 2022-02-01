@@ -7,7 +7,6 @@ void	free_token(void *token);
 void	free_cmd(void *cmd);
 void	free_envar(void *envar);
 void	free_mini(t_mini *mini);
-void	free_char_array(char **arr);
 int 	skip_over_single_quotes(char **str);
 char	*skip_chars(char *prompt, char *mask_set);
 int		remove_character(char **str, char rem);
