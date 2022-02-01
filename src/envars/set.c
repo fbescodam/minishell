@@ -73,7 +73,7 @@ static int	set_one_envar(t_mini *mini, char **str)
 	if (!equals_pos)
 		return (-1);
 	*equals_pos = '\0';
-	if (ft_strschr(*str, DISALLOWED_CHARS_IN_ENVAR_NAME))
+	if (!is_valid_env_name(*str))
 		return (-1);
 	temp = ft_strdup(equals_pos + 1);
 	if (!temp)

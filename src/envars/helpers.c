@@ -76,3 +76,19 @@ void	set_mini_status(t_mini *mini, int status_code)
 		quest->val = ft_itoa(status_code);
 	}
 }
+
+int	is_valid_env_name(char *name)
+{
+	size_t	i;
+
+	if (*name != '_' && !ft_isalpha(*name))
+		return (0);
+	i = 1;
+	while (name[i])
+	{
+		if (name[i] != '_' && !ft_isalnum(name[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}

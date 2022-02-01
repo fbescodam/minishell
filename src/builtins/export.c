@@ -25,7 +25,7 @@ int	mini_export(t_cmd *cmd)
 		else if (equals_pos)
 		{
 			*equals_pos = '\0';
-			if (ft_strschr(cmd->params[i], DISALLOWED_CHARS_IN_ENVAR_NAME))
+			if (!is_valid_env_name(cmd->params[i]))
 				printf("minishell: export: '%s': not a valid identifier\n",
 					cmd->params[i]);
 			else
