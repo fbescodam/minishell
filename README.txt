@@ -6,3 +6,4 @@
 - make "'"' work: should have an ' as one argument and then error out because of an unclosed ' parameter
 - Ctrl + C should not clear the entire command, should only remove the ^C
 - test with: "< /usr/share/dict/words cat | cat > out" (should not get stuck)
+- ioctl to check pipe byte limit

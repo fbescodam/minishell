@@ -25,7 +25,30 @@ int	double_quote_check(char *prompt, int first_quote_index)
 	close_index = scan_operators(prompt, quote, 0);
 	if (prompt[close_index] == '\0')
 		return (-1);
-	return (first_quote_index + close_index);
+	return (close_index + 1);
+}
+
+int	quote_search_index(char *prompt)
+{
+	int	nxt_quote;
+	int	end_quote_index;
+	int	ret;
+
+	nxt_quote = 0;
+	end_quote_index = 0;
+	ret = 0;
+	while(1)
+	{
+		nxt_quote = scan_operators(prompt + ret, "\'\"|", 0);
+		if (prompt[nxt_quote + ret] == '\0' || prompt[nxt_quote + ret] == '|')
+			return (ret);
+		ret += nxt_quote;
+		end_quote_index = double_quote_check(prompt, ret);	
+		if (end_quote_index < 0)
+			return (-1);
+		ret += end_quote_index;
+		ret++;
+	}
 }
 
 int	next_operator_index(char *prompt, char *set)
@@ -34,20 +57,21 @@ int	next_operator_index(char *prompt, char *set)
 	int		end_quote_index;
 
 	end_quote_index = 0;
+	next_operator = 0;
 	next_operator = skip_chars(prompt, " ") - prompt;
 	if (prompt[next_operator] == '\0')
 		return (0);
 	if (prompt[next_operator] == *set)
 		return (-1);
-	next_operator = scan_operators(prompt, "\'\"", 0);
-	if (prompt[next_operator] != '\0')
-		end_quote_index = double_quote_check(prompt, next_operator);
-	next_operator = scan_operators(prompt + end_quote_index, set, 0);
-	if (prompt[end_quote_index + next_operator] == '\0')
-		return (end_quote_index + next_operator);
-	if (prompt[next_operator + end_quote_index + 1] == *set)
+	next_operator = quote_search_index(prompt);
+	if (next_operator < 0)
 		return (-1);
-	return(next_operator + end_quote_index);
+	next_operator += scan_operators(prompt + next_operator, set, 0);
+	if (prompt[next_operator] == '\0')
+		return (next_operator);
+	if (prompt[next_operator + 1] == *set)
+		return (-1);
+	return(next_operator);
 }
 
 //function that splits string until index, adds split string to an array
@@ -68,18 +92,6 @@ int		split_and_add(char *from, char ***to, int split_index)
 	return (ret);
 }
 
-int		add_quoted_string(char *from, char ***to)
-{
-	int	close_index;
-	int	ret;
-
-	close_index = scan_operators(from + 1, "\"", 1);
-	ret = split_and_add(from, to, close_index + 1);
-	if (ret != 0)
-		return (-1);
-	return (close_index + 1);
-}
-
 int	split_prompt(char *from, char ***to, char *set)
 {
 	int		ret;
@@ -98,11 +110,6 @@ int	split_prompt(char *from, char ***to, char *set)
 		if (ret != 0)
 			return (ret);
 		from += nxt_op;
-		//if (*from == '\"' || *from == '\'')
-		//	ret = add_quoted_string(from, to);
-		//if (ret < 0)
-		//	return (ENOMEM);
-		//from += ret;
 		if (*from != '\0')
 			from++;
 	}
