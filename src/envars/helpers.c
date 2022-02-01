@@ -84,7 +84,7 @@ int	is_valid_env_name(char *name)
 	if (*name != '_' && !ft_isalpha(*name))
 		return (0);
 	i = 1;
-	while (name[i])
+	while (name[i] && name[i] != '=')
 	{
 		if (name[i] != '_' && !ft_isalnum(name[i]))
 			return (0);

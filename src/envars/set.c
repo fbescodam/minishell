@@ -66,22 +66,22 @@ static int	all_done(char *temp, int ret)
 static int	set_one_envar(t_mini *mini, char **str)
 {
 	char	*equals_pos;
-	char	*temp;
+	char	*value;
 	int		ret;
 
 	equals_pos = ft_strchr(*str, '=');
 	if (!equals_pos)
 		return (-1);
-	*equals_pos = '\0';
 	if (!is_valid_env_name(*str))
 		return (-1);
-	temp = ft_strdup(equals_pos + 1);
-	if (!temp)
+	*equals_pos = '\0';
+	value = ft_strdup(equals_pos + 1);
+	if (!value)
 		return (0);
-	if (parse_envars(mini->envars, &temp) != 0)
+	if (parse_envars(mini->envars, &value) != 0)
 		return (0);
-	ret = set_envar(mini, *str, temp, 0);
-	free(temp);
+	ret = set_envar(mini, *str, value, 0);
+	free(value);
 	*str = ft_strchr(equals_pos + 1, '\0');
 	return (ret);
 }
