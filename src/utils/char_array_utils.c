@@ -41,6 +41,19 @@ int	add_string_to_array(char ***to, char *from)
 	return (0);
 }
 
+void	free_char_array(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
+}
+
 
 /*
  * @brief Appends strings **from array **to array

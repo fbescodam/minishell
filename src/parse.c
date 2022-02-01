@@ -1,10 +1,11 @@
 #include "structs.h"
 #include "custom_errors.h"
-#include "parse.h"
 #include "debug.h"
 #include "error_handling.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "utils.h"
+#include "parse.h"
 
 // scan for ; and "
 // if " is found, check if it closes, if not parse error
@@ -43,7 +44,7 @@ int	quote_search_index(char *prompt)
 		if (prompt[nxt_quote + ret] == '\0' || prompt[nxt_quote + ret] == '|')
 			return (ret);
 		ret += nxt_quote;
-		end_quote_index = double_quote_check(prompt, ret);	
+		end_quote_index = double_quote_check(prompt, ret);
 		if (end_quote_index < 0)
 			return (-1);
 		ret += end_quote_index;
@@ -130,6 +131,7 @@ int	parse_prompt(t_mini *mini, char *prompt)
 		if (ret != 0)
 			return (ret);
 		print_char_array(prompt_split);
+		setup_cmds(mini, prompt_split);
 		//ret = setup_cmds(mini, prompt_split);
 	}
 	//system("leaks minishell");
