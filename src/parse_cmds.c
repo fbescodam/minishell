@@ -47,6 +47,7 @@ int	join_realloc(char **dest, char *src, char len)
 		return (-1);
 	free(*dest);
 	*dest = temp;
+	printf("%s DEST\n", *dest);
 	return (0);
 }
 
@@ -72,8 +73,6 @@ int	close_param(char **buff, char **prompt, int len, char ***dest)
 {
 	int	err;
 
-	printf("PROMPT IN CLOsE PARAM:%s\n", *prompt);
-	printf("LEN:%d\n", len);
 	err = join_realloc(buff, *prompt, len);
 	if (err != 0)
 		return (-1);
@@ -81,10 +80,8 @@ int	close_param(char **buff, char **prompt, int len, char ***dest)
 	if (err != 0)
 		return (-1);
 	*prompt += len;
-	printf("PROMPT AFTER ADD : %s\n", *prompt);
 	while (**prompt == ' ')
 		(*prompt)++;
-	printf("GODDAMN\n");
 	return (0);
 }
 
@@ -94,15 +91,14 @@ int	handle_quotes(char **buff, char **prompt, int quote_pos)
 	int		err;
 	int		str_len;
 
-	printf("QUOTEPOS : %s:\n", *prompt + quote_pos);
-	err = get_quoted_string(*prompt + quote_pos, &quoted_string);
-	printf("QUOTEDSTRING: %s:\n", quoted_string);
-	printf("STRLEN: %d\n", str_len);
+	err = join_realloc(buff, *prompt, quote_pos);
 	if (err < 0)
 		return (-1);
-	printf("GOTHERE\n");
+	err = get_quoted_string(*prompt + quote_pos, &quoted_string);
+	if (err < 0)
+		return (-1);
 	str_len = ft_strlen(quoted_string);
-	err = join_realloc(buff, quoted_string, str_len -2);
+	err = join_realloc(buff, quoted_string, str_len);
 	free(quoted_string);
 	if (err != 0)
 		return (-1);
@@ -125,21 +121,25 @@ int	parse_params(char *prompt, char ***dest)
 	err = 0;
 	while (1)
 	{
-		printf("PROMPT:%s:", prompt);
-		if (*prompt == '\0')
-			break;
+		//if (*prompt == '\0')
+		//	break;
+		printf("BUFF:%s\n", buff);
 		nxt_delim = scan_operators(prompt, " <>", 0);
 		nxt_quote = scan_operators(prompt, "\'\"", 0);
 		if (nxt_delim <= nxt_quote)
 			err = close_param(&buff, &prompt, nxt_delim, dest);
 		else
 			err = handle_quotes(&buff, &prompt, nxt_quote);
-		if (*prompt == '<' || *prompt == '>')
+		if (*prompt == '<' || *prompt == '>' || *prompt == '\0')
 			break;
 		if (err != 0)
 			return (-1);
 	}
-	printf("prompt - start:%ld\n", prompt - prompt_start);
+	if (*buff)
+		err = add_param(&buff, dest);
+	if (err != 0)
+		return (-1);
+	free(buff);
 	return(prompt - prompt_start);
 }
 
