@@ -1,17 +1,42 @@
 #include <stdlib.h>
 #include "libft.h"
+	#include <stdio.h>
+
+/**
+ * @brief Get the next single quote in a string, skipping over double quotes
+ *
+ * @param str The string to search in
+ * @return A pointer to the next single quote in the string
+ */
+char	*get_next_single_quote(char *str)
+{
+	char	is_in_dquotes;
+	char	*temp;
+
+	is_in_dquotes = 0;
+	temp = str;
+	while (*temp)
+	{
+		if (*temp == '"')
+			is_in_dquotes = !is_in_dquotes;
+		else if (!is_in_dquotes && *temp == '\'')
+			return (temp);
+		temp++;
+	}
+	return (NULL);
+}
 
 /**
  * @brief Skip over single quotes in a string
  *
- * @param str The string
+ * @param str The string, starting at the first ' character
  * @return Returns 0 if no single quotes found in string
  */
 int skip_over_single_quotes(char **str)
 {
 	char	*temp;
 
-	temp = ft_strchr(*str + 1, '\'');
+	temp = get_next_single_quote(*str + 1);
 	if (!temp)
 		return (0);
 	*str = temp;

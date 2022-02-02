@@ -4,6 +4,7 @@
 #include "utils.h"
 #include "envars.h"
 #include "custom_errors.h"
+	#include <stdio.h>
 
 static int	parse_envar_fail(char *parsed_str, int err)
 {
@@ -39,6 +40,7 @@ static int	fetch_n_replace_envar(t_dlist *envars, char **parsed_str,
 	if (!*var_end)
 		return (PARSE_ERROR);
 	var_name = ft_substr(*var_start + 1, 0, *var_end - *var_start - 1);
+	//printf("var_name: \"%s\"\n", var_name);
 	if (!var_name)
 		return (ENOMEM);
 	temp = ft_strchr(var_name, '}');
@@ -49,7 +51,7 @@ static int	fetch_n_replace_envar(t_dlist *envars, char **parsed_str,
 	if (envar && !join_parsed_str(parsed_str, envar->val))
 		return (ENOMEM);
 	if (!find_var_name_start(*var_start + 1, var_start))
-		return (PARSE_ERROR);
+		return (0);
 	return (0);
 }
 
@@ -84,7 +86,7 @@ int	parse_envars(t_dlist *envars, char **str)
 	if (!parsed_str)
 		return (parse_envar_fail(parsed_str, ENOMEM));
 	if (!find_var_name_start(*str, &var_start))
-		return (parse_envar_fail(parsed_str, PARSE_ERROR));
+		return (parse_envar_fail(parsed_str, 0));
 	var_end = *str;
 	while (var_start && *var_start)
 	{

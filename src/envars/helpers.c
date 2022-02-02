@@ -1,6 +1,7 @@
 #include "libft.h"
 #include "utils.h"
 #include "envars.h"
+	#include <stdio.h>
 
 /**
  * @brief Find the start of a variable name in a string
@@ -12,16 +13,24 @@
 int	find_var_name_start(char *str, char **var_start)
 {
 	char	*dollar;
+	char	*squote;
 
-	dollar = ft_strschr(str, "$\'");
-	while (dollar && *dollar != '$')
+	squote = get_next_single_quote(str);
+	dollar = ft_strchr(str, '$');
+	//printf("before dollar: %p %s\n", dollar, dollar);
+	//printf("before squote: %p %s\n", squote, squote);
+	while (dollar && squote && squote < dollar)
 	{
-		if (!*dollar)
-			break ;
-		if (dollar && *dollar == '\'' && !skip_over_single_quotes(&dollar))
+		str = get_next_single_quote(squote + 1);
+		if (!str)
 			return (0);
-		dollar = ft_strschr(dollar + 1, "$\'");
+		dollar = ft_strchr(str, '$');
+		squote = get_next_single_quote(str + 1);
+		//printf("while dollar: %p %s\n", dollar, dollar);
+		//printf("while squote: %p %s\n", squote, squote);
 	}
+	//printf("after dollar: %p %s\n", dollar, dollar);
+	//printf("after squote: %p %s\n", squote, squote);
 	if (dollar && *(dollar + 1) == '{')
 		dollar++;
 	*var_start = dollar;
@@ -45,7 +54,7 @@ char	*find_var_name_end(char *str)
 			chr++;
 		return (chr);
 	}
-	chr = ft_strschr(str, " $=\"");
+	chr = ft_strschr(str, " $=\"\'");
 	if (chr)
 		return (chr);
 	return (ft_strchr(str, '\0'));

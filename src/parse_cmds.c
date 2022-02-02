@@ -150,9 +150,10 @@ int	parse_operator(char *prompt, int index, t_cmd *cmd)
 	if (prompt[index] == '<')
 		ret = parse_input_redir(prompt + index, cmd);
 	//else if (prompt[index] == '<')
-	//	ret = parse_input_redir(prompt + index, cmd);
+	//	ret = parse_input_redir(prompt + index, cmd);åå
 	//else if (prompt[index] == '\'' || prompt[index] == '\"') 
 	//	ret = add_quoted_strings(prompt + index, &(cmd->params));
+
 	return(ret);
 }
 
