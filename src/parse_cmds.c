@@ -53,7 +53,7 @@ int	add_params(char *prompt, int len, char ***dest)
 		ret = add_string_to_array(dest, split[i]);
 		if (ret != 0)
 		{
-			ft_free_double_ptr(*dest);
+			free_char_array(*dest);
 			return (-1);
 		}
 		i++;
@@ -70,7 +70,7 @@ int	parse_operator(char *prompt, int index, t_cmd *cmd)
 		ret = parse_input_redir(prompt + index, cmd);
 	//else if (prompt[index] == '<')
 	//	ret = parse_input_redir(prompt + index, cmd);
-	else if (prompt[index] == '\'' || prompt[index] == '\"')
+	else if (prompt[index] == '\'' || prompt[index] == '\"') 
 		ret = add_quoted_strings(prompt + index, &(cmd->params));
 	return(ret);
 }
@@ -103,7 +103,7 @@ int	parse_cmd(t_list *cmd, char *prompt)
 		index += ret;
 	}
 	print_char_array(current_cmd->params);
-	return (ret);
+	return (0);
 }
 
 t_list	*new_cmd(t_mini *mini)
@@ -144,7 +144,7 @@ int	setup_cmds(t_mini *mini, char **prompts)
 		//if (i > 0)
 		//	pipe_in(current_cmd->content, &fd);
 		ret = parse_cmd(current_cmd, prompts[i]);
-		if (ret != 0 && ret != -1)
+		if (ret != 0)
 			return (ret);
 		//if (commands[i + 1])
 		//	pipe_out(current_cmd->content, &fd);

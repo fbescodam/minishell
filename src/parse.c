@@ -131,9 +131,12 @@ int	parse_prompt(t_mini *mini, char *prompt)
 		if (ret != 0)
 			return (ret);
 		print_char_array(prompt_split);
-		setup_cmds(mini, prompt_split);
+		ret = setup_cmds(mini, prompt_split);
+		if (ret == -1)
+			return (ENOMEM);
+		if (ret == -2)
+			return (PARSE_ERROR);
 		//ret = setup_cmds(mini, prompt_split);
 	}
-	//system("leaks minishell");
 	return (0);
 }
