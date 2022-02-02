@@ -33,33 +33,114 @@ int	add_quoted_strings(char *prompt, char ***dest)
 	}
 }
 
-int	add_params(char *prompt, int len, char ***dest)
+int	join_realloc(char **dest, char *src, char len)
 {
-	char	*sub;
-	char	**split;
-	int		i;
-	int		ret;
+	char	*temp;
+	char	*split;
 
-	sub = ft_substr(prompt, 0, len);
-	if (!sub)
-		return (-1);
-	split = ft_split(sub, ' ');
-	free(sub);
+	split = ft_substr(src, 0, len);
 	if (!split)
 		return (-1);
-	i = 0;
-	while (split[i])
-	{
-		ret = add_string_to_array(dest, split[i]);
-		if (ret != 0)
-		{
-			free_char_array(*dest);
-			return (-1);
-		}
-		i++;
-	}
+	temp = ft_strjoin(*dest, split);
 	free(split);
-	return (len);
+	if (!temp)
+		return (-1);
+	free(*dest);
+	*dest = temp;
+	return (0);
+}
+
+int	add_param(char **param_buffer, char ***dest)
+{
+	char	*param;
+	int		err;
+
+	param = ft_strdup(*param_buffer);
+	if (!param)
+		return (-1);
+	err = add_string_to_array(dest, param);
+	free(*param_buffer);
+	if (err != 0)
+		return (-1);
+	*param_buffer = ft_strdup("");
+	if (!*param_buffer)
+		return (-1);
+	return (0);
+}
+
+int	close_param(char **buff, char **prompt, int len, char ***dest)
+{
+	int	err;
+
+	printf("PROMPT IN CLOsE PARAM:%s\n", *prompt);
+	printf("LEN:%d\n", len);
+	err = join_realloc(buff, *prompt, len);
+	if (err != 0)
+		return (-1);
+	err = add_param(buff, dest);
+	if (err != 0)
+		return (-1);
+	*prompt += len;
+	printf("PROMPT AFTER ADD : %s\n", *prompt);
+	while (**prompt == ' ')
+		(*prompt)++;
+	printf("GODDAMN\n");
+	return (0);
+}
+
+int	handle_quotes(char **buff, char **prompt, int quote_pos)
+{
+	char	*quoted_string;
+	int		err;
+	int		str_len;
+
+	printf("QUOTEPOS : %s:\n", *prompt + quote_pos);
+	err = get_quoted_string(*prompt + quote_pos, &quoted_string);
+	printf("QUOTEDSTRING: %s:\n", quoted_string);
+	printf("STRLEN: %d\n", str_len);
+	if (err < 0)
+		return (-1);
+	printf("GOTHERE\n");
+	str_len = ft_strlen(quoted_string);
+	err = join_realloc(buff, quoted_string, str_len -2);
+	free(quoted_string);
+	if (err != 0)
+		return (-1);
+	*prompt += str_len + quote_pos + 2;
+	return (0);
+}
+
+int	parse_params(char *prompt, char ***dest)
+{
+	char	*prompt_start;
+	char	*buff;
+	int		nxt_delim;
+	int		nxt_quote;
+	int		err;
+
+	prompt_start = prompt;
+	buff = ft_strdup("");
+	if (!buff)
+		return (-1);
+	err = 0;
+	while (1)
+	{
+		printf("PROMPT:%s:", prompt);
+		if (*prompt == '\0')
+			break;
+		nxt_delim = scan_operators(prompt, " <>", 0);
+		nxt_quote = scan_operators(prompt, "\'\"", 0);
+		if (nxt_delim <= nxt_quote)
+			err = close_param(&buff, &prompt, nxt_delim, dest);
+		else
+			err = handle_quotes(&buff, &prompt, nxt_quote);
+		if (*prompt == '<' || *prompt == '>')
+			break;
+		if (err != 0)
+			return (-1);
+	}
+	printf("prompt - start:%ld\n", prompt - prompt_start);
+	return(prompt - prompt_start);
 }
 
 int	parse_operator(char *prompt, int index, t_cmd *cmd)
@@ -70,8 +151,8 @@ int	parse_operator(char *prompt, int index, t_cmd *cmd)
 		ret = parse_input_redir(prompt + index, cmd);
 	//else if (prompt[index] == '<')
 	//	ret = parse_input_redir(prompt + index, cmd);
-	else if (prompt[index] == '\'' || prompt[index] == '\"') 
-		ret = add_quoted_strings(prompt + index, &(cmd->params));
+	//else if (prompt[index] == '\'' || prompt[index] == '\"') 
+	//	ret = add_quoted_strings(prompt + index, &(cmd->params));
 	return(ret);
 }
 
@@ -89,9 +170,7 @@ int	parse_cmd(t_list *cmd, char *prompt)
 		return (ENOMEM);
 	while (prompt[index])
 	{
-		ret = scan_operators(prompt + index, "\'\"<>", 0);
-		if (ret != 0)
-			ret = add_params(prompt + index, ret, &(current_cmd->params));
+		ret = parse_params(prompt, &(current_cmd->params));
 		if (ret < 0)
 			return (ret);
 		index += ret;

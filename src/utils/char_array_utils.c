@@ -24,6 +24,8 @@ int	add_string_to_array(char ***to, char *from)
 	char	**temp;
 	int		i;
 
+	if (!from)
+		return (-1);
 	i = 0;
 	arr_size = char_array_len(*to);
 	temp = ft_calloc(arr_size + 2, sizeof(char *));
