@@ -1,5 +1,6 @@
 #include "custom_errors.h"
 #include "libft.h"
+#include <stdlib.h>
 
 int		scan_operators(char *prompt, char *operators, int quote_is_operator)
 {
@@ -45,4 +46,21 @@ char	*skip_chars(char *prompt, char *mask_set)
 	}
 	return (prompt + i);
 
+}
+
+int	join_realloc(char **dest, char *src, char len)
+{
+	char	*temp;
+	char	*split;
+
+	split = ft_substr(src, 0, len);
+	if (!split)
+		return (-1);
+	temp = ft_strjoin(*dest, split);
+	free(split);
+	if (!temp)
+		return (-1);
+	free(*dest);
+	*dest = temp;
+	return (0);
 }

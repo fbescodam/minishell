@@ -17,5 +17,6 @@ int		split_and_add(char *from, char ***to, int split_index);
 int		add_string_to_array(char ***to, char *from);
 char	replace_space_with_null(unsigned int pos, char c);
 int		get_quoted_string(char *prompt, char **dest);
+int	join_realloc(char **dest, char *src, char len);
 
 #endif
