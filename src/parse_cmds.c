@@ -6,33 +6,6 @@
 #include "parse.h"
 #include <stdio.h>
 
-int	add_quoted_strings(char *prompt, char ***dest)
-{
-	int	nxt_quote;
-	int	end_quote_index;
-	int	ret;
-	int	err;
-
-	nxt_quote = 0;
-	end_quote_index = 0;
-	ret = 0;
-	while(1)
-	{
-		nxt_quote = scan_operators(prompt + ret, "\'\"><", 0);
-		if (prompt[nxt_quote + ret] != '\"' && prompt[nxt_quote + ret] != '\'')
-			return (ret);
-		ret += nxt_quote;
-		end_quote_index = double_quote_check(prompt, ret);
-		if (end_quote_index < 0)
-			return (-2);
-		err = split_and_add(prompt + ret + 1, dest, end_quote_index - 1);
-		if (err != 0)
-			return (-1);
-		ret += end_quote_index;
-		ret++;
-	}
-}
-
 int	join_realloc(char **dest, char *src, char len)
 {
 	char	*temp;
@@ -47,7 +20,6 @@ int	join_realloc(char **dest, char *src, char len)
 		return (-1);
 	free(*dest);
 	*dest = temp;
-	printf("%s DEST\n", *dest);
 	return (0);
 }
 
@@ -56,9 +28,11 @@ int	add_param(char **param_buffer, char ***dest)
 	char	*param;
 	int		err;
 
+	err = 0;
 	param = ft_strdup(*param_buffer);
 	if (!param)
 		return (-1);
+	if (*param)
 	err = add_string_to_array(dest, param);
 	free(*param_buffer);
 	if (err != 0)
@@ -106,38 +80,46 @@ int	handle_quotes(char **buff, char **prompt, int quote_pos)
 	return (0);
 }
 
+int	search_params(char **buff, char **prompt, char ***dest)
+{
+	int	nxt_delim;
+	int	nxt_quote;
+	int	err;
+
+	err = 0;
+	nxt_delim = scan_operators(*prompt, " <>", 0);
+	nxt_quote = scan_operators(*prompt, "\'\"", 0);
+	if (nxt_delim <= nxt_quote)
+		err = close_param(buff, prompt, nxt_delim, dest);
+	else
+		err = handle_quotes(buff, prompt, nxt_quote);
+	if (err != 0)
+		return (-1);
+	if (**prompt == '<' || **prompt == '>' || **prompt == '\0')
+		return (1);
+	return (0);
+}
+
 int	parse_params(char *prompt, char ***dest)
 {
 	char	*prompt_start;
 	char	*buff;
-	int		nxt_delim;
-	int		nxt_quote;
-	int		err;
+	int		ret;
 
 	prompt_start = prompt;
 	buff = ft_strdup("");
 	if (!buff)
 		return (-1);
-	err = 0;
-	while (1)
+	ret = 0;
+	while (ret == 0)
 	{
-		//if (*prompt == '\0')
-		//	break;
-		printf("BUFF:%s\n", buff);
-		nxt_delim = scan_operators(prompt, " <>", 0);
-		nxt_quote = scan_operators(prompt, "\'\"", 0);
-		if (nxt_delim <= nxt_quote)
-			err = close_param(&buff, &prompt, nxt_delim, dest);
-		else
-			err = handle_quotes(&buff, &prompt, nxt_quote);
-		if (*prompt == '<' || *prompt == '>' || *prompt == '\0')
-			break;
-		if (err != 0)
+		ret = search_params(&buff, &prompt, dest);
+		if (ret == -1)
 			return (-1);
 	}
 	if (*buff)
-		err = add_param(&buff, dest);
-	if (err != 0)
+		ret = add_param(&buff, dest);
+	if (ret < 0)
 		return (-1);
 	free(buff);
 	return(prompt - prompt_start);
