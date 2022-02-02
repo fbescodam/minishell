@@ -23,18 +23,24 @@ int	main(int argc, char **argv, char **envp)
 		if (!prompt)
 			force_exit(&mini, 0);
 		add_history(prompt);
+		printf("prompt after readline: \"%s\"\n", prompt);
 		ret = parse_set_envars_b4_comm(&mini, &prompt);
-		if (ret != 0)
-			error_manager(&mini, ret);
-		ret = parse_envars(mini.envars, &prompt);
 		if (ret != 0)
 			error_manager(&mini, ret);
 		else
 		{
-			ret = parse_prompt(&mini, prompt);
+			printf("prompt after parsing envars to set: \"%s\"\n", prompt);
+			ret = parse_envars(mini.envars, &prompt);
 			if (ret != 0)
 				error_manager(&mini, ret);
-			printf("prompt: \"%s\"\n", prompt);
+			else
+			{
+				printf("prompt after parsing envars: \"%s\"\n", prompt);
+				ret = parse_prompt(&mini, prompt);
+				if (ret != 0)
+					error_manager(&mini, ret);
+				printf("prompt after parse_prompt: \"%s\"\n", prompt);
+			}
 		}
 		ft_free(prompt);
 	}
