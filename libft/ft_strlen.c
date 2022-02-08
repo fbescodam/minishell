@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 19:24:26 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/26 00:01:16 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/08 19:48:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /**
  * Get the length of a string
- * @param *s	The string to get the length of
+ * @param[in] *s	The string to get the length of
  * @return		The length of the string
  */
 size_t	ft_strlen(const char *s)

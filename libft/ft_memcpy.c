@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 16:06:53 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/01 21:23:32 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/08 19:48:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 /**
  * Copy a certain amount of bytes from one place to another
- * @param *dest		A pointer to the place to copy to
- * @param *src		A pointer to the place to copy from
- * @param n			The maximum amount of bytes to copy
+ * @param[in] *dest		A pointer to the place to copy to
+ * @param[in] *src		A pointer to the place to copy from
+ * @param[in] n			The maximum amount of bytes to copy
  * @return			A pointer to the place that has been copied to
  */
 void	*ft_memcpy(void *dest, const void *src, size_t n)

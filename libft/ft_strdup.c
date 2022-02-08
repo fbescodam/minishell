@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/09/01 20:06:31 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/25 22:50:15 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/08 19:48:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 /**
  * Duplicate a string in newly allocated memory
- * @param *src		The source to copy from
+ * @param[in] *src		The source to copy from
  * @return			A pointer to the copy, NULL on error
  */
 char	*ft_strdup(const char *src)

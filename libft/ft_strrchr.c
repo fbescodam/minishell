@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 20:02:34 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/01 21:55:50 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/08 19:48:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 /**
  * Search for a character in a string, starting from the back
- * @param *s	The string to search in
- * @param c		The character to look for
+ * @param[in] *s	The string to search in
+ * @param[in] c		The character to look for
  * @return		A pointer to the character in the string, NULL if not found
  */
 char	*ft_strrchr(const char *s, int c)

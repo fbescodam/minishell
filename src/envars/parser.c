@@ -39,6 +39,12 @@ static int	fetch_n_replace_envar(t_dlist *envars, char **parsed_str,
 	*var_end = find_var_name_end(*var_start + 1);
 	if (!*var_end)
 		return (PARSE_ERROR);
+	if (*var_end == *var_start + 1)
+	{
+		if (!join_parsed_str(parsed_str, "$"))
+			return (ENOMEM);
+		return (0);
+	}
 	var_name = ft_substr(*var_start + 1, 0, *var_end - *var_start - 1);
 	//printf("var_name: \"%s\"\n", var_name);
 	if (!var_name)
@@ -73,8 +79,8 @@ static int	replace_str_with_parsed(char **str, char *parsed_str, char *var_end)
  * @brief Find and replace environment variables in a string, plus parse ones
  * set with var=value before any commands
  *
- * @param envars A list of environment variables to work with
- * @param str A pointer to the string to search and replace in
+ * @param[in] envars A list of environment variables to work with
+ * @param[in] str A pointer to the string to search and replace in
  * @return Returns 0 on success, everything else is an error (see error_manager)
  */
 int	parse_envars(t_dlist *envars, char **str)

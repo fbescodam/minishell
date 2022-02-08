@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 15:10:24 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/01 21:57:20 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/08 19:48:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 /**
  * Trim a string on the left and the right, removing a set of characters,
  * into a newly allocated string
- * @param *s1	The string to trim
- * @param *set	A set of characters to remove from the string at the beginning
+ * @param[in] *s1	The string to trim
+ * @param[in] *set	A set of characters to remove from the string at the beginning
  * 				and end
  * @return		A pointer to the trimmed string
  */

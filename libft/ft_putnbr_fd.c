@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/12 18:42:02 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/25 22:49:55 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/08 19:48:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 /**
  * Write a number to a file descriptor
- * @param n		The number to write
- * @param fd	The file descriptor to write to
+ * @param[in] n		The number to write
+ * @param[in] fd	The file descriptor to write to
  * @return		The amount of characters written, or -1 on error
  */
 int	ft_putnbr_fd(int n, int fd)

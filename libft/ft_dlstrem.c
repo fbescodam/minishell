@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/25 18:23:38 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/25 23:08:16 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/08 19:48:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 /**
  * Remove one item from a double linked list at a certain position
- * @param list The list to remove the item from
- * @param index The index of the item to remove
+ * @param[in] list The list to remove the item from
+ * @param[in] index The index of the item to remove
  */
 void	ft_dlstrem(t_dlist *list, size_t index, void (*del)(void *))
 {

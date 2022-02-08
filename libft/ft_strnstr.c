@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 20:10:12 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/01 21:55:33 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/08 19:48:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 /**
  * Search for a string in a string
- * @param *str		The string to search in
- * @param *sub		The string to find
- * @param len		The amount of characters to stop searching after
+ * @param[in] *str		The string to search in
+ * @param[in] *sub		The string to find
+ * @param[in] len		The amount of characters to stop searching after
  * @return			A pointer to the string found, or NULL if not found
  */
 char	*ft_strnstr(const char *str, const char *sub, size_t len)

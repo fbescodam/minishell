@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/25 18:28:08 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/25 23:06:52 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/08 19:48:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /**
  * Get the last item of a double linked list
- * @param list The list to get the last item of
+ * @param[in] list The list to get the last item of
  * @return The last item
  */
 t_ditem	*ft_dlstlast(t_dlist *list)

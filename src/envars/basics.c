@@ -7,8 +7,8 @@
 /**
  * @brief Get an environment variable from the list as item, by name
  *
- * @param envars The list of environment variables
- * @param name The name of the variable to look for
+ * @param[in] envars The list of environment variables
+ * @param[in] name The name of the variable to look for
  * @return The environment variable, contained in a double linked list item
  */
 t_ditem	*get_envar_item(t_dlist *envars, char *name)
@@ -33,8 +33,8 @@ t_ditem	*get_envar_item(t_dlist *envars, char *name)
 /**
  * @brief Get an environment variable from the list, by name
  *
- * @param envars The list of environment variables
- * @param name The name of the variable to look for
+ * @param[in] envars The list of environment variables
+ * @param[in] name The name of the variable to look for
  * @return The environment variable structure
  */
 t_envar	*get_envar(t_dlist *envars, char *name)
@@ -50,8 +50,8 @@ t_envar	*get_envar(t_dlist *envars, char *name)
 /**
  * @brief Replace the value of an existing environment variable
  *
- * @param envar The environment variable to modify
- * @param new_val The new value to set, allocated by malloc, cannot be NULL
+ * @param[in] envar The environment variable to modify
+ * @param[in] new_val The new value to set, allocated by malloc, cannot be NULL
  * @return Returns 1 on success and 0 on failure
  */
 int	replace_envar_value(t_envar *envar, char *new_val)
@@ -68,10 +68,10 @@ int	replace_envar_value(t_envar *envar, char *new_val)
 /**
  * @brief Add a variable to the list of environment variables
  *
- * @param mini The main mini struct
- * @param name The name of the variable to set
- * @param val The value of the variable to set
- * @param export Whether or not the variable should be exported to execve
+ * @param[in] mini The main mini struct
+ * @param[in] name The name of the variable to set
+ * @param[in] val The value of the variable to set
+ * @param[in] export Whether or not the variable should be exported to execve
  * @return Returns 0 on failure, 1 on success
  */
 int	set_envar(t_mini *mini, char *name, char *val, int export)

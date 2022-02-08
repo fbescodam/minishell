@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/07 16:41:18 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/01 21:22:34 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/08 19:48:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static void	swap_lst_content(t_list *a, t_list *b)
 
 /**
  * Sort a linked list
- * @param **lst						The list to sort
- * @param (*f)(void *, void *)		The method to apply to sort the list, should
+ * @param[in] **lst						The list to sort
+ * @param[in] (*f)(void *, void *)		The method to apply to sort the list, should
  * 									return 1 if the first item is bigger than
  * 									the second
  */

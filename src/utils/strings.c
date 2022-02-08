@@ -5,7 +5,7 @@
 /**
  * @brief Get the next single quote in a string, skipping over double quotes
  *
- * @param str The string to search in
+ * @param[in] str The string to search in
  * @return A pointer to the next single quote in the string
  */
 char	*get_next_single_quote(char *str)
@@ -29,7 +29,7 @@ char	*get_next_single_quote(char *str)
 /**
  * @brief Skip over single quotes in a string
  *
- * @param str The string, starting at the first ' character
+ * @param[in] str The string, starting at the first ' character
  * @return Returns 0 if no single quotes found in string
  */
 int skip_over_single_quotes(char **str)
@@ -46,8 +46,8 @@ int skip_over_single_quotes(char **str)
 /**
  * @brief Remove all occurrances of a certain character from a string
  *
- * @param str The string to remove the characters from (allocated by malloc)
- * @param rem The character to remove
+ * @param[in] str The string to remove the characters from (allocated by malloc)
+ * @param[in] rem The character to remove
  * @return Returns 1 if the contents of the string were modified
  */
 int	remove_character(char **str, char rem)
@@ -79,8 +79,8 @@ int	remove_character(char **str, char rem)
  * @brief Replace spaces with the NULL character if they're not in between
  * apostrophes. To be used with ft_strmapi.
  *
- * @param pos The position of the character in the string
- * @param c The character in the string
+ * @param[in] pos The position of the character in the string
+ * @param[in] c The character in the string
  * @return The character to replace the current position with
  */
 char	replace_space_with_null(unsigned int pos, char c)

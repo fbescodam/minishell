@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/03 17:32:17 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/01 21:21:25 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/08 19:48:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 /**
  * Clear a linked list
- * @param **lst					The list to clear
- * @param void (*del)(void *)	A method to apply to every element before
+ * @param[in] **lst					The list to clear
+ * @param[in] void (*del)(void *)	A method to apply to every element before
  * 								freeing them, can be NULL
  */
 void	ft_lstclear(t_list **lst, void (*del)(void *))

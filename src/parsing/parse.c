@@ -9,7 +9,7 @@
 
 /**
  * @brief skips through quoted text and returns index
- * @param prompt
+ * @param[in] prompt
  * @return index on default, -1 in case of parse error
  */
 
@@ -38,7 +38,7 @@ int	quote_search_index(char *prompt)
 
 /**
  * @brief skips through quoted text and returns the next delimiter index
- * @param prompt, set of delimiters
+ * @param[in] prompt, set of delimiters
  * @return index, -1 on parse error
  */
 
@@ -67,7 +67,7 @@ int	next_operator_index(char *prompt, char *set)
 
 /**
  * @brief splits string until index and adds split string to an array
- * @param from: string to split, split_index, to: array
+ * @param[in] from: string to split, split_index, to: array
  * @return 0, error code in case of error
  */
 int		split_and_add(char *from, char ***to, int split_index)
@@ -88,7 +88,7 @@ int		split_and_add(char *from, char ***to, int split_index)
 }
 /**
  * @brief splits a prompt on the set character, unless it is between quotes
- * @param from: string to split, to: destination string array, set: character
+ * @param[in] from: string to split, to: destination string array, set: character
  * to split on
  * @return 0 on default, error code in case of error
  */
@@ -119,7 +119,7 @@ int	split_prompt(char *from, char ***to, char *set)
 /**
  * @brief initiate parsing by splitting the prompt at every pipe and
  *  setting up commands
- * @param mini struct to set up all commands, prompt to be split
+ * @param[in] mini struct to set up all commands, prompt to be split
  * @return 0 on default, error code in case of error
  */
 int	parse_prompt(t_mini *mini, char *prompt)
@@ -143,7 +143,7 @@ int	parse_prompt(t_mini *mini, char *prompt)
 		if (ret == -1)
 			return (ENOMEM);
 		if (ret == -2)
-			return (PARSE_ERROR);	
+			return (PARSE_ERROR);
 	}
 	return (0);
 }
