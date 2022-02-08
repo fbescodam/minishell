@@ -3,6 +3,20 @@
 #include <stdlib.h>
 #include "utils.h"
 
+int	is_fd_redir(char *prompt)
+{
+	int	i;
+
+	i = 0;
+	while (prompt[i] <= '9' && prompt[i] >= '0')
+		i++;
+	if (i == 0)
+		return (0);
+	if (prompt[i] == '>' || prompt[i] == '<')
+		return (1);
+	return (0);
+}
+
 int	double_quote_check(char *prompt, int first_quote_index)
 {
 	int		close_index;

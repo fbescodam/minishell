@@ -65,16 +65,18 @@ int	search_params(char **buff, char **prompt, char ***dest)
 {
 	int	nxt_delim;
 	int	nxt_quote;
-	int	err;
+	int	ret;
 
-	err = 0;
+	ret = 0;
+	if (is_fd_redir(*prompt))
+		return (1);
 	nxt_delim = scan_operators(*prompt, " <>", 0);
 	nxt_quote = scan_operators(*prompt, "\'\"", 0);
 	if (nxt_delim <= nxt_quote)
-		err = close_param(buff, prompt, nxt_delim, dest);
+		ret = close_param(buff, prompt, nxt_delim, dest);
 	else
-		err = handle_quotes(buff, prompt, nxt_quote);
-	if (err != 0)
+		ret = handle_quotes(buff, prompt, nxt_quote);
+	if (ret != 0)
 		return (-1);
 	if (**prompt == '<' || **prompt == '>' || **prompt == '\0')
 		return (1);

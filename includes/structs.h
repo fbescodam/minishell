@@ -5,14 +5,19 @@
 
 # define OUT_FILE 1
 # define IN_FILE 2
-# define IN_FILE_APPEND 3
-# define OUT_FILE_APPEND 4
-# define PIPE_IN 5
-# define PIPE_OUT 6
+# define IN_FD 3
+# define OUT_FD 4
+# define IN_FD_APPEND 5
+# define OUT_FD_APPEND 6
+# define IN_FILE_APPEND 7
+# define OUT_FILE_APPEND 8
+# define PIPE_IN 9
+# define PIPE_OUT 10
 
 typedef struct s_token {
 	void		*content;
 	int			flag;
+	int			fd;
 }				t_token;
 
 typedef struct s_envar
