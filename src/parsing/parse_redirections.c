@@ -4,6 +4,7 @@
 #include "custom_errors.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include "parse.h"
 
 int	get_quoted_string(char *prompt, char **dest)
 {
@@ -26,59 +27,100 @@ int	get_quoted_string(char *prompt, char **dest)
 	return(nxt_quote + end_quote_index + 1);
 }
 
-int	get_next_word(char *prompt, char **dest)
+int	parse_file_name(char *prompt, char ***dest)
 {
-	int	end;
-	int	space_skip;
-	char *str;
+	char	*prompt_start;
+	char	*buff;
+	int		ret;
 
-	space_skip = 0;
-	while (prompt[space_skip] == ' ')
-		space_skip ++;
-	end = scan_operators(prompt + space_skip, " ><", 0);
-	if (end == 0)
-		return(-2);
-	str = ft_substr(prompt, space_skip, end);
-	if (!str)
+	prompt_start = prompt;
+	buff = ft_strdup("");
+	if (!buff)
 		return (-1);
-	*dest = str;
-	return(space_skip + end);
+	ret = 0;
+	while (ret == 0 && !(**dest))
+	{
+		ret = search_params(&buff, &prompt, dest);
+		if (ret == -1)
+			return (-1);
+	}
+	if (*buff)
+		ret = add_param(&buff, dest);
+	if (ret < 0)
+		return (-1);
+	free(buff);
+	return(prompt - prompt_start);
+}
+
+int	redir_type_check(char *prompt)
+{
+	char	*redir;
+	char	*next_char;
 	
+	if (prompt[0] == prompt[1])
+	{
+		next_char = prompt + 2;
+		while (*next_char == ' ')
+			next_char++;
+		if (*next_char == '<' || *next_char == '>' || *next_char == '\0')
+			return (-1);
+		if (prompt[0] == '<')
+			return (IN_FILE_APPEND);
+		return (OUT_FILE_APPEND);
+	}
+	next_char = prompt + 1;
+	while (*next_char == ' ')
+			next_char++;
+	if (*next_char == '<' || *next_char == '>' || *next_char == '\0')
+			return (-1);
+	if (prompt[0] == '<')
+		return (IN_FILE);
+	return (OUT_FILE);
+}
+
+int	add_token(void *content, int flag, t_list **tokens)
+{
+	t_token	*token;
+	t_list	*new;
+
+	token = (t_token *)ft_calloc(sizeof(t_token), 1);
+	if (!token)
+		return (-1);
+	token->content = content;
+	token->flag = flag;
+	new = ft_lstnew(token);
+	if (!new)
+		return (-1);
+	if (*tokens == 0)
+		*tokens = new;
+	else
+		ft_lstadd_back(tokens, new);
+	return (0);
 }
 
 int	parse_input_redir(char *prompt, t_cmd *cmd)
 {
+	char	**dest;
 	int		ret;
-	char	*file;
-	t_token	*token;
-	int		skipped_chars;
 	int		flag;
+	int		size;
 
-	if (prompt[1] == '\0')
+	flag = redir_type_check(prompt);
+	if (flag < 0)
 		return (-2);
-	skipped_chars = 1;
-	flag = IN_FILE;
-	if(prompt[2] == '<')
-	{
-		skipped_chars = 2;
-		if (prompt[3] == '\0')
-			return (-2);
-		flag = IN_FILE_DOUBLE;
-	}
-	ret = get_quoted_string(prompt + skipped_chars, &file);
-	if (ret < 0)
-		return (ret);
-	if (ret == 0)
-		ret = get_next_word(prompt + skipped_chars, &file);
-	if (ret < 0)
-		return (ret);
-	ret += skipped_chars;
-	token = (t_token *)ft_calloc(sizeof(t_token), 1);
-	if (!token)
+	dest = ft_calloc(1, sizeof(char*));
+	if (!dest)
 		return (-1);
-	token->content = file;
-	printf("INFILE:%s\n", file);
-	token->flag = IN_FILE;
-	return (ret);
+	size = 1;
+	if (flag > 2)
+		size++;
+	ret = parse_file_name(prompt + size, &dest);
+	if (ret < 0)
+		return (ret);
+	size += ret;
+	ret = add_token(*dest, flag, &(cmd->tokens));
+	free(dest);
+	if (ret < 0)
+		return (-1);
+	return (size);
 }
-

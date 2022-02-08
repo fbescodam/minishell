@@ -1,6 +1,8 @@
 #include "structs.h"
 #include "utils.h"
 #include <stdlib.h>
+#include <debug.h>
+#include <stdio.h>
 
 int	add_param(char **param_buffer, char ***dest)
 {

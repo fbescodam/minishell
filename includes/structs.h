@@ -40,6 +40,7 @@ typedef struct s_cmd
 
 #define OUT_FILE 1
 #define IN_FILE 2
-#define IN_FILE_DOUBLE 3
+#define IN_FILE_APPEND 3
+#define OUT_FILE_APPEND 3
 
 #endif

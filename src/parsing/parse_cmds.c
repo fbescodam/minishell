@@ -35,7 +35,7 @@ int	parse_cmd(t_list *cmd, char *prompt)
 		return (ENOMEM);
 	while (prompt[index])
 	{
-		ret = parse_params(prompt, &(current_cmd->params));
+		ret = parse_params(prompt + index, &(current_cmd->params));
 		if (ret < 0)
 			return (ret);
 		index += ret;
@@ -46,7 +46,6 @@ int	parse_cmd(t_list *cmd, char *prompt)
 			return (ret); // ENOMEM OR PARSE ERROR
 		index += ret;
 	}
-	print_char_array(current_cmd->params);
 	return (0);
 }
 
@@ -90,9 +89,16 @@ int	setup_cmds(t_mini *mini, char **prompts)
 		ret = parse_cmd(current_cmd, prompts[i]);
 		if (ret != 0)
 			return (ret);
+		printf("COMMAND PARAMS: \n");
+		print_char_array(((t_cmd *)(current_cmd->content))->params);
+		printf("COMMAND TOKENS : \n");
+		print_tokens(((t_cmd *)(current_cmd->content))->tokens);
 		//if (commands[i + 1])
 		//	pipe_out(current_cmd->content, &fd);
 		i++;
 	}
 	return (ret);
 }
+
+
+//hello<"miao"this

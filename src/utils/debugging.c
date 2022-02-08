@@ -24,3 +24,17 @@ void	print_char_array(char **arr)
 		i++;
 	}
 }
+
+void	print_tokens(t_list *tokens)
+{
+	t_list *current;
+	t_token *token;
+
+	current = tokens;
+	while (current)
+	{
+		token = (t_token *)(current->content);
+		printf("FLAG: %d, CONTENT: %s\n", token->flag, (char *)(token->content));
+		current = current->next;
+	}
+}

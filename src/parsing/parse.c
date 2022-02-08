@@ -130,7 +130,6 @@ int	parse_prompt(t_mini *mini, char *prompt)
 		ret = split_prompt(prompt, &prompt_split, "|");
 		if (ret != 0)
 			return (ret);
-		print_char_array(prompt_split);
 		ret = setup_cmds(mini, prompt_split);
 		if (ret == -1)
 			return (ENOMEM);
