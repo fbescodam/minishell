@@ -1,4 +1,5 @@
 #include <signal.h>
+#include <unistd.h>
 #include <stdlib.h>
 #include "structs.h"
 #include "error_handling.h"
@@ -38,6 +39,7 @@ int	setup_envars(t_mini *mini, char **envp)
 	size_t		i;
 	char		*temp;
 	char		*equals;
+	int			ret;
 
 	if (!envp)
 		return (1);
@@ -49,9 +51,10 @@ int	setup_envars(t_mini *mini, char **envp)
 			return (0);
 		equals = ft_strchr(temp, '=');
 		*equals = '\0';
-		if (!set_envar(mini, temp, equals + 1, 1))
-			return (0);
+		ret = set_envar(mini, temp, equals + 1, 1);
 		free(temp);
+		if (!ret)
+			return (0);
 		i++;
 	}
 	if (!mini->paths)
@@ -61,6 +64,16 @@ int	setup_envars(t_mini *mini, char **envp)
 			return (0);
 	}
 	if (!set_envar(mini, "?", "0", 0))
+		return (0);
+	temp = getcwd(NULL, 0);
+	if (temp)
+	{
+		ret = set_envar(mini, "PWD", temp, 0);
+		free(temp);
+		if (!ret)
+			return (0);
+	}
+	else
 		return (0);
 	return (1);
 }
