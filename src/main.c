@@ -12,40 +12,41 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_mini	mini;
-	char	*prompt;
 	int		ret;
 
-	setup_mini(&mini, envp);
+	if (!setup_mini(&mini, envp))
+		force_exit(&mini, 1);
 	while (1)
 	{
 		setup_signals(&mini);
-		prompt = readline("\001\x1b[1m\002minishell> \001\x1b[0m\002");
-		if (!prompt)
+		mini.prompt = readline("\001\x1b[1m\002minishell> \001\x1b[0m\002");
+		if (!mini.prompt)
 		{
 			printf("\x1b[1A\033[11Cexit\n");
 			rl_replace_line("exit", 1);
 			force_exit(&mini, 0);
 		}
-		add_history(prompt);
-		printf("prompt after readline: \"%s\"\n", prompt);
-		ret = parse_set_envars_b4_comm(&mini, &prompt);
+		add_history(mini.prompt);
+		printf("prompt after readline: \"%s\"\n", mini.prompt);
+		ret = parse_set_envars_b4_comm(&mini, &mini.prompt);
 		if (ret != 0)
 			error_manager(&mini, ret);
 		else
 		{
-			printf("prompt after parsing envars to set: \"%s\"\n", prompt);
-			ret = parse_envars(mini.envars, &prompt);
+			printf("prompt after parsing envars to set: \"%s\"\n", mini.prompt);
+			ret = parse_envars(mini.envars, &mini.prompt);
 			if (ret != 0)
 				error_manager(&mini, ret);
 			else
 			{
-				printf("prompt after parsing envars: \"%s\"\n", prompt);
-				ret = parse_prompt(&mini, prompt);
+				printf("prompt after parsing envars: \"%s\"\n", mini.prompt);
+				ret = parse_prompt(&mini, mini.prompt);
 				if (ret != 0)
 					error_manager(&mini, ret);
-				printf("prompt after parse_prompt: \"%s\"\n", prompt);
+				printf("prompt after parse_prompt: \"%s\"\n", mini.prompt);
 			}
 		}
-		ft_free(prompt);
+		ft_free(mini.prompt);
+		mini.prompt = NULL;
 	}
 }

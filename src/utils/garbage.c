@@ -47,4 +47,6 @@ void	free_mini(t_mini *mini)
 		ft_lstclear(&mini->cmds, &free_cmd);
 	if (mini->paths)
 		ft_free_double_ptr((void **)mini->paths);
+	if (mini->prompt)
+		ft_free(mini->prompt);
 }
