@@ -5,6 +5,8 @@
 #include "utils.h"
 #include "custom_errors.h"
 
+// will exit with mini->status if err == 0!
+// it should not do this
 void	force_exit(t_mini *mini, int err)
 {
 	free_mini(mini);

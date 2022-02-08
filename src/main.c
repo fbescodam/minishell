@@ -21,7 +21,11 @@ int	main(int argc, char **argv, char **envp)
 		setup_signals(&mini);
 		prompt = readline("\001\x1b[1m\002minishell> \001\x1b[0m\002");
 		if (!prompt)
+		{
+			printf("\x1b[1A\033[11Cexit\n");
+			rl_replace_line("exit", 1);
 			force_exit(&mini, 0);
+		}
 		add_history(prompt);
 		printf("prompt after readline: \"%s\"\n", prompt);
 		ret = parse_set_envars_b4_comm(&mini, &prompt);
