@@ -10,9 +10,9 @@ int	parse_operator(char *prompt, int index, t_cmd *cmd)
 {
 	int	ret;
 
-	if (prompt[index] == '<')
-		ret = parse_input_redir(prompt + index, cmd);
-	else if (prompt[index] == '>')
+	ret = 0;
+	if (prompt[index] == '<' || prompt[index] == '>' || 
+		ft_isdigit(prompt[index]))
 		ret = parse_input_redir(prompt + index, cmd);
 	return(ret);
 }

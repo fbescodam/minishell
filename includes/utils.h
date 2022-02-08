@@ -20,5 +20,6 @@ int		get_quoted_string(char *prompt, char **dest);
 int		join_realloc(char **dest, char *src, char len);
 int		pipe_in(t_cmd *cmd, int **fd);
 int		pipe_out(t_cmd *cmd, int **fd);
+int		is_fd_redir(char *prompt);
 
 #endif

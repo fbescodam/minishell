@@ -31,11 +31,40 @@ int	parse_file_name(char *prompt, char ***dest)
 	return(prompt - prompt_start);
 }
 
+int	setup_fd_redir(char *prompt)
+{
+	char *next_char;
+
+	while (ft_isdigit(*prompt))
+		prompt++;
+	if (prompt[0] == prompt[1])
+	{
+		next_char = prompt + 2;
+		while (*next_char == ' ')
+			next_char++;
+		if (*next_char == '<' || *next_char == '>' || *next_char == '\0')
+			return (-1);
+		if (prompt[0] == '<')
+			return (IN_FD_APPEND);
+		return (OUT_FD_APPEND);
+	}
+	next_char = prompt + 1;
+	while (*next_char == ' ')
+			next_char++;
+	if (*next_char == '<' || *next_char == '>' || *next_char == '\0')
+			return (-1);
+	if (prompt[0] == '<')
+		return (IN_FD);
+	return (OUT_FD);
+}
+
 int	redir_type_check(char *prompt)
 {
 	char	*redir;
 	char	*next_char;
 	
+	if (ft_isdigit(*prompt))
+		return (setup_fd_redir(prompt));
 	if (prompt[0] == prompt[1])
 	{
 		next_char = prompt + 2;
@@ -57,7 +86,7 @@ int	redir_type_check(char *prompt)
 	return (OUT_FILE);
 }
 
-int	add_token(void *content, int flag, t_list **tokens)
+int	add_token(void *content, int flag, t_list **tokens, char *prompt)
 {
 	t_token	*token;
 	t_list	*new;
@@ -67,6 +96,7 @@ int	add_token(void *content, int flag, t_list **tokens)
 		return (-1);
 	token->content = content;
 	token->flag = flag;
+	token->fd = ft_atoi(prompt);
 	new = ft_lstnew(token);
 	if (!new)
 		return (-1);
@@ -91,13 +121,15 @@ int	parse_input_redir(char *prompt, t_cmd *cmd)
 	if (!dest)
 		return (-1);
 	size = 1;
-	if (flag > 2)
+	while (ft_isdigit(*(prompt + size - 1)))
+		size++;
+	if (flag > 4)
 		size++;
 	ret = parse_file_name(prompt + size, &dest);
 	if (ret < 0)
 		return (ret);
 	size += ret;
-	ret = add_token(*dest, flag, &(cmd->tokens));
+	ret = add_token(*dest, flag, &(cmd->tokens), prompt);
 	free(dest);
 	if (ret < 0)
 		return (-1);

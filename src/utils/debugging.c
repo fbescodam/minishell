@@ -34,7 +34,7 @@ void	print_tokens(t_list *tokens)
 	while (current)
 	{
 		token = (t_token *)(current->content);
-		printf("FLAG: %d, CONTENT: %s\n", token->flag, (char *)(token->content));
+		printf("FLAG: %d, CONTENT: %s, FD: %d\n", token->flag, (char *)(token->content), token->fd);
 		current = current->next;
 	}
 }
