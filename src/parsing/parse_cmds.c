@@ -6,10 +6,6 @@
 #include "parse.h"
 #include <stdio.h>
 
-
-
-
-
 int	parse_operator(char *prompt, int index, t_cmd *cmd)
 {
 	int	ret;
@@ -99,6 +95,3 @@ int	setup_cmds(t_mini *mini, char **prompts)
 	}
 	return (ret);
 }
-
-
-//hello<"miao"this

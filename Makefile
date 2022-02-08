@@ -12,7 +12,7 @@ INCLUDES =	-I includes -I libft -I /Users/$(USER)/.brew/opt/readline/include
 
 OBJS =		$(subst src/,obj/,$(SRCS:.c=.o))
 
-CFLAGS = -fsanitize=address
+CFLAGS = 
 
 all: $(NAME)
 
