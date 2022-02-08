@@ -6,7 +6,7 @@
 #    By: fbes <fbes@student.codam.nl>                 +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/26 14:25:38 by fbes          #+#    #+#                  #
-#    Updated: 2022/01/27 17:32:02 by fbes          ########   odam.nl          #
+#    Updated: 2022/02/08 15:20:52 by fbes          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,10 +46,10 @@ $(NAME): $(OBJS)
 bonus: $(NAME)
 
 clean:
-	rm -rf obj
+	rm -rf 'obj'
 
 fclean:
-	rm -rf obj $(NAME)
+	rm -rf 'obj' '$(NAME)'
 
 re: fclean all
 
