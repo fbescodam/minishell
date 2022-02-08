@@ -1,7 +1,7 @@
 #include <errno.h>
 #include "utils.h"
 
-// run in the parent,
+// run in child, doesn't change memory.
 int	mini_pwd(t_cmd *cmd)
 {
 	char	*path;
@@ -9,8 +9,7 @@ int	mini_pwd(t_cmd *cmd)
 	path = getcwd(NULL, 0);
 	if (!path)
 		return (ENOMEM);
-	if (!ptc_echo(cmd, path))
-		return (ENOMEM);
+	printf("%s\n", path);
 	ft_free(path);
 	return (0);
 }

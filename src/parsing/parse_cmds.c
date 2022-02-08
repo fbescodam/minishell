@@ -11,7 +11,7 @@ int	parse_operator(char *prompt, int index, t_cmd *cmd)
 	int	ret;
 
 	ret = 0;
-	if (prompt[index] == '<' || prompt[index] == '>' || 
+	if (prompt[index] == '<' || prompt[index] == '>' ||
 		ft_isdigit(prompt[index]))
 		ret = parse_input_redir(prompt + index, cmd);
 	return(ret);
@@ -55,7 +55,6 @@ t_list	*new_cmd(t_mini *mini)
 		return (NULL);
 	cmd->mini = mini;
 	cmd->frake_err = NULL;
-	cmd->frake_out = NULL;
 	cmd_instance = ft_lstnew(cmd);
 	if (!cmd_instance)
 	{
