@@ -43,13 +43,16 @@ int	main(int argc, char **argv, char **envp)
 			else
 			{
 				printf("prompt after parsing envars: \"%s\"\n", mini.prompt);
-				ret= parse_prompt(&mini, mini.prompt);
+				ret = parse_prompt(&mini, mini.prompt);
 				if (ret != 0)
 					error_manager(&mini, ret);
+				else
+				{
+					print_command_list(mini.cmds);
+					ret = execution(&mini);
+				}
 				printf("prompt after parse_prompt: \"%s\"\n", mini.prompt);
 			}
-			print_command_list(mini.cmds);
-			ret = execution(&mini);
 		}
 		ft_free(mini.prompt);
 		ft_lstclear(&(mini.cmds), &free_cmd);
