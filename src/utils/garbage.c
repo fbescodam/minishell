@@ -1,7 +1,8 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "structs.h"
 // #include "tokens.h"
 #include "libft.h"
-#include <stdio.h>
 
 /**
  * @brief Free a token struct. The contents are not freed if flag is CMD, as
@@ -27,6 +28,10 @@ void	free_cmd(void *cmd)
 	ft_lstclear(&((t_cmd *)cmd)->tokens, &free_token);
 	if (((t_cmd *)cmd)->path)
 		ft_free(((t_cmd *)cmd)->path);
+	if (((t_cmd *)cmd)->frake_err)
+		ft_lstclear(&((t_cmd *)cmd)->frake_err, &free);
+	if (((t_cmd *)cmd)->frake_out)
+		ft_lstclear(&((t_cmd *)cmd)->frake_out, &free);
 	ft_free(cmd);
 }
 

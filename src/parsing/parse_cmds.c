@@ -54,6 +54,8 @@ t_list	*new_cmd(t_mini *mini)
 	if (!cmd)
 		return (NULL);
 	cmd->mini = mini;
+	cmd->frake_err = NULL;
+	cmd->frake_out = NULL;
 	cmd_instance = ft_lstnew(cmd);
 	if (!cmd_instance)
 	{

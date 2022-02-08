@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "utils.h"
 
+// exit runs in the parent. the exit is not printed in out with exit > out
 int	mini_exit(t_cmd *cmd)
 {
 	printf("exit\n");

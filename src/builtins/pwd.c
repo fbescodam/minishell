@@ -1,7 +1,7 @@
-#include <stdio.h>
 #include <errno.h>
 #include "utils.h"
 
+// run in the parent,
 int	mini_pwd(t_cmd *cmd)
 {
 	char	*path;
@@ -9,7 +9,8 @@ int	mini_pwd(t_cmd *cmd)
 	path = getcwd(NULL, 0);
 	if (!path)
 		return (ENOMEM);
-	printf("%s\n", path);
+	if (!ptc_echo(cmd, path))
+		return (ENOMEM);
 	ft_free(path);
 	return (0);
 }

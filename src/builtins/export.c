@@ -2,12 +2,23 @@
 #include "builtins.h"
 #include <errno.h>
 #include "envars.h";
-#include <stdio.h>
 
+static int	export_error(t_cmd *cmd, char *str)
+{
+	char	*temp;
+
+	temp = ft_strreplace("minishell: export: @: not a valid identifier",
+			"@", str);
+	if (!temp)
+		return (ENOMEM);
+	ptc_error(cmd, temp);
+	free(temp);
+}
+
+// export runs in the parent, sends error messages to the child.
 int	mini_export(t_cmd *cmd)
 {
 	size_t	i;
-	char	*dup;
 	char	*equals_pos;
 	t_envar	*envar;
 
@@ -17,19 +28,18 @@ int	mini_export(t_cmd *cmd)
 	while (cmd->params[i])
 	{
 		equals_pos = ft_strchr(cmd->params[i], '=');
-		if (equals_pos == cmd->params[i])
-		{
-			printf("minishell: export: '%s': not a valid identifier\n",
-				cmd->params[i]);
-		}
+		if (equals_pos == cmd->params[i] && !export_error(cmd, cmd->params[i]))
+			return (ENOMEM);
 		else if (equals_pos)
 		{
-			*equals_pos = '\0';
-			if (!is_valid_env_name(cmd->params[i]))
-				printf("minishell: export: '%s': not a valid identifier\n",
-					cmd->params[i]);
+			if (!is_valid_env_name(cmd->params[i]) &&
+				!export_error(cmd, cmd->params[i]))
+				return (ENOMEM);
 			else
+			{
+				*equals_pos = '\0';
 				set_envar(cmd, cmd->params[i], equals_pos + 1, 1);
+			}
 		}
 		else
 		{

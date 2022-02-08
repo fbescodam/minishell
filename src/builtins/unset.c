@@ -1,6 +1,7 @@
 #include "utils.h"
 #include "libft.h"
 
+// run in the parent, no text is ever displayed
 int	mini_unset(t_cmd *cmd)
 {
 	size_t	i;

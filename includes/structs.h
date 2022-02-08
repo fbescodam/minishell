@@ -3,6 +3,13 @@
 
 # include "libft.h"
 
+# define OUT_FILE 1
+# define IN_FILE 2
+# define IN_FILE_APPEND 3
+# define OUT_FILE_APPEND 4
+# define PIPE_IN 5
+# define PIPE_OUT 6
+
 typedef struct s_token {
 	void		*content;
 	int			flag;
@@ -37,13 +44,8 @@ typedef struct s_cmd
 	char	*path;
 	t_list	*tokens;
 	int		argc;
+	t_list	*frake_out;
+	t_list	*frake_err;
 }				t_cmd;
-
-#define OUT_FILE 1
-#define IN_FILE 2
-#define IN_FILE_APPEND 3
-#define OUT_FILE_APPEND 4
-#define PIPE_IN 5
-#define PIPE_OUT 6
 
 #endif
