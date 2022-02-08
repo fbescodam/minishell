@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/24 17:25:27 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/01 21:53:34 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/08 19:48:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /**
  * Get the length of a string but stop counting at a certain amount of
  * characters
- * @param *s		The string to count the characters of
+ * @param[in] *s		The string to count the characters of
  * @size_t maxlen	The maximum length to return
  * @return			The length of the string or maxlen
  * 					if the real length > maxlen

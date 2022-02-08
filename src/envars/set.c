@@ -8,9 +8,9 @@
 /**
  * @brief Set the new start of str, free the old str and replace it with dup
  *
- * @param str The str, what else?
- * @param new_start The last pos that was checked in parse_set_envars_b4_comm
- * @param end_of_str A pointer to the last NULL character of new_start string
+ * @param[in] str The str, what else?
+ * @param[in] new_start The last pos that was checked in parse_set_envars_b4_comm
+ * @param[in] end_of_str A pointer to the last NULL character of new_start string
  * @return Returns 1 on success, 0 on error
  */
 static int	set_new_start(char **str, char *last_c, char *start, char *end)
@@ -59,8 +59,8 @@ static int	all_done(char *temp, int ret)
 /**
  * @brief Perform magic
  *
- * @param mini The mini struct
- * @param str The string to parse one
+ * @param[in] mini The mini struct
+ * @param[in] str The string to parse one
  * @return Returns 1 on success, 0 on error, -1 on done
  */
 static int	set_one_envar(t_mini *mini, char **str)
@@ -89,8 +89,8 @@ static int	set_one_envar(t_mini *mini, char **str)
 /**
  * @brief Parse and set environment variables before running a command
  *
- * @param mini The mini struct
- * @param str The whole input from readline
+ * @param[in] mini The mini struct
+ * @param[in] str The whole input from readline
  * @return Returns 0 on success, else on error
  */
 int	parse_set_envars_b4_comm(t_mini *mini, char **str)

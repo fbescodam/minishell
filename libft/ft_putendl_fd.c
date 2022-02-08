@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/01 21:51:22 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/25 22:48:15 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/08 19:48:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 /**
  * Write a string to a file descriptor and end with a newline
- * @param *s	The string to write
- * @param fd	The file descriptor to write to
+ * @param[in] *s	The string to write
+ * @param[in] fd	The file descriptor to write to
  * @return		The amount of characters written, or -1 on error
  */
 int	ft_putendl_fd(char *s, int fd)

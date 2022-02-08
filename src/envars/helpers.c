@@ -18,8 +18,8 @@ static int	is_valid_env_name_char(size_t pos, char c)
 /**
  * @brief Find the start of a variable name in a string
  *
- * @param str The string to search through
- * @param var_start A pointer which will be set to the next start of a variable
+ * @param[in] str The string to search through
+ * @param[in] var_start A pointer which will be set to the next start of a variable
  * @return Returns 0 on unclosed single quote, 1 on success (also if no var!)
  */
 int	find_var_name_start(char *str, char **var_start)
@@ -52,7 +52,7 @@ int	find_var_name_start(char *str, char **var_start)
 /**
  * @brief Find the end of a variable name in a string
  *
- * @param str the start of a variable name in the string, right after the $
+ * @param[in] str the start of a variable name in the string, right after the $
  * @return char* the end of said variable, points to the char after the var
  */
 char	*find_var_name_end(char *str)

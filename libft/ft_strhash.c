@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/25 23:50:59 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/25 23:56:02 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/08 19:48:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 /**
  * Hash a string using Jenkin's one_at_a_time algorithm, useful for lookup
- * @param str The string to hash
- * @param length The length of the string (the full string is not always needed)
+ * @param[in] str The string to hash
+ * @param[in] length The length of the string (the full string is not always needed)
  * @return The hashed string in unsigned integer format
  */
 unsigned int	ft_strhash(const char *str, size_t length)

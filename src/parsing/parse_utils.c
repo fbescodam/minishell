@@ -63,7 +63,7 @@ int		scan_operators(char *prompt, char *operators, int quote_is_operator)
 
 /**
  * @brief skips characters in the set
- * @param prompt, set of characters
+ * @param[in] prompt, set of characters
  * @return pointer to the next character in the string after skipping
  */
 
@@ -92,7 +92,7 @@ char	*skip_chars(char *prompt, char *mask_set)
 
 /**
  * @brief a strjoin that reallocates the string
- * @param destination string, source string, length to append
+ * @param[in] destination string, source string, length to append
  * @return 0 on default, -1 in case of failed allocation
  */
 

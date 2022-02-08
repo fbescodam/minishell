@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/25 18:12:34 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/29 20:57:03 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/08 19:48:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 
 /**
  * Clear a double linked list and free the entirity of its existence
- * @param list The list to free
- * @param del A function to use to free the contents of the list items
+ * @param[in] list The list to free
+ * @param[in] del A function to use to free the contents of the list items
  */
 void	ft_dlstclear(t_dlist *list, void (*del)(void *))
 {

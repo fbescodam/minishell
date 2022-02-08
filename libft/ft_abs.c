@@ -6,13 +6,13 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 20:02:21 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/01 21:18:36 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/08 19:48:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 /**
  * Get the absolute value of a number
- * @param n		The number to get the absolute value of
+ * @param[in] n		The number to get the absolute value of
  * @return		The absolute number
  */
 unsigned int	ft_abs(int n)

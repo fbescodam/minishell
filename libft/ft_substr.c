@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 14:13:01 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/25 22:51:41 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/08 19:48:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 /**
  * Trim a string to a certain length into a newly allocated string
- * @param *s	The string to trim
- * @param start	The offset to start at
- * @param len	The maximum length of the trimmed string
+ * @param[in] *s	The string to trim
+ * @param[in] start	The offset to start at
+ * @param[in] len	The maximum length of the trimmed string
  * @return		A pointer to the newly allocated, trimmed string
  */
 char	*ft_substr(const char *s, unsigned int start, size_t len)

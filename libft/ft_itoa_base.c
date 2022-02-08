@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/11 00:08:06 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/01 21:20:44 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/08 19:48:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ static void	nbr_loop(char *ret, unsigned int n, char *base, int base_num)
 
 /**
  * Convert a number in any base into a string
- * @param n			The number to convert
- * @param *base		The base to use (ex.: "0123456789ABCDEF")
+ * @param[in] n			The number to convert
+ * @param[in] *base		The base to use (ex.: "0123456789ABCDEF")
  * @return			The converted number in string format, NULL on error
  */
 char	*ft_itoa_base(unsigned int n, char *base)

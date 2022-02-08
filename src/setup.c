@@ -30,8 +30,8 @@ void	setup_signals(t_mini *mini)
 /**
  * @brief Export the envp variables into our environment variables list
  *
- * @param mini The main struct
- * @param envp The envp variables list
+ * @param[in] mini The main struct
+ * @param[in] envp The envp variables list
  * @return Returns 0 on error, 1 on success
  */
 int	setup_envars(t_mini *mini, char **envp)
@@ -81,8 +81,8 @@ int	setup_envars(t_mini *mini, char **envp)
 /**
  * @brief Set up the mini struct
  *
- * @param mini The mini struct
- * @param envp Envp
+ * @param[in] mini The mini struct
+ * @param[in] envp Envp
  * @return Returns 0 on error, 1 on success
  */
 int	setup_mini(t_mini *mini, char **envp)

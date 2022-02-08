@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 21:00:09 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/25 22:47:35 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/08 19:48:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 /**
  * Allocate memory and clear it before returning it
- * @param nmemb		The amount of elements to allocate for
- * @param size		The size of the elements to allocate for
+ * @param[in] nmemb		The amount of elements to allocate for
+ * @param[in] size		The size of the elements to allocate for
  * @return			The allocated memory, NULL on failure
  */
 void	*ft_calloc(size_t nmemb, size_t size)

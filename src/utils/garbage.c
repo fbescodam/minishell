@@ -7,7 +7,7 @@
  * then the contents were freed in free_cmd (contents is then a reference to
  * the params pointer in the t_cmd struct).
  *
- * @param token the token to free
+ * @param[in] token the token to free
  */
 void	free_token(void *token)
 {

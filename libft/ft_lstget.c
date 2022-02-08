@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/22 18:34:28 by fbes          #+#    #+#                 */
-/*   Updated: 2022/01/22 18:50:20 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/08 19:48:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 /**
  * Get an item from a linked list at index
- * @param *lst	The list to go through
- * @param index	The index of the item to find
+ * @param[in] *lst	The list to go through
+ * @param[in] index	The index of the item to find
  */
 t_list	*ft_lstget(t_list *lst, size_t index)
 {
