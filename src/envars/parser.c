@@ -64,6 +64,8 @@ static int	replace_str_with_parsed(char **str, char *parsed_str, char *var_end)
 		ft_free(*str);
 		*str = parsed_str;
 	}
+	else
+		ft_free(parsed_str);
 	return (0);
 }
 
@@ -82,11 +84,13 @@ int	parse_envars(t_dlist *envars, char **str)
 	char	*var_end;
 	int		ret;
 
+	if (!find_var_name_start(*str, &var_start))
+		return (parse_envar_fail(NULL, 0));
+	if (!var_start || !*var_start)
+		return (0);
 	parsed_str = ft_calloc(1, sizeof(char));
 	if (!parsed_str)
 		return (parse_envar_fail(parsed_str, ENOMEM));
-	if (!find_var_name_start(*str, &var_start))
-		return (parse_envar_fail(parsed_str, 0));
 	var_end = *str;
 	while (var_start && *var_start)
 	{
