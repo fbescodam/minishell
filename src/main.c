@@ -19,10 +19,10 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		setup_signals(&mini);
-		mini.prompt = readline("\001\x1b[1m\002minishell> \001\x1b[0m\002");
+		mini.prompt = readline(KUT);
 		if (!mini.prompt)
 		{
-			printf("\x1b[1A\033[11Cexit\n");
+			printf("\x1b[1A\033[10Cexit\n");
 			rl_replace_line("exit", 1);
 			force_exit(&mini, 0);
 		}
