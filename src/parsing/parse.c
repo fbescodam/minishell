@@ -7,27 +7,11 @@
 #include "utils.h"
 #include "parse.h"
 
-// scan for ; and "
-// if " is found, check if it closes, if not parse error
-// if it closes add split until operator, but also add quoted text all in one string
-
-// this will not work now though because there is no difference in my parsing between "     " cat    and "     " | cat
-// "         " cat should stick together, "      " | cat should be two strings. Skip the characters within quotes
-// the parse_cmd stage will then separate them in different arguments
-
-int	double_quote_check(char *prompt, int first_quote_index)
-{
-	int		close_index;
-	char	quote[2];
-
-	quote[0] = prompt[first_quote_index];
-	quote[1] = '\0';
-	prompt += (first_quote_index + 1);
-	close_index = scan_operators(prompt, quote, 0);
-	if (prompt[close_index] == '\0')
-		return (-1);
-	return (close_index + 1);
-}
+/**
+ * @brief skips through quoted text and returns index
+ * @param prompt
+ * @return index on default, -1 in case of parse error
+ */
 
 int	quote_search_index(char *prompt)
 {
@@ -52,6 +36,12 @@ int	quote_search_index(char *prompt)
 	}
 }
 
+/**
+ * @brief skips through quoted text and returns the next delimiter index
+ * @param prompt, set of delimiters
+ * @return index, -1 on parse error
+ */
+
 int	next_operator_index(char *prompt, char *set)
 {
 	int		next_operator;
@@ -75,7 +65,11 @@ int	next_operator_index(char *prompt, char *set)
 	return(next_operator);
 }
 
-//function that splits string until index, adds split string to an array
+/**
+ * @brief splits string until index and adds split string to an array
+ * @param from: string to split, split_index, to: array
+ * @return 0, error code in case of error
+ */
 int		split_and_add(char *from, char ***to, int split_index)
 {
 	char	*split;
@@ -92,7 +86,12 @@ int		split_and_add(char *from, char ***to, int split_index)
 	ret = add_string_to_array(to, split);
 	return (ret);
 }
-
+/**
+ * @brief splits a prompt on the set character, unless it is between quotes
+ * @param from: string to split, to: destination string array, set: character
+ * to split on
+ * @return 0 on default, error code in case of error
+ */
 int	split_prompt(char *from, char ***to, char *set)
 {
 	int		ret;
@@ -117,6 +116,12 @@ int	split_prompt(char *from, char ***to, char *set)
 	return (0);
 }
 
+/**
+ * @brief initiate parsing by splitting the prompt at every pipe and
+ *  setting up commands
+ * @param mini struct to set up all commands, prompt to be split
+ * @return 0 on default, error code in case of error
+ */
 int	parse_prompt(t_mini *mini, char *prompt)
 {
 	char	**prompt_split;
@@ -126,16 +131,19 @@ int	parse_prompt(t_mini *mini, char *prompt)
 	{
 		prompt_split = ft_calloc(1, sizeof(char *));
 		if (!prompt_split)
-			force_exit(mini, ENOMEM);
+			return (ENOMEM);
 		ret = split_prompt(prompt, &prompt_split, "|");
 		if (ret != 0)
+		{
+			ft_free_double_ptr((void *)prompt_split);
 			return (ret);
+		}
 		ret = setup_cmds(mini, prompt_split);
+		ft_free_double_ptr((void *)prompt_split);
 		if (ret == -1)
 			return (ENOMEM);
 		if (ret == -2)
-			return (PARSE_ERROR);
-		//ret = setup_cmds(mini, prompt_split);
+			return (PARSE_ERROR);	
 	}
 	return (0);
 }

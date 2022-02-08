@@ -8,6 +8,7 @@
 #include "readline/readline.h"
 #include "readline/history.h"
 #include "parse.h"
+#include "utils.h"
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -40,13 +41,14 @@ int	main(int argc, char **argv, char **envp)
 			else
 			{
 				printf("prompt after parsing envars: \"%s\"\n", mini.prompt);
-				ret = parse_prompt(&mini, mini.prompt);
+				ret= parse_prompt(&mini, mini.prompt);
 				if (ret != 0)
 					error_manager(&mini, ret);
 				printf("prompt after parse_prompt: \"%s\"\n", mini.prompt);
 			}
 		}
 		ft_free(mini.prompt);
+		ft_lstclear(&(mini.cmds), &free_cmd);
 		mini.prompt = NULL;
 	}
 }

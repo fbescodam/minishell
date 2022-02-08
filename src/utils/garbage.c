@@ -13,8 +13,7 @@ void	free_token(void *token)
 {
 	if (!token)
 		return ;
-	if (((t_token *)token)->flag != 1)			// TODO: change to CMD
-		ft_free(((t_token *)token)->content);
+	ft_free(((t_token *)token)->content);
 	ft_free(token);
 }
 
@@ -24,7 +23,8 @@ void	free_cmd(void *cmd)
 		return ;
 	ft_free_double_ptr((void **)((t_cmd *)cmd)->params);
 	ft_lstclear(&((t_cmd *)cmd)->tokens, &free_token);
-	ft_free(((t_cmd *)cmd)->path);
+	if (((t_cmd *)cmd)->path)
+		ft_free(((t_cmd *)cmd)->path);
 	ft_free(cmd);
 }
 

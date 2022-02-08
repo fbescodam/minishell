@@ -6,27 +6,6 @@
 #include <stdio.h>
 #include "parse.h"
 
-int	get_quoted_string(char *prompt, char **dest)
-{
-	int	nxt_quote;
-	int	end_quote_index;
-	char	*str;
-
-	nxt_quote = 0;
-	end_quote_index = 0;
-	nxt_quote = scan_operators(prompt, "\'\"><", 0);
-	if (prompt[nxt_quote] != '\"' && prompt[nxt_quote] != '\'')
-		return (0);
-	end_quote_index = double_quote_check(prompt, nxt_quote);
-	if (end_quote_index < 0)
-		return (-2);
-	str = ft_substr(prompt, 1, nxt_quote + end_quote_index -1);
-	if (!str)
-		return (-1);
-	*dest = str;
-	return(nxt_quote + end_quote_index + 1);
-}
-
 int	parse_file_name(char *prompt, char ***dest)
 {
 	char	*prompt_start;
