@@ -3,6 +3,18 @@
 #include "envars.h"
 	#include <stdio.h>
 
+static int	is_valid_env_name_char(size_t pos, char c)
+{
+	if (pos == 0)
+	{
+		if (c != '_' && !ft_isalpha(c))
+			return (0);
+	}
+	else if (c != '_' && !ft_isalnum(c))
+		return (0);
+	return (1);
+}
+
 /**
  * @brief Find the start of a variable name in a string
  *
@@ -46,6 +58,7 @@ int	find_var_name_start(char *str, char **var_start)
 char	*find_var_name_end(char *str)
 {
 	char	*chr;
+	size_t	i;
 
 	if (*(str - 1) == '{')
 	{
@@ -54,10 +67,11 @@ char	*find_var_name_end(char *str)
 			chr++;
 		return (chr);
 	}
-	chr = ft_strschr(str, " $=\"\'");
-	if (chr)
-		return (chr);
-	return (ft_strchr(str, '\0'));
+	i = 0;
+	chr = str;
+	while (is_valid_env_name_char(0, *chr))
+		chr++;
+	return (chr);
 }
 
 int	set_mini_paths(t_mini *mini, t_ditem *list_item)
@@ -86,16 +100,18 @@ void	set_mini_status(t_mini *mini, int status_code)
 	}
 }
 
+// stop at '=' because that is where the value starts if used in
+// parse_set_envars_b4_comm. TODO: might introduce bugs?
 int	is_valid_env_name(char *name)
 {
 	size_t	i;
 
-	if (*name != '_' && !ft_isalpha(*name))
+	if (!is_valid_env_name_char(0, *name))
 		return (0);
 	i = 1;
 	while (name[i] && name[i] != '=')
 	{
-		if (name[i] != '_' && !ft_isalnum(name[i]))
+		if (!is_valid_env_name_char(i, name[i]))
 			return (0);
 		i++;
 	}
