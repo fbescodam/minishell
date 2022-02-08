@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 20:10:12 by fbes          #+#    #+#                 */
-/*   Updated: 2022/02/08 19:48:05 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/08 21:51:40 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  * @param[in] *str		The string to search in
  * @param[in] *sub		The string to find
  * @param[in] len		The amount of characters to stop searching after
- * @return			A pointer to the string found, or NULL if not found
+ * @return				A pointer to the string found, or NULL if not found
  */
 char	*ft_strnstr(const char *str, const char *sub, size_t len)
 {
@@ -30,7 +30,7 @@ char	*ft_strnstr(const char *str, const char *sub, size_t len)
 		return ((char *)str);
 	found_len = 0;
 	i = 0;
-	while (str[i] != '\0' && i < len - to_find_len - 1)
+	while (str[i] != '\0' && i < len)
 	{
 		if (str[i] == sub[found_len])
 			found_len++;
