@@ -71,26 +71,23 @@ int	setup_cmds(t_mini *mini, char **prompts)
 {
 	int	i;
 	t_list	*current_cmd;
-	i = 0;
+	int		*fd;
 	int ret;
 
 	ret = 0;
+	i = 0;
 	while (prompts[i])
 	{
 		current_cmd = new_cmd(mini);
 		if (current_cmd == NULL)
 				return(ENOMEM);
-		//if (i > 0)
-		//	pipe_in(current_cmd->content, &fd);
+		if (i > 0)
+			pipe_in(current_cmd->content, &fd);
 		ret = parse_cmd(current_cmd, prompts[i]);
 		if (ret != 0)
 			return (ret);
-		printf("COMMAND PARAMS: \n");
-		print_char_array(((t_cmd *)(current_cmd->content))->params);
-		printf("COMMAND TOKENS : \n");
-		print_tokens(((t_cmd *)(current_cmd->content))->tokens);
-		//if (commands[i + 1])
-		//	pipe_out(current_cmd->content, &fd);
+		if (prompts[i + 1])
+			pipe_out(current_cmd->content, &fd);
 		i++;
 	}
 	return (ret);

@@ -38,3 +38,20 @@ void	print_tokens(t_list *tokens)
 		current = current->next;
 	}
 }
+
+void	print_command_list(t_list *cmds)
+{
+	t_list *current;
+	t_cmd *cmd;
+
+	current = cmds;
+	while (current)
+	{
+		cmd = (t_cmd *)(current->content);
+		printf("COMMAND PARAMS: \n");
+		print_char_array(((t_cmd *)(current->content))->params);
+		printf("COMMAND TOKENS : \n");
+		print_tokens(((t_cmd *)(current->content))->tokens);
+		current = current->next;
+	}
+}

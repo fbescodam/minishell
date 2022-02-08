@@ -1,6 +1,7 @@
 #include "structs.h"
 // #include "tokens.h"
 #include "libft.h"
+#include <stdio.h>
 
 /**
  * @brief Free a token struct. The contents are not freed if flag is CMD, as
@@ -13,7 +14,8 @@ void	free_token(void *token)
 {
 	if (!token)
 		return ;
-	ft_free(((t_token *)token)->content);
+	if (((t_token *)token)->flag!= 5)
+		ft_free(((t_token *)token)->content);
 	ft_free(token);
 }
 

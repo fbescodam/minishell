@@ -9,6 +9,7 @@
 #include "readline/history.h"
 #include "parse.h"
 #include "utils.h"
+#include "execute.h"
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -20,6 +21,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		setup_signals(&mini);
+		mini.cmds = NULL;
 		mini.prompt = readline("\001\x1b[1m\002minishell> \001\x1b[0m\002");
 		if (!mini.prompt)
 		{
@@ -46,6 +48,8 @@ int	main(int argc, char **argv, char **envp)
 					error_manager(&mini, ret);
 				printf("prompt after parse_prompt: \"%s\"\n", mini.prompt);
 			}
+			print_command_list(mini.cmds);
+			ret = execution(&mini);
 		}
 		ft_free(mini.prompt);
 		ft_lstclear(&(mini.cmds), &free_cmd);
