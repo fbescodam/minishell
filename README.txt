@@ -6,3 +6,5 @@
 - test with: "< /usr/share/dict/words cat | cat > out" (should not get stuck)
 - ioctl to check pipe byte limit
 - check if we need to implement $PPID
+- do we need to implement 2>&1 etc
+- CD : child checks access to directory, if not prints error (this way stderr redirections are set correctly), then error code is passed to parent 
