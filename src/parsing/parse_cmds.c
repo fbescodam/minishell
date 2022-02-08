@@ -60,10 +60,7 @@ t_list	*new_cmd(t_mini *mini)
 		free(cmd);
 		return(NULL);
 	}
-	if (!(mini->cmds))
-		mini->cmds = cmd_instance;
-	else
-		ft_lstadd_back(&(mini->cmds), cmd_instance);
+	ft_lstadd_back(&(mini->cmds), cmd_instance);
 	return (cmd_instance);
 }
 
