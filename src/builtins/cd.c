@@ -26,7 +26,7 @@ int	mini_cd(t_cmd *cmd)
 	{
 		if (!ptc_error(cmd, strerror(errno)))
 			return (ENOMEM);
-		set_mini_status(cmd->mini, errno);
+		return (errno);
 	}
 	path = getcwd(NULL, 0);
 	if (!path)
