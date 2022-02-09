@@ -100,3 +100,28 @@ int	set_envar(t_mini *mini, char *name, char *val, int export)
 	ft_dlstadd_back(mini->envars, list_item);
 	return (1);
 }
+
+char	**get_envars_as_envp(t_mini *mini)
+{
+	size_t	i;
+	t_ditem	*item;
+	char	*temp;
+	char	**ret;
+
+	i = 0;
+	item = mini->envars->first;
+	ret = (char **)ft_calloc(mini->envars->size + 1, sizeof(char *));
+	if (!ret)
+		return (NULL);
+	while (i < mini->envars->size)
+	{
+		temp = ft_strxjoin(3, ((t_envar *)item->content)->name, "=",
+				((t_envar *)item->content)->val);
+		if (!temp)
+			return ((char **)ft_free_double_ptr((void **)ret));
+		ret[i] = temp;
+		item = item->next;
+		i++;
+	}
+	return (ret);
+}

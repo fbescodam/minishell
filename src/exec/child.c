@@ -1,5 +1,6 @@
 #include "structs.h"
 #include "execute.h"
+#include "envars.h"
 #include <errno.h>
 #include <signal.h>
 #include "error_handling.h"
@@ -14,7 +15,7 @@ void	exit_child(char *process_name)
 		ft_putstr_fd(process_name, 2);
 		ft_putstr_fd(": Command not found\n", 2);
 	}
-		
+
 	else
 		perror("minishell: ");
 	exit(errno);
@@ -24,7 +25,7 @@ int		fd_setup(t_token *token)
 {
 	int	ret;
 
-	if (token->flag == OUT_FILE || token->flag == OUT_FILE_APPEND 
+	if (token->flag == OUT_FILE || token->flag == OUT_FILE_APPEND
 		|| token->flag == PIPE_OUT)
 		ret = output_redirect(token);
 	else
@@ -49,7 +50,8 @@ int		redir_setup(t_cmd *cmd)
 
 void	child_process(t_cmd *cmd)
 {
-	int	ret;
+	int		ret;
+	char	**custom_envp;
 
 	signal(SIGINT, SIG_DFL);
 	ret = redir_setup(cmd);
@@ -57,7 +59,14 @@ void	child_process(t_cmd *cmd)
 		exit_child("");
 	if (!*(cmd->params))
 		exit_child("");
-	execv(cmd->path, cmd->params);
+	custom_envp = get_envars_as_envp(cmd->mini);
+	if (!custom_envp)
+	{
+		errno = ENOMEM;
+		exit_child("");
+	}
+	execve(cmd->path, cmd->params, custom_envp);
+	ft_free_double_ptr((void **)custom_envp);
 	if (!cmd->path)
 		errno = 127;
 	exit_child(*(cmd->params));
