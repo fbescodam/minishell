@@ -13,4 +13,5 @@ int	ptc_error(t_cmd *cmd, char *str)
 	if (!item)
 		return (0);
 	ft_lstadd_back(&cmd->frake_err, item);
+	return (1);
 }
