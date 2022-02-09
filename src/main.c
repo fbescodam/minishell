@@ -49,7 +49,7 @@ int	main(int argc, char **argv, char **envp)
 				else
 				{
 					print_command_list(mini.cmds);
-					ret = execution(&mini);
+					ret = execute_list(&mini);
 				}
 				printf("prompt after parse_prompt: \"%s\"\n", mini.prompt);
 			}

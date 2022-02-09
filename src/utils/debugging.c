@@ -55,3 +55,13 @@ void	print_command_list(t_list *cmds)
 		current = current->next;
 	}
 }
+
+void	print_command_status(t_cmd *cmd, int ret)
+{
+	if (ret == -1)
+		printf("Command not found: %s\n", *(cmd->params));
+	else if (ret == 0 && cmd->path)
+		printf("Command %s found at path :'%s'\n", *(cmd->params), cmd->path);
+	else
+		printf("No command in this prompt. cmd->path %s \n", cmd->path);
+}
