@@ -1,21 +1,27 @@
 #include "structs.h"
 #include "debug.h"
 #include "execute.h"
+#include "error_handling.h"
+#include <signal.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <sys/wait.h>
 
-int		execute_command(t_cmd *cmd, t_mini *mini)
+void	handler()
 {
-	int		ret;
+	printf("\n");
+}
+
+void	fork_process(t_cmd *cmd, t_mini *mini)
+{
 	int		pid;
 	int		status;
 	int		terminated_process;
 
 	terminated_process = 0;
-	ret = check_command(cmd, mini);
-	print_command_status(cmd, ret);
-	return (0);
-	/* pid = fork();
+	pid = fork();
 	if (pid == -1)
-		exit_shell_w_error(cmd, 0);
+		force_exit(mini, TOO_MANY_PROC);
 	signal(SIGINT, handler);
 	if (pid == 0)
 		child_process(cmd);
@@ -24,12 +30,20 @@ int		execute_command(t_cmd *cmd, t_mini *mini)
 	if (cmd->out_fd)
 		close(cmd->out_fd);
 	if (((status) & 0x7f) == 0)
-		errno = ((status) & 0xff00) >> 8;
-	if (errno != RESERVED)
-		return ;
-	ret = check_run_reserved_cmds(cmd);
-	if (ret > 0)
-		perror("minishell"); */
+		mini->status = ((status) & 0xff00) >> 8;
+	return ;
+} 
+
+int		execute_command(t_cmd *cmd, t_mini *mini)
+{
+	int		ret;
+
+	ret = check_command(cmd, mini);
+	if (ret == -2)
+		return (-1);
+	//print_command_status(cmd, ret);
+	fork_process(cmd, mini);
+	return (0);
 }
 
 int		execute_list(t_mini *mini)
