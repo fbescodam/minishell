@@ -6,15 +6,15 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 19:55:52 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/01 21:24:30 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/08 19:48:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdint.h>
 
 /**
  * Get the amount of characters necessary to print a pointer
- * @param ptr	The pointer to check
+ * @param[in] ptr	The pointer to check
  * @return		The amount of characters necessary to print it
  */
 int	ft_ptrlen(intptr_t ptr)

@@ -6,16 +6,16 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/17 13:37:33 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/01 21:49:32 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/08 19:48:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stddef.h>
 
 /**
  * Compare two strings but not more than a certain amount of characters
- * @param *s1		A string to compare
- * @param *s2		Another string to compare
+ * @param[in] *s1		A string to compare
+ * @param[in] *s2		Another string to compare
  * @size_t n		The maximum amount of characters to compare
  * @return			The difference between the two characters found at any
  * 					difference (0 if both strings are equal)

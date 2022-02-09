@@ -6,17 +6,18 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/07 18:12:09 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/01 21:25:29 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/08 19:48:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
 
 /**
  * Reallocate memory and free the old allocation
- * @param *ptr			The pointer to copy from
- * @param old_size		The size of the memory allocation to be freed
- * @param new_size		The size of the memory allocation to be allocated
+ * @param[in] *ptr			The pointer to copy from
+ * @param[in] old_size		The size of the original memory allocation to copy
+ * @param[in] new_size		The size of the memory allocation to be allocated
  * @return				The address of the newly allocated memory
  */
 void	*ft_realloc(void *ptr, size_t old_size, size_t new_size)

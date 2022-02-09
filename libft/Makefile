@@ -6,7 +6,7 @@
 #    By: fbes <fbes@student.codam.nl>                 +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/26 14:25:38 by fbes          #+#    #+#                  #
-#    Updated: 2022/01/24 17:47:45 by fbes          ########   odam.nl          #
+#    Updated: 2022/02/09 16:36:35 by fbes          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,16 +25,21 @@ SRCS =		ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
 			ft_ptrlen.c ft_abs.c ft_isneg.c ft_biggest.c ft_itoa_base.c \
 			ft_ptoa.c ft_get_next_line.c ft_strnlen.c ft_free.c ft_realloc.c \
 			ft_lstsort.c ft_iswhitespace.c ft_free_double_ptr.c ft_strclen.c \
-			ft_lstget.c ft_smallest.c ft_strschr.c
+			ft_lstget.c ft_smallest.c ft_strschr.c ft_strhash.c \
+			ft_ditemnew.c ft_dlstadd_back.c ft_dlstadd_front.c ft_dlstclear.c \
+			ft_dlstdelone.c ft_dlstget.c ft_dlstiter.c ft_dlstlast.c \
+			ft_dlstmap.c ft_dlstnew.c ft_dlstrem.c ft_strreplace.c \
+			ft_strxjoin.c
 
-OBJS =		$(SRCS:.c=.o)
+OBJS =		$(addprefix obj/,$(SRCS:.c=.o))
 
 CFLAGS =	-Wall -Wextra -Werror -pedantic -std=c89
 
 all: $(NAME)
 
-.c.o:
-	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
+obj/%.o: %.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
 	ar rc $(NAME) $(OBJS)
@@ -42,10 +47,10 @@ $(NAME): $(OBJS)
 bonus: $(NAME)
 
 clean:
-	rm -f $(OBJS)
+	rm -rf 'obj'
 
 fclean:
-	rm -f $(OBJS) $(NAME)
+	rm -rf 'obj' '$(NAME)'
 
 re: fclean all
 

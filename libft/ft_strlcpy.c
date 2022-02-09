@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/15 18:46:07 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/01 21:26:24 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/08 19:48:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 /**
  * Copy a string from one place in memory to another
- * @param *dest		The place to copy to
- * @param *src		The place to copy from
- * @param size		The maximum amount of bytes to copy
+ * @param[in] *dest		The place to copy to
+ * @param[in] *src		The place to copy from
+ * @param[in] size		The maximum amount of bytes to copy
  * @return			The length of the string the method tried to create
  */
 size_t	ft_strlcpy(char *dest, const char *src, size_t size)

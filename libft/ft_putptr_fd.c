@@ -6,11 +6,12 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 18:37:56 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/01 21:25:13 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/08 19:48:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdint.h>
+#include <unistd.h>
 
 static int	ptr_loop(intptr_t ptr, int fd)
 {
@@ -28,8 +29,8 @@ static int	ptr_loop(intptr_t ptr, int fd)
 
 /**
  * Write a pointer address to a file descriptor
- * @param ptr	The pointer to write
- * @param fd	The file descriptor to write to
+ * @param[in] ptr	The pointer to write
+ * @param[in] fd	The file descriptor to write to
  * @return		The amount of characters written, or -1 on error
  */
 int	ft_putptr_fd(intptr_t ptr, int fd)

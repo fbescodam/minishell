@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/03 17:42:36 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/01 21:22:06 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/08 19:48:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 /**
  * Create a copy of a linked list and apply a method to every element
- * @param *lst					The list to copy
- * @param void *(*f)(void *)	The method to apply to every element of the
+ * @param[in] *lst					The list to copy
+ * @param[in] void *(*f)(void *)	The method to apply to every element of the
  * 								copied list
- * @param void (*del)(void *)	The method applied to every element before
+ * @param[in] void (*del)(void *)	The method applied to every element before
  * 								deletion (of the copy) if anything goes wrong
  * @return						The copied list after the applied method
  */

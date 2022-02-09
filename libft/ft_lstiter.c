@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/03 17:40:46 by fbes          #+#    #+#                 */
-/*   Updated: 2021/11/01 21:21:42 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/08 19:48:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 /**
  * Apply a method to every element of a linked list
- * @param *lst					The list to apply the method to
- * @param void (*f)(void *)		The method to apply to each element
+ * @param[in] *lst					The list to apply the method to
+ * @param[in] void (*f)(void *)		The method to apply to each element
  */
 void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
