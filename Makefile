@@ -7,7 +7,7 @@ SRCS =		src/utils/debugging.c src/error_handling.c src/main.c src/setup.c \
 			src/utils/char_array_utils.c src/parsing/parse_cmds.c \
 			src/parsing/parse_redirections.c src/envars/set.c \
 			src/parsing/parse_params.c src/exec/exec_list.c src/parsing/pipe.c \
-			src/exec/check_cmd.c
+			src/exec/check_cmd.c src/exec/child.c src/exec/redirections.c
 
 INCLUDES =	-I includes -I libft -I /Users/$(USER)/.brew/opt/readline/include
 

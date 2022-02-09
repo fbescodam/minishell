@@ -30,6 +30,7 @@ int		pipe_out(t_cmd *cmd, int **fd)
 	if (ret < 0)
 		return (errno);
 	out_token = pipe_token(*fd, PIPE_OUT);
+	cmd->out_fd = *(*fd + 1);
 	if (!out_token)
 		return (ENOMEM);
 	new = ft_lstnew(out_token);

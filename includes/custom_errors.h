@@ -6,7 +6,7 @@
 /* system errors (1 and above) */
 # define PARSE_ERROR 258
 # define CMDNF 127
-
+# define TOO_MANY_PROC 67
 /* minor errors (between -3 and -254) */
 # define RESERVED -95
 
