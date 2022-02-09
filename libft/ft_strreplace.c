@@ -6,13 +6,12 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/08 21:25:13 by fbes          #+#    #+#                 */
-/*   Updated: 2022/02/08 21:40:54 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/09 17:12:16 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libft.h"
-	#include <stdio.h>
 
 char	*ft_strreplace(char *str, char *find, char *replace)
 {
@@ -28,10 +27,7 @@ char	*ft_strreplace(char *str, char *find, char *replace)
 		return (ft_strdup(str));
 	loc = ft_strnstr(str, find, old_len);
 	if (!loc)
-	{
-		printf("ft_strnstr failed! str: %s, find: %s, old_len: %lu\n", str, find, old_len);
 		return (ft_strdup(str));
-	}
 	repl_len = ft_strlen(replace);
 	replaced = malloc((old_len - find_len + repl_len + 1) * sizeof(char));
 	if (!replaced)
