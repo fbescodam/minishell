@@ -8,4 +8,4 @@
 - check if we need to implement $PPID
 - do we need to implement 2>&1 etc
 - CD : child checks access to directory, if not prints error (this way stderr redirections are set correctly), then error code is passed to parent 
-2<src/main.c 2>output cat
+- when a program segfaults bash prints segfault. Ours does not. I'd love to know why?

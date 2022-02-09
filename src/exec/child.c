@@ -41,7 +41,9 @@ int		redir_setup(t_cmd *cmd)
 	current_token = cmd->tokens;
 	while (current_token)
 	{
-		ret += fd_setup(current_token->content);
+		ret = fd_setup(current_token->content);
+		if (ret != 0)
+			return (ret);
 		current_token = current_token->next;
 	}
 	return (ret);
