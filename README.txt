@@ -7,5 +7,19 @@
 - ioctl to check pipe byte limit
 - check if we need to implement $PPID
 - do we need to implement 2>&1 etc
-- CD : child checks access to directory, if not prints error (this way stderr redirections are set correctly), then error code is passed to parent 
+- CD : child checks access to directory, if not prints error (this way stderr redirections are set correctly), then error code is passed to parent
 - when a program segfaults bash prints segfault. Ours does not. I'd love to know why?
+
+
+
+
+
+VOLGORDE ORDER SEQUENCE WHATEVER HELL
+- split on pipes
+- check for and run heredoc
+- set up the redirections (heredoc is part of that)
+- set environment variables found in the command (VAR=VALUE cmd)
+- expand environment variables
+- parse the commands
+- check if it is built-in, if not find the executable, if so, run built-in
+- execute child
