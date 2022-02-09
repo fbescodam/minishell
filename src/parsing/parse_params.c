@@ -14,7 +14,9 @@ int	add_param(char **param_buffer, char ***dest)
 	if (!param)
 		return (-1);
 	if (*param)
-	err = add_string_to_array(dest, param);
+		err = add_string_to_array(dest, param);
+	else
+		free(param);
 	free(*param_buffer);
 	if (err != 0)
 		return (-1);
