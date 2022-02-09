@@ -49,7 +49,6 @@ typedef struct s_cmd
 	char	*path;
 	t_list	*tokens;
 	int		argc;
-	t_list	*frake_out;
 	t_list	*frake_err;
 }				t_cmd;
 

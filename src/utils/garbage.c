@@ -30,8 +30,6 @@ void	free_cmd(void *cmd)
 		ft_free(((t_cmd *)cmd)->path);
 	if (((t_cmd *)cmd)->frake_err)
 		ft_lstclear(&((t_cmd *)cmd)->frake_err, &free);
-	if (((t_cmd *)cmd)->frake_out)
-		ft_lstclear(&((t_cmd *)cmd)->frake_out, &free);
 	ft_free(cmd);
 }
 
