@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "error_handling.h"
 #include "utils.h"
 
 // exit runs in the parent. the exit is not printed in out with exit > out
@@ -11,6 +12,6 @@ int	mini_exit(t_cmd *cmd)
 		// maybe it is after all? "no arguments" is not stated in the subject
 		// but it is stated for env, so maybe arguments != options in subject
 	}
-	exit_shell_w_error(cmd, -2);
+	force_exit(cmd->mini, 1);
 	return (0);
 }

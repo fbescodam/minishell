@@ -1,7 +1,8 @@
+#include <stdlib.h>
+#include <errno.h>
 #include "utils.h"
 #include "builtins.h"
-#include <errno.h>
-#include "envars.h";
+#include "envars.h"
 
 static int	export_error(t_cmd *cmd, char *str)
 {
@@ -10,9 +11,14 @@ static int	export_error(t_cmd *cmd, char *str)
 	temp = ft_strreplace("minishell: export: @: not a valid identifier",
 			"@", str);
 	if (!temp)
-		return (ENOMEM);
-	ptc_error(cmd, temp);
+		return (0);
+	if (!ptc_error(cmd, temp))
+	{
+		free(temp);
+		return (0);
+	}
 	free(temp);
+	return (1);
 }
 
 // export runs in the parent, sends error messages to the child.
@@ -38,7 +44,7 @@ int	mini_export(t_cmd *cmd)
 			else
 			{
 				*equals_pos = '\0';
-				set_envar(cmd, cmd->params[i], equals_pos + 1, 1);
+				set_envar(cmd->mini, cmd->params[i], equals_pos + 1, 1);
 			}
 		}
 		else

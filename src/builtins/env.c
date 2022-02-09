@@ -4,14 +4,17 @@
 // TODO: env runs in the child, because it doesn't change any memory
 int	mini_env(t_cmd *cmd)
 {
-	t_list	*temp;
+	size_t	i;
+	t_ditem	*item;
 
-	temp = cmd->mini->envars;
-	while (temp)
+	i = 0;
+	item = cmd->mini->envars->first;
+	while (i < cmd->mini->envars->size)
 	{
-		printf("%s=%s\n", ((t_envar *)temp->content)->name,
-			((t_envar *)temp->content)->val);
-		temp = temp->next;
+		printf("%s=%s\n", ((t_envar *)item->content)->name,
+			((t_envar *)item->content)->val);
+		item = item->next;
+		i++;
 	}
 	return (0);
 }
