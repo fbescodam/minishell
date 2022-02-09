@@ -6,7 +6,7 @@
 #    By: fbes <fbes@student.codam.nl>                 +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/26 14:25:38 by fbes          #+#    #+#                  #
-#    Updated: 2022/02/08 21:33:29 by fbes          ########   odam.nl          #
+#    Updated: 2022/02/09 16:36:35 by fbes          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ SRCS =		ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
 			ft_lstget.c ft_smallest.c ft_strschr.c ft_strhash.c \
 			ft_ditemnew.c ft_dlstadd_back.c ft_dlstadd_front.c ft_dlstclear.c \
 			ft_dlstdelone.c ft_dlstget.c ft_dlstiter.c ft_dlstlast.c \
-			ft_dlstmap.c ft_dlstnew.c ft_dlstrem.c ft_strreplace.c
+			ft_dlstmap.c ft_dlstnew.c ft_dlstrem.c ft_strreplace.c \
+			ft_strxjoin.c
 
 OBJS =		$(addprefix obj/,$(SRCS:.c=.o))
 

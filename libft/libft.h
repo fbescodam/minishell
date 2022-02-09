@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 14:35:23 by fbes          #+#    #+#                 */
-/*   Updated: 2022/02/09 15:52:30 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/09 16:36:45 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,6 @@ t_dlist			*ft_dlstmap(t_dlist *list, void *(*f)(void *),
 t_dlist			*ft_dlstnew(void);
 void			ft_dlstrem(t_dlist *list, t_ditem *item, void (*del)(void *));
 char			*ft_strreplace(char *str, char *find, char *replace);
+char			*ft_strxjoin(size_t amount, char *str1, char *str2, ...);
 
 #endif
