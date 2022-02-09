@@ -38,7 +38,6 @@ int	output_redirect(t_token *token)
 		fd_1 = open((char *)(token->content), O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	else
 		fd_1 = ((int*)(token->content))[1];
-	printf("FLAG : %d, fd_1 : %d\n", token->flag, fd_1);
 	if (fd_1 == -1)
 		return (-1);
 	ret = dup2(fd_1, fd_2);

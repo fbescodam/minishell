@@ -41,7 +41,7 @@ int		execute_command(t_cmd *cmd, t_mini *mini)
 	ret = check_command(cmd, mini);
 	if (ret == -2)
 		return (-1);
-	print_command_status(cmd, ret);
+	//print_command_status(cmd, ret);
 	fork_process(cmd, mini);
 	return (0);
 }
