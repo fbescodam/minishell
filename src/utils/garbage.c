@@ -15,7 +15,7 @@ void	free_token(void *token)
 {
 	if (!token)
 		return ;
-	if (((t_token *)token)->flag!= 5)
+	if (((t_token *)token)->flag!= PIPE_IN)
 		ft_free(((t_token *)token)->content);
 	ft_free(token);
 }
