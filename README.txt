@@ -9,6 +9,7 @@
 - do we need to implement 2>&1 etc
 - CD : child checks access to directory, if not prints error (this way stderr redirections are set correctly), then error code is passed to parent
 - when a program segfaults bash prints segfault. Ours does not. I'd love to know why?
+- ft_strxjoin: CANNOT USE, USES VA_ARG, IS NOT ALLOWED, FUCK
 
 
 
