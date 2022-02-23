@@ -30,7 +30,7 @@ int		pipe_out(t_cmd *cmd, int **fd)
 	if (ret < 0)
 		return (errno);
 	out_token = pipe_token(*fd, PIPE_OUT);
-	cmd->out_fd = *(*fd + 1);
+	//cmd->out_fd = *(*fd + 1);
 	if (!out_token)
 		return (ENOMEM);
 	new = ft_lstnew(out_token);
@@ -50,5 +50,7 @@ int	pipe_in(t_cmd *cmd, int **fd)
 	cmd->tokens = ft_lstnew(in_token);
 	if (!(cmd->tokens))
 		return(ENOMEM);
+	cmd->in_fd = *(*fd);
+	cmd->out_fd = *(*fd + 1);
 	return(0);
 }

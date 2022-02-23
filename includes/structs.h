@@ -42,6 +42,7 @@ typedef struct s_cmd
 	int		out_fd;
 	//int		mode;		//we're not really using this I guess?
 	char	**params;
+	int		pid;
 	char	*path;
 	t_list	*tokens;
 	int		argc;
