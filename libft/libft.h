@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 14:35:23 by fbes          #+#    #+#                 */
-/*   Updated: 2022/02/09 16:36:45 by fbes          ########   odam.nl         */
+/*   Updated: 2022/02/23 21:47:53 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,14 @@ typedef struct s_dlist
 	size_t			size;
 	t_ditem			*first;
 }				t_dlist;
+
+typedef struct s_ft_va_item
+{
+	void			*item;
+	size_t			size;
+}				t_ft_va_item;
+
+typedef t_ft_va_item **	t_ft_va_list;
 
 void			*ft_memset(void *s, int c, size_t n);
 void			ft_bzero(void *s, size_t n);
@@ -115,6 +123,12 @@ t_dlist			*ft_dlstmap(t_dlist *list, void *(*f)(void *),
 t_dlist			*ft_dlstnew(void);
 void			ft_dlstrem(t_dlist *list, t_ditem *item, void (*del)(void *));
 char			*ft_strreplace(char *str, char *find, char *replace);
-char			*ft_strxjoin(size_t amount, char *str1, char *str2, ...);
+char			*ft_strxjoin(size_t amount, t_ft_va_list strs);
+t_ft_va_list	ft_va_new(size_t size);
+t_ft_va_item	*ft_va_add(t_ft_va_list list, size_t index, void *item,
+					size_t size);
+void			ft_va_start(t_ft_va_list *item, t_ft_va_list list);
+void			ft_va_arg(t_ft_va_list *item);
+void			ft_va_end(t_ft_va_list list);
 
 #endif
