@@ -101,12 +101,14 @@ int	set_envar(t_mini *mini, char *name, char *val, int export)
 	return (1);
 }
 
+// TODO: error check on ft_va_add
 char	**get_envars_as_envp(t_mini *mini)
 {
-	size_t	i;
-	t_ditem	*item;
-	char	*temp;
-	char	**ret;
+	t_ft_va_item	**list;
+	size_t			i;
+	t_ditem			*item;
+	char			*temp;
+	char			**ret;
 
 	i = 0;
 	item = mini->envars->first;
@@ -115,8 +117,15 @@ char	**get_envars_as_envp(t_mini *mini)
 		return (NULL);
 	while (i < mini->envars->size)
 	{
-		temp = ft_strxjoin(3, ((t_envar *)item->content)->name, "=",
-				((t_envar *)item->content)->val);
+		list = ft_va_new(3);
+		if (!list)
+			return ((char **)ft_free_double_ptr((void **)ret));
+		ft_va_add(list, 0, ((t_envar *)item->content)->name,
+			ft_strlen(((t_envar *)item->content)->name) + 1);
+		ft_va_add(list, 1, "=", 2);
+		ft_va_add(list, 3, ((t_envar *)item->content)->val,
+			ft_strlen(((t_envar *)item->content)->val) + 1);
+		temp = ft_strxjoin(3, list);
 		if (!temp)
 			return ((char **)ft_free_double_ptr((void **)ret));
 		ret[i] = temp;
