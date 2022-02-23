@@ -11,7 +11,7 @@
 			"program": "${workspaceFolder}/minishell",
 			"args": [],
 			"stopAtEntry": true,
-		"cwd": "${workspaceFolder}",
+			"cwd": "${workspaceFolder}",
 			"environment": [],
 			"externalConsole": true,
 			"MIMode": "lldb",
