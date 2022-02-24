@@ -15,7 +15,7 @@ void	exit_child(char *process_name)
 		ft_putstr_fd(process_name, 2);
 		ft_putstr_fd(": Command not found\n", 2);
 	}
-	else
+	else if (errno != 0)
 		perror("minishell");
 	exit(errno);
 }
@@ -87,6 +87,7 @@ void	child_process(t_cmd *cmd)
 	char	**custom_envp;
 
 	signal(SIGINT, SIG_DFL);
+	errno = 0;
 	ret = redir_setup(cmd);
 	if (ret != 0)
 		exit_child("");
@@ -98,7 +99,6 @@ void	child_process(t_cmd *cmd)
 		errno = ENOMEM;
 		exit_child("");
 	}
-	//execv(cmd->path, cmd->params);
 	if (!cmd->path)
 		errno = 127;
 	else
