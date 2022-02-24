@@ -52,13 +52,33 @@ int		execute_command(t_list *cmd_inst, t_mini *mini)
 	return (0);
 }
 
+void	wait_n_processes(int amount, t_mini *mini)
+{
+	int	ret;
+	int	status;
+
+	while (amount)
+	{
+		ret = wait(&status);
+		if (ret == -1)
+			perror("minishell");
+		amount--;
+	}
+	if (((status) & 0x7f) == 0)
+		set_mini_status(mini, ((status) & 0xff00) >> 8);
+	if (WIFSIGNALED(status))
+	{
+		if (WTERMSIG(status) == SIGSEGV)
+			error_manager(mini, SEGF);
+	}
+}
+
 int		execute_list(t_mini *mini)
 {
 	t_list	*current;
 	int		ret;
 	t_cmd	*cmd;
 	int		amount;
-	int		status;
 
 	amount = 0;
 	current = mini->cmds;
@@ -76,12 +96,6 @@ int		execute_list(t_mini *mini)
 		current = current->next;
 		amount++;
 	}
-	while (amount)
-	{
-		ret = wait(&status);
-		amount--;
-	}
-	if (((status) & 0x7f) == 0)
-		set_mini_status(mini, ((status) & 0xff00) >> 8);
+	wait_n_processes(amount, mini);
 	return (0);
 }
