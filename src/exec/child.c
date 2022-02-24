@@ -101,10 +101,8 @@ void	child_process(t_cmd *cmd)
 		//exit_child("");
 	}
 	execv(cmd->path, cmd->params);
-
 	//execve(cmd->path, cmd->params, custom_envp);
-	ft_free_double_ptr((void **)custom_envp);
-	if (!cmd->path)
-		errno = 127;
+	//ft_free_double_ptr((void **)custom_envp);
+	errno = 127;
 	exit_child(*(cmd->params));
 }

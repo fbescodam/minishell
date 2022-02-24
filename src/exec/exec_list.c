@@ -51,8 +51,6 @@ int		execute_command(t_list *cmd_inst, t_mini *mini)
 	return (0);
 }
 
-
-
 int		execute_list(t_mini *mini)
 {
 	t_list	*current;
