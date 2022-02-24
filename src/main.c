@@ -30,34 +30,34 @@ int	main(int argc, char **argv, char **envp)
 			force_exit(&mini, 0);
 		}
 		add_history(mini.prompt);
-		printf("prompt after readline: \"%s\"\n", mini.prompt);
+		//printf("prompt after readline: \"%s\"\n", mini.prompt);
 		ret = parse_set_envars_b4_comm(&mini, &mini.prompt);
 		if (ret != 0)
 			error_manager(&mini, ret);
 		else
 		{
-			printf("prompt after parsing envars to set: \"%s\"\n", mini.prompt);
+			//printf("prompt after parsing envars to set: \"%s\"\n", mini.prompt);
 			ret = parse_envars(mini.envars, &mini.prompt);
 			if (ret != 0)
 				error_manager(&mini, ret);
 			else
 			{
-				printf("prompt after parsing envars: \"%s\"\n", mini.prompt);
+				//printf("prompt after parsing envars: \"%s\"\n", mini.prompt);
 				ret = parse_prompt(&mini, mini.prompt);
 				if (ret != 0)
 					error_manager(&mini, ret);
 				else
 				{
-					print_command_list(mini.cmds);
+					//print_command_list(mini.cmds);
 					ret = execute_list(&mini);
 				}
-				printf("prompt after parse_prompt: \"%s\"\n", mini.prompt);
+				//printf("prompt after parse_prompt: \"%s\"\n", mini.prompt);
 			}
 		}
 
-		ft_free(mini.prompt);
+		//ft_free(mini.prompt);
 		ft_lstclear(&(mini.cmds), &free_cmd);
-		system("leaks minishell");
+		//system("leaks minishell");
 		mini.prompt = NULL;
 	}
 }

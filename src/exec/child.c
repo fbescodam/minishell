@@ -25,12 +25,35 @@ int		fd_setup(t_token *token)
 {
 	int	ret;
 
-	if (token->flag == OUT_FILE || token->flag == OUT_FILE_APPEND
-		|| token->flag == PIPE_OUT)
+	if (token->flag == OUT_FILE || token->flag == OUT_FILE_APPEND)
 		ret = output_redirect(token);
 	else
 		ret = input_redirect(token);
 	return (ret);
+}
+
+int		pipe_setup(int fd[2], int flag)
+{
+	int	ret;
+
+	ret = 0;
+	if (flag == PIPE_OUT)
+	{
+		close(fd[0]);
+		ret = dup2(fd[1], 1);
+		if (ret < 0)
+			return (errno);
+		close(fd[1]);
+	}
+	if (flag == PIPE_IN)
+	{
+		close(fd[1]);
+		ret = dup2(fd[0], 0);
+		if (ret < 0)
+			return (errno);
+		close(fd[0]);
+	}
+	return (0);
 }
 
 int		redir_setup(t_cmd *cmd)
@@ -40,6 +63,7 @@ int		redir_setup(t_cmd *cmd)
 
 	ret = 0;
 	current_token = cmd->tokens;
+	
 	while (current_token)
 	{
 		ret = fd_setup(current_token->content);
@@ -47,6 +71,14 @@ int		redir_setup(t_cmd *cmd)
 			return (ret);
 		current_token = current_token->next;
 	}
+	if (cmd->pipe_out[0])
+		ret = pipe_setup(cmd->pipe_out, PIPE_OUT);
+	if (ret != 0)
+		return (ret);
+	if (cmd->pipe_in[0])
+		ret = pipe_setup(cmd->pipe_in, PIPE_IN);
+	if (ret != 0)
+		return (ret);
 	return (ret);
 }
 
@@ -55,19 +87,22 @@ void	child_process(t_cmd *cmd)
 	int		ret;
 	char	**custom_envp;
 
+	
 	signal(SIGINT, SIG_DFL);
 	ret = redir_setup(cmd);
 	if (ret != 0)
 		exit_child("");
 	if (!*(cmd->params))
 		exit_child("");
-	custom_envp = get_envars_as_envp(cmd->mini);
+	//custom_envp = get_envars_as_envp(cmd->mini);
 	if (!custom_envp)
 	{
-		errno = ENOMEM;
-		exit_child("");
+		//errno = ENOMEM;
+		//exit_child("");
 	}
-	execve(cmd->path, cmd->params, custom_envp);
+	execv(cmd->path, cmd->params);
+
+	//execve(cmd->path, cmd->params, custom_envp);
 	ft_free_double_ptr((void **)custom_envp);
 	if (!cmd->path)
 		errno = 127;

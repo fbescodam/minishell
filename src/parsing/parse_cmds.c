@@ -68,7 +68,6 @@ int	setup_cmds(t_mini *mini, char **prompts)
 {
 	int	i;
 	t_list	*current_cmd;
-	int		*fd;
 	int ret;
 
 	ret = 0;
@@ -79,12 +78,12 @@ int	setup_cmds(t_mini *mini, char **prompts)
 		if (current_cmd == NULL)
 				return(ENOMEM);
 		if (i > 0)
-			pipe_in(current_cmd->content, &fd);
+			((t_cmd *)(current_cmd->content))->pipe_in[0] = 1;
 		ret = parse_cmd(current_cmd, prompts[i]);
 		if (ret != 0)
 			return (ret);
 		if (prompts[i + 1])
-			pipe_out(current_cmd->content, &fd);
+			((t_cmd *)(current_cmd->content))->pipe_out[0] = 1;
 		i++;
 	}
 	return (ret);

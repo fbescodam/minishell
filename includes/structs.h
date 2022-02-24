@@ -38,11 +38,11 @@ typedef struct s_cmd
 	t_mini	*mini;
 	char	*in_file;
 	char	*out_file;
-	int		in_fd;
-	int		out_fd;
 	//int		mode;		//we're not really using this I guess?
 	char	**params;
 	int		pid;
+	int		pipe_in[2];
+	int		pipe_out[2];
 	char	*path;
 	t_list	*tokens;
 	int		argc;

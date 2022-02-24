@@ -65,3 +65,18 @@ void	print_command_status(t_cmd *cmd, int ret)
 	else
 		printf("No command in this prompt. cmd->path %s \n", cmd->path);
 }
+
+void	print_path_pid(t_list *cmds, int pid)
+{
+		t_list *current;
+	t_cmd *cmd;
+
+	current = cmds;
+	while (current)
+	{
+		cmd = (t_cmd *)(current->content);
+		if (cmd->pid == pid)
+			printf("COMMAND: %s\n", cmd->path);
+		current = current->next;
+	}
+}

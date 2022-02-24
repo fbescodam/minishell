@@ -4,53 +4,45 @@
 #include <stdio.h>
 #include <unistd.h>
 
-
-t_token		*pipe_token(int *fd, int flag)
+/* 
+t_token		*pipe_token(int flag)
 {
 	t_token	*token;
 
 	token = (t_token *)ft_calloc(1, sizeof(t_token));
 	if (!token)
 		return (0);
-	token->content = fd;
+	token->content = NULL;
 	token->flag = flag;
 	return (token);
 }
 
-int		pipe_out(t_cmd *cmd, int **fd)
+int		pipe_out(t_cmd *cmd)
 {
 	t_token *out_token;
 	t_list *new;
-	int		ret;
 
-	*fd = (int *)malloc (sizeof(int) * 2);
-	if (!fd)
-		return (ENOMEM);
-	ret = pipe(*fd);
-	if (ret < 0)
-		return (errno);
-	out_token = pipe_token(*fd, PIPE_OUT);
-	//cmd->out_fd = *(*fd + 1);
+	out_token = pipe_token(PIPE_OUT);
 	if (!out_token)
 		return (ENOMEM);
 	new = ft_lstnew(out_token);
 	if (!new)
 		return (ENOMEM);
 	ft_lstadd_back(&(cmd->tokens), new);
+	cmd->out_fd = 1;
 	return (0);
 }
 
-int	pipe_in(t_cmd *cmd, int **fd)
+int	pipe_in(t_cmd *cmd)
 {
 	t_token	*in_token;
 
-	in_token = pipe_token(*fd, PIPE_IN);
+	in_token = pipe_token(PIPE_IN);
 	if (!in_token)
 		return (ENOMEM);
 	cmd->tokens = ft_lstnew(in_token);
+	cmd->in_fd = 1;
 	if (!(cmd->tokens))
 		return(ENOMEM);
-	cmd->in_fd = *(*fd);
-	cmd->out_fd = *(*fd + 1);
 	return(0);
-}
+} */

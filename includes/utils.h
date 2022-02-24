@@ -19,8 +19,6 @@ int		add_string_to_array(char ***to, char *from);
 char	replace_space_with_null(unsigned int pos, char c);
 int		get_quoted_string(char *prompt, char **dest);
 int		join_realloc(char **dest, char *src, char len);
-int		pipe_in(t_cmd *cmd, int **fd);
-int		pipe_out(t_cmd *cmd, int **fd);
 int		ptc_error(t_cmd *cmd, char *str);
 int		ptc_echo(t_cmd *cmd, char *str);
 int		is_fd_redir(char *prompt);
