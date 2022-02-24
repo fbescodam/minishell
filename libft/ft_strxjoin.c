@@ -33,10 +33,9 @@ static void	xjoin(size_t amount, t_ft_va_list strs, char *res)
 	while (i < amount)
 	{
 		ft_memcpy(temp, (*strx)->item, (*strx)->size - 1);
+		temp += (*strx)->size - 1;
 		ft_va_arg(&strx);
 		i++;
-		if (i < amount)
-			temp += (*strx)->size - 1;
 	}
 }
 
@@ -68,7 +67,7 @@ char	*ft_strxjoin(size_t amount, t_ft_va_list strs)
 		ft_va_arg(&strx);
 		i++;
 	}
-	res = (char *)malloc(joint_len + 1);
+	res = (void *)malloc(joint_len + 1);
 	res[joint_len] = '\0';
 	if (joint_len > 0)
 		xjoin(amount, strs, res);

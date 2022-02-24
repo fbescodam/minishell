@@ -1,7 +1,9 @@
 #include "structs.h"
 #include "debug.h"
 #include "execute.h"
+#include "envars.h"
 #include "error_handling.h"
+#include <errno.h>
 #include <signal.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -20,7 +22,6 @@ void	fork_process(t_cmd *cmd, t_mini *mini)
 
 	terminated_process = 0;
 	pid = fork();
-	
 	if (pid == -1)
 		force_exit(mini, TOO_MANY_PROC);
 	signal(SIGINT, handler);
@@ -28,7 +29,7 @@ void	fork_process(t_cmd *cmd, t_mini *mini)
 		child_process(cmd);
 	cmd->pid = pid;
 	return ;
-} 
+}
 
 int		execute_command(t_list *cmd_inst, t_mini *mini)
 {
@@ -59,6 +60,7 @@ int		execute_list(t_mini *mini)
 	int		amount;
 	int		status;
 
+	amount = 0;
 	current = mini->cmds;
 	while (current)
 	{
@@ -80,6 +82,6 @@ int		execute_list(t_mini *mini)
 		amount--;
 	}
 	if (((status) & 0x7f) == 0)
-		mini->status = ((status) & 0xff00) >> 8;
+		set_mini_status(mini, ((status) & 0xff00) >> 8);
 	return (0);
 }

@@ -15,7 +15,6 @@ void	exit_child(char *process_name)
 		ft_putstr_fd(process_name, 2);
 		ft_putstr_fd(": Command not found\n", 2);
 	}
-
 	else
 		perror("minishell: ");
 	exit(errno);
@@ -63,7 +62,7 @@ int		redir_setup(t_cmd *cmd)
 
 	ret = 0;
 	current_token = cmd->tokens;
-	
+
 	while (current_token)
 	{
 		ret = fd_setup(current_token->content);
@@ -87,22 +86,21 @@ void	child_process(t_cmd *cmd)
 	int		ret;
 	char	**custom_envp;
 
-	
 	signal(SIGINT, SIG_DFL);
 	ret = redir_setup(cmd);
 	if (ret != 0)
 		exit_child("");
 	if (!*(cmd->params))
 		exit_child("");
-	//custom_envp = get_envars_as_envp(cmd->mini);
+	custom_envp = get_envars_as_envp(cmd->mini);
 	if (!custom_envp)
 	{
-		//errno = ENOMEM;
-		//exit_child("");
+		errno = ENOMEM;
+		exit_child("");
 	}
-	execv(cmd->path, cmd->params);
-	//execve(cmd->path, cmd->params, custom_envp);
-	//ft_free_double_ptr((void **)custom_envp);
-	errno = 127;
+	//execv(cmd->path, cmd->params);
+	if (execve(cmd->path, cmd->params, custom_envp) >= 0 && !cmd->path)
+		errno = 127;
+	ft_free_double_ptr((void **)custom_envp);
 	exit_child(*(cmd->params));
 }
