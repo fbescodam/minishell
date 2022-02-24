@@ -3,6 +3,7 @@ minishell
 
 # Stupid shit
 .DS_Store
+.vscode/settings.json
 
 # Prerequisites
 *.d
