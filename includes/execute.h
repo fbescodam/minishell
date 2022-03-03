@@ -9,5 +9,7 @@ int		is_reserved(t_cmd *cmd);
 int		check_run_reserved_cmds(t_cmd *cmd, int which);
 int		run_in_child(int which);
 void	child_process(t_cmd *cmd);
+int		heredoc_redirect(t_cmd *cmd);
+void	wait_n_processes(int amount, t_mini *mini);
 
 #endif

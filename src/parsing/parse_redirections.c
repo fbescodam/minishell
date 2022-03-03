@@ -46,7 +46,7 @@ int	redir_type_check(char *prompt)
 		if (*next_char == '<' || *next_char == '>' || *next_char == '\0')
 			return (-1);
 		if (prompt[0] == '<')
-			return (IN_FILE_APPEND);
+			return (HEREDOC);
 		return (OUT_FILE_APPEND);
 	}
 	next_char = prompt + 1;
@@ -59,7 +59,7 @@ int	redir_type_check(char *prompt)
 	return (OUT_FILE);
 }
 
-int	add_token(void *content, int flag, t_list **tokens, char *prompt)
+int	add_token(void *content, int flag, t_cmd *cmd, char *prompt)
 {
 	t_token	*token;
 	t_list	*new;
@@ -69,16 +69,20 @@ int	add_token(void *content, int flag, t_list **tokens, char *prompt)
 		return (-1);
 	token->content = content;
 	token->flag = flag;
+	if (flag == HEREDOC)
+		flag = read_heredoc(cmd, (char *)content);
+	if (flag < 0)
+		return (-1);
 	token->fd = -1;
 	if (ft_isdigit(*prompt))
 		token->fd = ft_atoi(prompt);
 	new = ft_lstnew(token);
 	if (!new)
 		return (-1);
-	if (*tokens == 0)
-		*tokens = new;
+	if (cmd->tokens == 0)
+		cmd->tokens = new;
 	else
-		ft_lstadd_back(tokens, new);
+		ft_lstadd_back(&(cmd->tokens), new);
 	return (0);
 }
 
@@ -104,7 +108,7 @@ int	parse_input_redir(char *prompt, t_cmd *cmd)
 	if (ret < 0)
 		return (ret);
 	size += ret;
-	ret = add_token(*dest, flag, &(cmd->tokens), prompt);
+	ret = add_token(*dest, flag, cmd, prompt);
 	free(dest);
 	if (ret < 0)
 		return (-1);

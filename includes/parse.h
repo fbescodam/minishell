@@ -10,4 +10,5 @@ int		search_params(char **buff, char **prompt, char ***dest);
 int		add_param(char **param_buffer, char ***dest);
 int		read_til_close_pipe(char ***to);
 int		split_prompt(char *from, char ***to, char *set);
+int		read_heredoc(t_cmd *cmd, char *content);
 #endif

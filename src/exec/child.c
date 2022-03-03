@@ -20,17 +20,6 @@ void	exit_child(char *process_name)
 	exit(errno);
 }
 
-int		fd_setup(t_token *token)
-{
-	int	ret;
-
-	if (token->flag == OUT_FILE || token->flag == OUT_FILE_APPEND)
-		ret = output_redirect(token);
-	else
-		ret = input_redirect(token);
-	return (ret);
-}
-
 int		pipe_setup(int fd[2], int flag)
 {
 	int	ret;
@@ -55,6 +44,18 @@ int		pipe_setup(int fd[2], int flag)
 	return (0);
 }
 
+int		fd_setup(t_token *token, t_cmd *cmd)
+{
+	int	ret;
+
+	ret = 0;
+	if (token->flag == OUT_FILE || token->flag == OUT_FILE_APPEND)
+		ret = output_redirect(token);
+	else if (token->flag == IN_FILE)
+		ret = input_redirect(token);
+	return (ret);
+}
+
 int		redir_setup(t_cmd *cmd)
 {
 	t_list	*current_token;
@@ -63,19 +64,19 @@ int		redir_setup(t_cmd *cmd)
 	ret = 0;
 	current_token = cmd->tokens;
 
+	if (cmd->pipe_in[0])
+		ret = pipe_setup(cmd->pipe_in, PIPE_IN);
+	if (ret != 0)
+		return (ret);
 	while (current_token)
 	{
-		ret = fd_setup(current_token->content);
+		ret = fd_setup(current_token->content, cmd);
 		if (ret != 0)
 			return (ret);
 		current_token = current_token->next;
 	}
 	if (cmd->pipe_out[0])
 		ret = pipe_setup(cmd->pipe_out, PIPE_OUT);
-	if (ret != 0)
-		return (ret);
-	if (cmd->pipe_in[0])
-		ret = pipe_setup(cmd->pipe_in, PIPE_IN);
 	if (ret != 0)
 		return (ret);
 	return (ret);

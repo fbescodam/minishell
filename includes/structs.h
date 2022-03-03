@@ -5,7 +5,7 @@
 
 # define OUT_FILE 1
 # define IN_FILE 2
-# define IN_FILE_APPEND 3
+# define HEREDOC 3
 # define OUT_FILE_APPEND 4
 # define PIPE_IN 5
 # define PIPE_OUT 6
