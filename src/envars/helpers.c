@@ -73,7 +73,7 @@ char	*find_var_name_end(char *str, char is_curly_bracket)
 	chr = str;
 	while (is_valid_env_name_char(0, *chr))
 		chr++;
-	if (*chr == '$' && chr == str)
+	if (ft_strchr(RESERVED_ENVAR_NAMES, *chr) && chr == str)
 		return (chr + 1);
 	return (chr);
 }
@@ -101,18 +101,6 @@ void	set_mini_status(t_mini *mini, int status_code)
 	{
 		ft_free(quest->val);
 		quest->val = ft_itoa(status_code);
-	}
-}
-
-void	set_mini_last_pid(t_mini *mini, int pid)
-{
-	t_envar	*dollar;
-
-	dollar = get_envar(mini->envars, "$");
-	if (dollar)
-	{
-		ft_free(dollar->val);
-		dollar->val = ft_itoa(pid);
 	}
 }
 

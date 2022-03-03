@@ -17,7 +17,7 @@ int	main(int argc, char **argv, char **envp)
 	int		ret;
 
 	rl_catch_signals = 0;
-	if (!setup_mini(&mini, envp))
+	if (!setup_mini(&mini, argv[0], envp))
 		force_exit(&mini, 1);
 	while (1)
 	{

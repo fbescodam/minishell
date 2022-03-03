@@ -57,8 +57,6 @@ void	fork_process(t_cmd *cmd, t_mini *mini)
 		force_exit(mini, TOO_MANY_PROC);
 	if (pid == 0)
 		child_process(cmd);
-	else
-		set_mini_last_pid(mini, pid);
 	cmd->pid = pid;
 	return ;
 }

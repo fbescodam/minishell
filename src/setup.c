@@ -29,6 +29,37 @@ void	setup_signals(t_mini *mini)
 	}
 }
 
+static int	setup_reserved_envars(t_mini *mini, char *shellname)
+{
+	char	*path;
+	char	*temp;
+	int		ret;
+
+	if (!set_envar(mini, "?", "0", 0))
+		return (0);
+	if (!set_envar(mini, "0", shellname, 0))
+		return (0);
+	path = getcwd(NULL, 0);
+	if (path)
+	{
+		ret = set_envar(mini, "PWD", path, 0);
+		temp = ft_strrchr(shellname, '/');
+		if (temp)
+			shellname = temp + 1;
+		temp = ft_pathjoin(path, shellname);
+		free(path);
+		if (!temp)
+			return (0);
+		ret = set_envar(mini, "_", temp, 0);
+		free(temp);
+		if (!ret)
+			return (0);
+	}
+	else
+		return (0);
+	return (1);
+}
+
 /**
  * @brief Export the envp variables into our environment variables list
  *
@@ -36,7 +67,7 @@ void	setup_signals(t_mini *mini)
  * @param[in] envp The envp variables list
  * @return Returns 0 on error, 1 on success
  */
-int	setup_envars(t_mini *mini, char **envp)
+static int	setup_envars(t_mini *mini, char *shellname, char **envp)
 {
 	char		**envp_temp;
 	char		*temp;
@@ -65,21 +96,7 @@ int	setup_envars(t_mini *mini, char **envp)
 		if (!mini->paths)
 			return (0);
 	}
-	if (!set_envar(mini, "?", "0", 0))
-		return (0);
-	if (!set_envar(mini, "$", "0", 0))
-		return (0);
-	temp = getcwd(NULL, 0);
-	if (temp)
-	{
-		ret = set_envar(mini, "PWD", temp, 0);
-		free(temp);
-		if (!ret)
-			return (0);
-	}
-	else
-		return (0);
-	return (1);
+	return (setup_reserved_envars(mini, shellname));
 }
 
 /**
@@ -89,9 +106,10 @@ int	setup_envars(t_mini *mini, char **envp)
  * @param[in] envp Envp
  * @return Returns 0 on error, 1 on success
  */
-int	setup_mini(t_mini *mini, char **envp)
+int	setup_mini(t_mini *mini, char *shellname, char **envp)
 {
 	struct termios	raw;
+	char			*temp;
 
 	tcgetattr(STDIN_FILENO, &raw);
 	raw.c_lflag &= ~(ECHOCTL);
@@ -100,7 +118,7 @@ int	setup_mini(t_mini *mini, char **envp)
 	mini->envars = ft_dlstnew();
 	if (!mini->envars)
 		return (0);
-	if (!setup_envars(mini, envp))
+	if (!setup_envars(mini, shellname, envp))
 		return (0);
 	return (1);
 }
