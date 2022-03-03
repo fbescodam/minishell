@@ -6,7 +6,7 @@
 #    By: fbes <fbes@student.codam.nl>                 +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/26 14:25:38 by fbes          #+#    #+#                  #
-#    Updated: 2022/02/23 21:31:51 by fbes          ########   odam.nl          #
+#    Updated: 2022/03/04 00:04:07 by fbes          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SRCS =		ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
 			ft_dlstdelone.c ft_dlstget.c ft_dlstiter.c ft_dlstlast.c \
 			ft_dlstmap.c ft_dlstnew.c ft_dlstrem.c ft_strreplace.c \
 			ft_strxjoin.c ft_va_add.c ft_va_arg.c ft_va_end.c ft_va_new.c \
-			ft_va_start.c
+			ft_va_start.c ft_pathjoin.c
 
 OBJS =		$(addprefix obj/,$(SRCS:.c=.o))
 
