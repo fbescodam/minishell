@@ -37,6 +37,8 @@ static int	setup_reserved_envars(t_mini *mini, char *shellname)
 
 	if (!set_envar(mini, "?", "0", 0))
 		return (0);
+	if (!set_envar(mini, "#", "0", 0))
+		return (0);
 	if (!set_envar(mini, "0", shellname, 0))
 		return (0);
 	path = getcwd(NULL, 0);
