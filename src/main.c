@@ -43,6 +43,7 @@ int	main(int argc, char **argv, char **envp)
 				error_manager(&mini, ret);
 			else
 			{
+				set_mini_status(&mini, 0);
 				//printf("prompt after parsing envars: \"%s\"\n", mini.prompt);
 				ret = parse_prompt(&mini, mini.prompt);
 				if (ret != 0)
@@ -58,6 +59,6 @@ int	main(int argc, char **argv, char **envp)
 
 		ft_free(mini.prompt);
 		ft_lstclear(&(mini.cmds), &free_cmd);
-		mini.prompt = NULL;		// @Joelle why this?
+		mini.prompt = NULL;
 	}
 }
