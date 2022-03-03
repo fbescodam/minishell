@@ -77,6 +77,7 @@ int	setup_cmds(t_mini *mini, char **prompts)
 		current_cmd = new_cmd(mini);
 		if (current_cmd == NULL)
 				return(ENOMEM);
+		//ret = heredoc(current_cmd, prompts[i]);
 		if (i > 0)
 			((t_cmd *)(current_cmd->content))->pipe_in[0] = 1;
 		ret = parse_cmd(current_cmd, prompts[i]);

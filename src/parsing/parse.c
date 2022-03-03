@@ -109,6 +109,10 @@ int	split_prompt(char *from, char ***to, char *set)
 		ret = split_and_add(from, to, nxt_op);
 		if (ret != 0)
 			return (ret);
+		if (from[nxt_op] == '|' && from[nxt_op + 1] == '\0')
+			ret = read_til_close_pipe(to);
+		if (ret != 0)
+			return (ret);
 		from += nxt_op;
 		if (*from != '\0')
 			from++;

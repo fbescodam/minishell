@@ -38,7 +38,7 @@ typedef struct s_cmd
 	t_mini	*mini;
 	char	*in_file;
 	char	*out_file;
-	//int		mode;		//we're not really using this I guess?
+	char	*heredoc;
 	char	**params;
 	int		pid;
 	int		pipe_in[2];
