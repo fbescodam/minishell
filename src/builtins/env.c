@@ -11,8 +11,9 @@ int	mini_env(t_cmd *cmd)
 	item = cmd->mini->envars->first;
 	while (i < cmd->mini->envars->size)
 	{
-		printf("%s=%s\n", ((t_envar *)item->content)->name,
-			((t_envar *)item->content)->val);
+		if (((t_envar *)item->content)->export)
+			printf("%s=%s\n", ((t_envar *)item->content)->name,
+				((t_envar *)item->content)->val);
 		item = item->next;
 		i++;
 	}
