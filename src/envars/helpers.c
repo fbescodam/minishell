@@ -63,6 +63,8 @@ char	*find_var_name_end(char *str, char is_curly_bracket)
 	if (is_curly_bracket > '\0')
 	{
 		chr = ft_strchr(str, '}');
+		if (chr == str)
+			return (NULL);
 		if (chr)
 			chr++;
 		return (chr);
