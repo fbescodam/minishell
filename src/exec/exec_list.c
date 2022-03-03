@@ -8,14 +8,50 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <sys/wait.h>
+#include <stdlib.h>
+
+void	write_heredoc(t_cmd *cmd, t_mini *mini)
+{
+	int	fd[2];
+	int	ret;
+	int	pid;
+	int	status;
+
+	if (cmd->pipe_in[0])
+	{
+		close(cmd->pipe_in[0]);
+		close(cmd->pipe_in[1]);
+	}
+	ret = pipe(fd);
+	if (ret < 0)
+		force_exit(mini, errno);
+	cmd->pipe_in[0] = fd[0];
+	cmd->pipe_in[1] = fd[1];
+	pid = fork();
+	if (pid == -1)
+		force_exit(mini, errno);
+	if (pid == 0)
+	{
+		close(fd[0]);
+		ret = dup2(fd[1], 1);
+		if (ret < 0)
+			exit(errno);
+		close(fd[1]);
+		ret = ft_putstr_fd(cmd->heredoc, 1);
+		if (ret < 0)
+			exit(errno);
+		exit (0);
+	}
+	wait_n_processes(1, mini);
+
+}
 
 void	fork_process(t_cmd *cmd, t_mini *mini)
 {
 	int		pid;
-	int		status;
-	int		terminated_process;
 
-	terminated_process = 0;
+	if (cmd->heredoc != NULL)
+		write_heredoc(cmd, mini);
 	pid = fork();
 	if (pid == -1)
 		force_exit(mini, TOO_MANY_PROC);
@@ -30,7 +66,7 @@ void	fork_process(t_cmd *cmd, t_mini *mini)
 int		execute_command(t_list *cmd_inst, t_mini *mini)
 {
 	int		ret;
-	t_cmd 	*cmd;
+	t_cmd	*cmd;
 
 	cmd = cmd_inst->content;
 	ret = check_command(cmd, mini);

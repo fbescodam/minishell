@@ -10,15 +10,9 @@ int	input_redirect(t_token *token)
 	int	ret;
 
 	fd_2 = 0;
-	if (token->fd != -1 && token->flag != PIPE_IN)
+	if (token->fd != -1)
 		fd_2 = token->fd;
-	if (token->flag != PIPE_IN)
-		fd_1 = open((char *)(token->content), O_RDONLY);
-	else
-	{
-		close(((int*)(token->content))[1]);
-		fd_1 = ((int*)(token->content))[0];
-	}
+	fd_1 = open((char *)(token->content), O_RDONLY);
 	if (fd_1 == -1)
 		return (-1);
 	ret = dup2(fd_1, fd_2);
@@ -35,15 +29,9 @@ int	output_redirect(t_token *token)
 	int	ret;
 
 	fd_2 = 1;
-	if (token->fd != -1 && token->flag != PIPE_OUT)
+	if (token->fd != -1)
 		fd_2 = token->fd;
-	if (token->flag != PIPE_OUT)
-		fd_1 = open((char *)(token->content), O_WRONLY | O_CREAT | O_TRUNC, 0666);
-	else
-	{
-		close(((int*)(token->content))[0]);
-		fd_1 = ((int*)(token->content))[1];
-	}
+	fd_1 = open((char *)(token->content), O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	if (fd_1 == -1)
 		return (-1);
 	ret = dup2(fd_1, fd_2);

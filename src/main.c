@@ -58,6 +58,6 @@ int	main(int argc, char **argv, char **envp)
 
 		ft_free(mini.prompt);
 		ft_lstclear(&(mini.cmds), &free_cmd);
-		mini.prompt = NULL;
+		mini.prompt = NULL;		// @Joelle why this?
 	}
 }
