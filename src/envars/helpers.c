@@ -102,6 +102,18 @@ void	set_mini_status(t_mini *mini, int status_code)
 	}
 }
 
+void	set_mini_last_pid(t_mini *mini, int pid)
+{
+	t_envar	*dollar;
+
+	dollar = get_envar(mini->envars, "$");
+	if (dollar)
+	{
+		ft_free(dollar->val);
+		dollar->val = ft_itoa(pid);
+	}
+}
+
 // stop at '=' because that is where the value starts if used in
 // parse_set_envars_b4_comm. TODO: might introduce bugs?
 int	is_valid_env_name(char *name)

@@ -16,6 +16,7 @@ int			set_envar(t_mini *mini, char *name, char *val, int export);
 int			parse_envars(t_dlist *envars, char **str);
 int			set_mini_paths(t_mini *mini, t_ditem *list_item);
 void		set_mini_status(t_mini *mini, int status_code);
+void		set_mini_last_pid(t_mini *mini, int pid);
 int			parse_set_envars_b4_comm(t_mini *mini, char **str);
 int			is_valid_env_name(char *name);
 

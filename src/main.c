@@ -16,6 +16,7 @@ int	main(int argc, char **argv, char **envp)
 	t_mini	mini;
 	int		ret;
 
+	rl_catch_signals = 0;
 	if (!setup_mini(&mini, envp))
 		force_exit(&mini, 1);
 	while (1)
@@ -25,8 +26,8 @@ int	main(int argc, char **argv, char **envp)
 		mini.prompt = readline(KUT);
 		if (!mini.prompt)
 		{
-			printf("\x1b[1A\033[10Cexit\n");
-			rl_replace_line("exit", 1);
+			printf("\x1b[1A\033[10C exit\n");
+			rl_replace_line(" exit", 1);
 			force_exit(&mini, 0);
 		}
 		add_history(mini.prompt);
@@ -57,7 +58,6 @@ int	main(int argc, char **argv, char **envp)
 
 		ft_free(mini.prompt);
 		ft_lstclear(&(mini.cmds), &free_cmd);
-		system("leaks minishell");
 		mini.prompt = NULL;
 	}
 }

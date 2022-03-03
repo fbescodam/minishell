@@ -1,10 +1,12 @@
 #include <signal.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <termios.h>
 #include "structs.h"
 #include "error_handling.h"
 #include "signal_handling.h"
 #include "envars.h"
+	#	include <stdio.h>
 
 /**
   * @brief Assigns signal-handling functions to signals
@@ -16,11 +18,11 @@
   */
 void	setup_signals(t_mini *mini)
 {
-	if (signal(SIGTERM, sig_handler) == SIG_ERR ||
-		signal(SIGABRT, sig_handler) == SIG_ERR ||
-		signal(SIGQUIT, sig_handler) == SIG_ERR ||
-		signal(SIGTSTP, sig_handler) == SIG_ERR ||
-		signal(SIGINT, sig_handler) == SIG_ERR)
+	if (signal(SIGTERM, sig_handler) == SIG_ERR
+		|| signal(SIGABRT, sig_handler) == SIG_ERR
+		|| signal(SIGQUIT, sig_handler) == SIG_ERR
+		|| signal(SIGTSTP, sig_handler) == SIG_ERR
+		|| signal(SIGINT, sig_handler) == SIG_ERR)
 	{
 		error_manager(mini, errno);
 		force_exit(mini, errno);
@@ -36,17 +38,17 @@ void	setup_signals(t_mini *mini)
  */
 int	setup_envars(t_mini *mini, char **envp)
 {
-	size_t		i;
+	char		**envp_temp;
 	char		*temp;
 	char		*equals;
 	int			ret;
 
 	if (!envp)
 		return (1);
-	i = 1;
-	while (envp[i])
+	envp_temp = envp;
+	while (*envp_temp)
 	{
-		temp = ft_strdup(envp[i]);
+		temp = ft_strdup(*envp_temp);
 		if (!temp)
 			return (0);
 		equals = ft_strchr(temp, '=');
@@ -55,7 +57,7 @@ int	setup_envars(t_mini *mini, char **envp)
 		free(temp);
 		if (!ret)
 			return (0);
-		i++;
+		envp_temp++;
 	}
 	if (!mini->paths)
 	{
@@ -64,6 +66,8 @@ int	setup_envars(t_mini *mini, char **envp)
 			return (0);
 	}
 	if (!set_envar(mini, "?", "0", 0))
+		return (0);
+	if (!set_envar(mini, "$", "0", 0))
 		return (0);
 	temp = getcwd(NULL, 0);
 	if (temp)
@@ -79,7 +83,7 @@ int	setup_envars(t_mini *mini, char **envp)
 }
 
 /**
- * @brief Set up the mini struct
+ * @brief Set up the mini struct and termios stuff
  *
  * @param[in] mini The mini struct
  * @param[in] envp Envp
@@ -87,6 +91,11 @@ int	setup_envars(t_mini *mini, char **envp)
  */
 int	setup_mini(t_mini *mini, char **envp)
 {
+	struct termios	raw;
+
+	tcgetattr(STDIN_FILENO, &raw);
+	raw.c_lflag &= ~(ECHOCTL);
+	tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
 	ft_bzero(mini, sizeof(t_mini));
 	mini->envars = ft_dlstnew();
 	if (!mini->envars)
