@@ -8,6 +8,7 @@
 - do we need to implement 2>&1 etc
 - CD : child checks access to directory, if not prints error (this way stderr redirections are set correctly), then error code is passed to parent
 - when a program segfaults bash prints segfault. Ours does not. I'd love to know why?
+- change envar export boolean into a string that contains the combined NAME=VALUE, or NULL if no need to export
 - setting $_ envar (not required, is currently set to absolute path of minishell at setup):
 	- for export, it is set to the last envar to set's name (not including the = and the value!)
 	- for everything else, it is set to the last parameter of the command ran (if no parameters, that is the command ran)
