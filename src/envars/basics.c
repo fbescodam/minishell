@@ -101,6 +101,25 @@ int	set_envar(t_mini *mini, char *name, char *val, int export)
 	return (1);
 }
 
+static size_t	get_amount_of_exported_envars(t_dlist *envars)
+{
+	size_t	i;
+	size_t	amount;
+	t_ditem	*item;
+
+	item = envars->first;
+	i = 0;
+	amount = 0;
+	while (i < envars->size)
+	{
+		if (((t_envar *)item->content)->export)
+			amount++;
+		item = item->next;
+		i++;
+	}
+	return (amount);
+}
+
 // TODO: error check on ft_va_add
 char	**get_envars_as_envp(t_mini *mini)
 {
@@ -112,23 +131,27 @@ char	**get_envars_as_envp(t_mini *mini)
 
 	i = 0;
 	item = mini->envars->first;
-	ret = (char **)ft_calloc(mini->envars->size + 1, sizeof(char *));
+	ret = (char **)ft_calloc(get_amount_of_exported_envars(mini->envars) + 1,
+			sizeof(char *));
 	if (!ret)
 		return (NULL);
 	while (i < mini->envars->size)
 	{
-		list = ft_va_new(3);
-		if (!list)
-			return ((char **)ft_free_double_ptr((void **)ret));
-		ft_va_add(list, 0, ((t_envar *)item->content)->name,
-			ft_strlen(((t_envar *)item->content)->name) + 1);
-		ft_va_add(list, 1, "=", 2);
-		ft_va_add(list, 2, ((t_envar *)item->content)->val,
-			ft_strlen(((t_envar *)item->content)->val) + 1);
-		temp = ft_strxjoin(3, list);
-		if (!temp)
-			return ((char **)ft_free_double_ptr((void **)ret));
-		ret[i] = temp;
+		if (((t_envar *)item->content)->export)
+		{
+			list = ft_va_new(3);
+			if (!list)
+				return ((char **)ft_free_double_ptr((void **)ret));
+			ft_va_add(list, 0, ((t_envar *)item->content)->name,
+				ft_strlen(((t_envar *)item->content)->name) + 1);
+			ft_va_add(list, 1, "=", 2);
+			ft_va_add(list, 2, ((t_envar *)item->content)->val,
+				ft_strlen(((t_envar *)item->content)->val) + 1);
+			temp = ft_strxjoin(3, list);
+			if (!temp)
+				return ((char **)ft_free_double_ptr((void **)ret));
+			ret[i] = temp;
+		}
 		item = item->next;
 		i++;
 	}
