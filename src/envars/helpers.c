@@ -55,12 +55,12 @@ int	find_var_name_start(char *str, char **var_start)
  * @param[in] str the start of a variable name in the string, right after the $
  * @return char* the end of said variable, points to the char after the var
  */
-char	*find_var_name_end(char *str)
+char	*find_var_name_end(char *str, char is_curly_bracket)
 {
 	char	*chr;
 	size_t	i;
 
-	if (*(str - 1) == '{')
+	if (is_curly_bracket > '\0')
 	{
 		chr = ft_strchr(str, '}');
 		if (chr)
