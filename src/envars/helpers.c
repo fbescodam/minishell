@@ -73,6 +73,8 @@ char	*find_var_name_end(char *str, char is_curly_bracket)
 	chr = str;
 	while (is_valid_env_name_char(0, *chr))
 		chr++;
+	if (*chr == '$' && chr == str)
+		return (chr + 1);
 	return (chr);
 }
 
