@@ -18,5 +18,6 @@ int	read_til_close_pipe(char ***to)
 		free(in);
 	}
 	ret = split_prompt(in, to, "|");
+	free (in);
 	return (ret);
 }
