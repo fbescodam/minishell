@@ -1,3 +1,6 @@
+MINISHELL (work in progress)
+
+TODO LIST:
 - replace  write / printf errors with our custom fd_putstring function
 - if a path contains a / character, assume it's absolute or relative and try and access the file, DO NOT look in path and if it does not, then only check path
 - make "'"' work: should have an ' as one argument and then error out because of an unclosed ' parameter
@@ -15,9 +18,7 @@
 
 
 
-
-
-VOLGORDE ORDER SEQUENCE WHATEVER HELL
+ORDER ON HOW TO DO THINGS:
 - split on pipes
 - check for and run heredoc
 - set up the redirections (heredoc is part of that)
