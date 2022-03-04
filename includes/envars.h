@@ -5,6 +5,7 @@
 # include "structs.h"
 
 # define PATH_HASH 0x68081897
+# define RESERVED_ENVAR_NAMES "?0#"
 
 t_ditem		*get_envar_item(t_dlist *envars, char *name);
 t_envar		*get_envar(t_dlist *envars, char *name);

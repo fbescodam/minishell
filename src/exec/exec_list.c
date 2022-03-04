@@ -10,17 +10,12 @@
 #include <sys/wait.h>
 #include <stdlib.h>
 
-void	handler()
-{
-	printf("\n");
-}
-
 void	write_heredoc(t_cmd *cmd, t_mini *mini)
 {
 	int	fd[2];
 	int	ret;
 	int	pid;
-	int status;
+	int	status;
 
 	if (cmd->pipe_in[0])
 	{
@@ -60,7 +55,6 @@ void	fork_process(t_cmd *cmd, t_mini *mini)
 	pid = fork();
 	if (pid == -1)
 		force_exit(mini, TOO_MANY_PROC);
-	signal(SIGINT, handler);
 	if (pid == 0)
 		child_process(cmd);
 	cmd->pid = pid;
@@ -70,7 +64,7 @@ void	fork_process(t_cmd *cmd, t_mini *mini)
 int		execute_command(t_list *cmd_inst, t_mini *mini)
 {
 	int		ret;
-	t_cmd 	*cmd;
+	t_cmd	*cmd;
 
 	cmd = cmd_inst->content;
 	ret = check_command(cmd, mini);

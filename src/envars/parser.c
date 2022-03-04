@@ -57,7 +57,7 @@ static int	fetch_n_replace_envar(t_dlist *envars, char **parsed_str,
 	free(var_name);
 	if (envar && !join_parsed_str(parsed_str, envar->val))
 		return (ENOMEM);
-	if (!find_var_name_start(*var_start + 1, var_start))
+	if (!find_var_name_start(*var_end, var_start))
 		return (0);
 	return (0);
 }
