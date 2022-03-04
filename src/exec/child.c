@@ -87,7 +87,7 @@ void	child_process(t_cmd *cmd)
 	int		ret;
 	char	**custom_envp;
 
-	signal(SIGINT, SIG_DFL);
+	//signal(SIGINT, SIG_DFL);
 	errno = 0;
 	ret = redir_setup(cmd);
 	if (ret != 0)

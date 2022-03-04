@@ -22,3 +22,6 @@ VOLGORDE ORDER SEQUENCE WHATEVER HELL
 - parse the commands
 - check if it is built-in, if not find the executable, if so, run built-in
 - execute all commands at the same time (and if one doesn't expect input and the one that pipes into the non-expecting-input one tries to pipe into there, it should quit also (cat | ls))
+
+-lsof -p to test fd leaks
+- fix ^C ^D in read_input.c
