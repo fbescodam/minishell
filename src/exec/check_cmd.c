@@ -11,26 +11,16 @@ int		find_abs_path(t_cmd *cmd, t_mini *mini)
 	int		i;
 
 	i = 0;
-	temp = ft_strjoin("/", *(cmd->params));
-	if (!temp)
-		return (-2);
 	while (mini->paths[i])
 	{
-		cmd->path = ft_strjoin(mini->paths[i], temp);
+		cmd->path = ft_pathjoin(mini->paths[i], *(cmd->params));
 		if (!cmd->path)
-		{
-			free(temp);
 			return (-2);
-		}
 		if (access(cmd->path, R_OK) == 0)
-		{
-			free(temp);
 			return (0);
-		}
 		free(cmd->path);
 		i++;
 	}
-	free(temp);
 	return (-1);
 }
 
