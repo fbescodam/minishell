@@ -20,7 +20,7 @@ char	replace_space_with_null(unsigned int pos, char c);
 int		get_quoted_string(char *prompt, char **dest);
 int		join_realloc(char **dest, char *src, char len);
 int		ptc_error(t_cmd *cmd, char *str);
-int		ptc_echo(t_cmd *cmd, char *str);
+void	print_ptc_errors(t_list *frake_err);
 int		is_fd_redir(char *prompt);
 
 #endif

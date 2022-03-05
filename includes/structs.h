@@ -44,6 +44,7 @@ typedef struct s_cmd
 	int		pipe_in[2];
 	int		pipe_out[2];
 	char	*path;
+	int		builtin;
 	t_list	*tokens;
 	int		argc;
 	t_list	*frake_err;

@@ -2,6 +2,7 @@
 #include "debug.h"
 #include "execute.h"
 #include "envars.h"
+#include "builtins.h"
 #include "error_handling.h"
 #include <errno.h>
 #include <signal.h>
@@ -70,13 +71,15 @@ int		execute_command(t_list *cmd_inst, t_mini *mini)
 	ret = check_command(cmd, mini);
 	if (ret == -2)
 		return (-1);
+	if (cmd->builtin != MINI_BUILTIN_NONE && !run_in_child(cmd->builtin))
+		run_reserved(cmd);
 	if (cmd->pipe_out[0])
 	{
 		ret = pipe(cmd->pipe_out);
 		if (ret < 0)
 			force_exit(mini, errno);
-		((t_cmd *)((cmd_inst->next)->content))->pipe_in[0] = cmd->pipe_out[0];
-		((t_cmd *)((cmd_inst->next)->content))->pipe_in[1] = cmd->pipe_out[1];
+		((t_cmd *)(cmd_inst->next)->content)->pipe_in[0] = cmd->pipe_out[0];
+		((t_cmd *)(cmd_inst->next)->content)->pipe_in[1] = cmd->pipe_out[1];
 	}
 	fork_process(cmd, mini);
 	return (0);

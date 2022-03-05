@@ -15,3 +15,15 @@ int	ptc_error(t_cmd *cmd, char *str)
 	ft_lstadd_back(&cmd->frake_err, item);
 	return (1);
 }
+
+static void	print_ptc_error(void *ptc_err)
+{
+	ft_putendl_fd((char *)ptc_err, 2);
+}
+
+void	print_ptc_errors(t_list *frake_err)
+{
+	if (!frake_err)
+		return ;
+	ft_lstiter(frake_err, &print_ptc_error);
+}

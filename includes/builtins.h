@@ -19,5 +19,8 @@ int		mini_echo(t_cmd *cmd);
 int		mini_export(t_cmd *cmd);
 int		mini_env(t_cmd *cmd);
 int		mini_unset(t_cmd *cmd);
+int		is_reserved(t_cmd *cmd);
+int		run_reserved(t_cmd *cmd);
+int		run_in_child(int which);
 
 #endif
