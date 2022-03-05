@@ -8,10 +8,6 @@ TODO LIST:
 - test with: "< /usr/share/dict/words cat | cat > out" (should not get stuck)
 - check if we need to implement $PPID
 - do we need to implement 2>&1 etc
-- change envar export boolean into a string that contains the combined NAME=VALUE, or NULL if no need to export
-- setting $_ envar (not required, is currently set to absolute path of minishell at setup):
-	- for export, it is set to the last envar to set's name (not including the = and the value!)
-	- for everything else, it is set to the last parameter of the command ran (if no parameters, that is the command ran) BEFORE RUNNING SAID COMMAND
 
 
 cd: run in both child (print errors) and parent (change memory)

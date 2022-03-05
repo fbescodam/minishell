@@ -21,7 +21,7 @@ typedef struct s_envar
 	unsigned int	hash;
 	char			*name;
 	char			*val;
-	int				export;
+	char			*export;
 }			t_envar;
 
 typedef struct s_mini

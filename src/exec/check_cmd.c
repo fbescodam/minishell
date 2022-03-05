@@ -14,7 +14,7 @@ int		find_abs_path(t_cmd *cmd, t_mini *mini)
 	i = 0;
 	while (mini->paths[i])
 	{
-		cmd->path = ft_pathjoin(mini->paths[i], *(cmd->params));
+		cmd->path = ft_str3join(mini->paths[i], "/", *(cmd->params));
 		if (!cmd->path)
 			return (-2);
 		if (access(cmd->path, R_OK) == 0)

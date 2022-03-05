@@ -88,9 +88,10 @@ int	set_envar(t_mini *mini, char *name, char *val, int export)
 	envar->hash = ft_strhash(name, ft_strlen(name));
 	envar->name = ft_strdup(name);
 	envar->val = ft_strdup(val);
-	envar->export = export;
+	if (export)
+		envar->export = ft_str3join(name, "=", val);
 	list_item = ft_ditemnew(envar);
-	if (!list_item || !envar->name || !envar->val)
+	if (!list_item || !envar->name || !envar->val || (export && !envar->export))
 	{
 		ft_dlstdelone(list_item, &free_envar);
 		return (0);
@@ -120,40 +121,27 @@ static size_t	get_amount_of_exported_envars(t_dlist *envars)
 	return (amount);
 }
 
-// TODO: error check on ft_va_add
 char	**get_envars_as_envp(t_mini *mini)
 {
-	t_ft_va_list	list;
 	size_t			i;
+	size_t			amount;
 	t_ditem			*item;
-	char			*temp;
 	char			**ret;
 
 	i = 0;
+	amount = get_amount_of_exported_envars(mini->envars);
 	item = mini->envars->first;
-	ret = (char **)ft_calloc(get_amount_of_exported_envars(mini->envars) + 1,
-			sizeof(char *));
+	ret = (char **)ft_calloc(amount + 1, sizeof(char *));
 	if (!ret)
 		return (NULL);
-	while (i < mini->envars->size)
+	while (item)
 	{
 		if (((t_envar *)item->content)->export)
 		{
-			list = ft_va_new(3);
-			if (!list)
-				return ((char **)ft_free_double_ptr((void **)ret));
-			ft_va_add(list, 0, ((t_envar *)item->content)->name,
-				ft_strlen(((t_envar *)item->content)->name) + 1);
-			ft_va_add(list, 1, "=", 2);
-			ft_va_add(list, 2, ((t_envar *)item->content)->val,
-				ft_strlen(((t_envar *)item->content)->val) + 1);
-			temp = ft_strxjoin(3, list);
-			if (!temp)
-				return ((char **)ft_free_double_ptr((void **)ret));
-			ret[i] = temp;
+			ret[i] = ((t_envar *)item->content)->export;
+			i++;
 		}
 		item = item->next;
-		i++;
 	}
 	return (ret);
 }

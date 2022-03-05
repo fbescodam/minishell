@@ -30,7 +30,8 @@ int	mini_export(int is_child, t_cmd *cmd)
 			else
 			{
 				*equals_pos = '\0';
-				set_envar(cmd->mini, cmd->params[i], equals_pos + 1, 1);
+				if (!set_envar(cmd->mini, cmd->params[i], equals_pos + 1, 1))
+					return (ENOMEM);
 			}
 		}
 		else
@@ -39,7 +40,9 @@ int	mini_export(int is_child, t_cmd *cmd)
 				export_err(cmd->params[i]);
 			envar = get_envar(cmd->mini->envars, cmd->params[i]);
 			if (envar)
-				envar->export = 1;
+				envar->export = ft_str3join(envar->name, "=", envar->val);
+			if (envar && !envar->export)
+				return (ENOMEM);
 		}
 		i++;
 	}

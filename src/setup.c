@@ -48,7 +48,7 @@ static int	setup_reserved_envars(t_mini *mini, char *shellname)
 		temp = ft_strrchr(shellname, '/');
 		if (temp)
 			shellname = temp + 1;
-		temp = ft_pathjoin(path, shellname);
+		temp = ft_str3join(path, "/", shellname);
 		free(path);
 		if (!temp)
 			return (0);
