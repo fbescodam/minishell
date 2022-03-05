@@ -23,12 +23,13 @@ int	mini_exit(t_cmd *cmd)
 		temp = cmd->params[1];
 		while (*temp)
 		{
-			if (!ft_isdigit(*temp))
+			if (!ft_isdigit(*temp) && *temp != '-')
 				break ;
 			temp++;
 		}
 		if (!*temp)
-			set_mini_status(cmd->mini, ft_atoi(cmd->params[1]));
+			set_mini_status(cmd->mini,
+				(int)(unsigned char)ft_atoi(cmd->params[1]));
 		else
 			exit_err(cmd, cmd->params[1]);
 	}
