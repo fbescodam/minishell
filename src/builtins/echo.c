@@ -1,7 +1,6 @@
 #include "libft.h"
 #include "utils.h"
 
-// TODO: echo DOES always run in the child! It doesn't change any memory.
 int	mini_echo(int is_child, t_cmd *cmd)
 {
 	size_t	i;

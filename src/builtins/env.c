@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "utils.h"
 
-// TODO: env runs in the child, because it doesn't change any memory
 int	mini_env(int is_child, t_cmd *cmd)
 {
 	size_t	i;

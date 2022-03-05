@@ -3,7 +3,6 @@
 #include "utils.h"
 #include "envars.h"
 
-// error code 255 on weird exit codes, like in bash
 static int	exit_err(int is_child, t_cmd *cmd, char *str)
 {
 	if (is_child)
@@ -17,7 +16,6 @@ static int	exit_err(int is_child, t_cmd *cmd, char *str)
 	return (0);
 }
 
-// exit runs in the child. the exit is printed out on FD 2, just like in bash.
 int	mini_exit(int is_child, t_cmd *cmd)
 {
 	char	*temp;

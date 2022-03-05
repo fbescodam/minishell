@@ -3,7 +3,6 @@
 #include <errno.h>
 #include "utils.h"
 
-// run in child, doesn't change memory.
 int	mini_pwd(int is_child, t_cmd *cmd)
 {
 	char	*path;

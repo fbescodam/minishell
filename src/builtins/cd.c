@@ -6,12 +6,30 @@
 #include "envars.h"
 #include "custom_errors.h"
 
-// TODO: cd runs in the parent
-int	mini_cd(int is_child, t_cmd *cmd)
+static int	set_path_envar(int is_child, t_cmd *cmd)
 {
 	t_envar	*envar;
 	char	*path;
 	int		ret;
+
+	path = getcwd(NULL, 0);
+	if (!path)
+		return (ENOMEM);
+	envar = get_envar(cmd->mini->envars, "PWD");
+	if (envar)
+		ret = replace_envar_value(envar, path);
+	else
+		ret = set_envar(cmd->mini, "PWD", path, 0);
+	free(path);
+	if (!ret)
+		return (ENOMEM);
+	return (0);
+}
+
+int	mini_cd(int is_child, t_cmd *cmd)
+{
+	t_envar	*envar;
+	char	*path;
 
 	if (cmd->params[1])
 		path = cmd->params[1];
@@ -24,18 +42,7 @@ int	mini_cd(int is_child, t_cmd *cmd)
 	}
 	if (chdir(path) < 0)
 		return (errno);
-	if (is_child)
-		return (0);
-	path = getcwd(NULL, 0);
-	if (!path)
-		return (ENOMEM);
-	envar = get_envar(cmd->mini->envars, "PWD");
-	if (envar)
-		ret = replace_envar_value(envar, path);
-	else
-		ret = set_envar(cmd->mini, "PWD", path, 0);
-	free(path);
-	if (!ret)
-		return (ENOMEM);
+	if (!is_child)
+		return (set_path_envar(is_child, cmd));
 	return (0);
 }
