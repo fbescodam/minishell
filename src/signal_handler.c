@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "readline/readline.h"
+#include "signal_handling.h"
 
 void	sig_handler(int sig)
 {

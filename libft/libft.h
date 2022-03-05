@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 14:35:23 by fbes          #+#    #+#                 */
-/*   Updated: 2022/03/04 00:04:02 by fbes          ########   odam.nl         */
+/*   Updated: 2022/03/05 22:00:07 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stddef.h>
 # include <stdint.h>
 
-# define BUFFER_SIZE 1024
+# define BUFFER_SIZE 1
 
 typedef struct s_list
 {
