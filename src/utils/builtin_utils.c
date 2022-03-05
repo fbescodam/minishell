@@ -18,7 +18,7 @@ int	ptc_error(t_cmd *cmd, char *str)
 
 static void	print_ptc_error(void *ptc_err)
 {
-	ft_putendl_fd((char *)ptc_err, 1);
+	ft_putendl_fd((char *)ptc_err, 2);
 }
 
 void	print_ptc_errors(t_list *frake_err)
