@@ -10,6 +10,19 @@
 #include "execute.h"
 #include <unistd.h>
 #include "error_handling.h"
+#include "signal_handling.h"
+
+char	*readline_but_better(char *prompt)
+{
+	char	*line;
+	int		ret;
+
+	ft_putstr_fd(prompt, 1);
+	ret = ft_get_next_line(0, &line);
+	if (ret == -1)
+		exit (ENOMEM);
+	return (line);
+}
 
 int	read_input(char *read_until, char **dest)
 {
@@ -21,7 +34,7 @@ int	read_input(char *read_until, char **dest)
 	*dest = ft_strdup("");
 	while (1)
 	{
-		in = readline("\001\e[1;40;31m\002>\001\e[0m\002 ");
+		in = readline_but_better("\001\e[1;40;31m\002>\001\e[0m\002 ");
 		if (!in || (!read_until && in[0]))
 			break ;
 		ret = ft_strlen(in);
@@ -48,6 +61,7 @@ void	read_heredoc(t_cmd *cmd, char *delimiter, int fd[2])
 		exit (ENOMEM);
 	close(fd[0]);
 	ret = ft_putstr_fd(cmd->heredoc, fd[1]);
+	//close(fd[1]);
 	if (ret < 0)
 		exit (errno);
 	exit(0);
@@ -96,6 +110,7 @@ int	heredoc(t_cmd *cmd, char *delimiter)
 	close(fd[1]);
 	wait_n_processes(1, cmd->mini);
 	ret = read_from_child(&(cmd->heredoc), fd[0]);
+	close(fd[0]);
 	printf("HEREDOC : %s:\n", cmd->heredoc);
 	return (0);
 }
