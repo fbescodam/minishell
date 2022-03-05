@@ -7,6 +7,7 @@ TODO LIST:
 - //// Ctrl + C should not clear the entire command, should only remove the ^C (should it really?)
 - test with: "< /usr/share/dict/words cat | cat > out" (should not get stuck)
 - do we need to implement 2>&1 etc
+- fix "echo ${${}}" (double check with "echo ${a}}")
 
 
 cd: run in both child (print errors) and parent (change memory)
