@@ -32,7 +32,6 @@ void	setup_signals(t_mini *mini)
 static int	setup_reserved_envars(t_mini *mini, char *shellname)
 {
 	char	*path;
-	char	*temp;
 	int		ret;
 
 	if (!set_envar(mini, "?", "0", 0))
@@ -45,15 +44,7 @@ static int	setup_reserved_envars(t_mini *mini, char *shellname)
 	if (path)
 	{
 		ret = set_envar(mini, "PWD", path, 0);
-		temp = ft_strrchr(shellname, '/');
-		if (temp)
-			shellname = temp + 1;
-		temp = ft_str3join(path, "/", shellname);
 		free(path);
-		if (!temp)
-			return (0);
-		ret = set_envar(mini, "_", temp, 0);
-		free(temp);
 		if (!ret)
 			return (0);
 	}
