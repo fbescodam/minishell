@@ -12,15 +12,15 @@
 # define MINI_BUILTIN_PWD 6
 # define MINI_BUILTIN_UNSET 7
 
-int		mini_exit(t_cmd *cmd);
-int		mini_cd(t_cmd *cmd);
-int		mini_pwd(t_cmd *cmd);
-int		mini_echo(t_cmd *cmd);
-int		mini_export(t_cmd *cmd);
-int		mini_env(t_cmd *cmd);
-int		mini_unset(t_cmd *cmd);
+int		mini_exit(int is_child, t_cmd *cmd);
+int		mini_cd(int is_child, t_cmd *cmd);
+int		mini_pwd(int is_child, t_cmd *cmd);
+int		mini_echo(int is_child, t_cmd *cmd);
+int		mini_export(int is_child, t_cmd *cmd);
+int		mini_env(int is_child, t_cmd *cmd);
+int		mini_unset(int is_child, t_cmd *cmd);
 int		is_reserved(t_cmd *cmd);
-int		run_reserved(t_cmd *cmd);
-int		run_in_child(int which);
+int		run_reserved(int is_child, t_cmd *cmd);
+int		run_in_child_only(int which);
 
 #endif

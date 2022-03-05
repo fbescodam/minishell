@@ -7,7 +7,7 @@
 #include "custom_errors.h"
 
 // TODO: cd runs in the parent
-int	mini_cd(t_cmd *cmd)
+int	mini_cd(int is_child, t_cmd *cmd)
 {
 	t_envar	*envar;
 	char	*path;
@@ -19,15 +19,13 @@ int	mini_cd(t_cmd *cmd)
 	{
 		envar = get_envar(cmd->mini->envars, "HOME");
 		if (!envar)
-			return (ERR_ENV_NOT_SET);
+			return (ENOENT);
 		path = envar->val;
 	}
 	if (chdir(path) < 0)
-	{
-		if (!ptc_error(cmd, strerror(errno)))
-			return (ENOMEM);
 		return (errno);
-	}
+	if (is_child)
+		return (0);
 	path = getcwd(NULL, 0);
 	if (!path)
 		return (ENOMEM);

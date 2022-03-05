@@ -16,6 +16,14 @@ TODO LIST:
 	- for everything else, it is set to the last parameter of the command ran (if no parameters, that is the command ran) BEFORE RUNNING SAID COMMAND
 
 
+cd: run in both child (print errors) and parent (change memory)
+echo: run in child (print shit)
+env: run in child (print shit)
+exit: run in the child (print errors) and the parent (set exit code and exit program)
+export: run in the child (print errors, but do not return errno on builtin error) and the parent (set memory)
+pwd: run in the child (print shit)
+unset: run in the child (print errors, but do not return errno on builtin error) and the parent (unset memory)
+
 
 ORDER ON HOW TO DO THINGS:
 - split on pipes

@@ -3,6 +3,7 @@
 #include "execute.h"
 #include "envars.h"
 #include "builtins.h"
+#include "utils.h"
 #include "error_handling.h"
 #include <errno.h>
 #include <signal.h>
@@ -62,7 +63,7 @@ void	fork_process(t_cmd *cmd, t_mini *mini)
 	return ;
 }
 
-int		execute_command(t_list *cmd_inst, t_mini *mini)
+int	execute_command(t_list *cmd_inst, t_mini *mini)
 {
 	int		ret;
 	t_cmd	*cmd;
@@ -71,8 +72,6 @@ int		execute_command(t_list *cmd_inst, t_mini *mini)
 	ret = check_command(cmd, mini);
 	if (ret == -2)
 		return (-1);
-	if (cmd->builtin != MINI_BUILTIN_NONE && !run_in_child(cmd->builtin))
-		run_reserved(cmd);
 	if (cmd->pipe_out[0])
 	{
 		ret = pipe(cmd->pipe_out);
@@ -87,23 +86,31 @@ int		execute_command(t_list *cmd_inst, t_mini *mini)
 
 void	wait_n_processes(int amount, t_mini *mini)
 {
-	int	ret;
-	int	status;
+	int		ret;
+	int		status;
+	t_cmd	*cmd;
 
 	while (amount)
 	{
 		ret = wait(&status);
 		if (ret == -1)
 			perror("minishell");
+		else if (((status) & 0xff00) >> 8 == 0)
+		{
+			cmd = get_cmd_from_pid(mini->cmds, ret);
+			if (cmd && cmd->builtin != MINI_BUILTIN_NONE
+				&& !run_in_child_only(cmd->builtin))
+			{
+				if (run_reserved(0, cmd) != 0)
+					force_exit(mini, ret);
+			}
+		}
 		amount--;
 	}
 	if (((status) & 0x7f) == 0)
 		set_mini_status(mini, ((status) & 0xff00) >> 8);
-	if (WIFSIGNALED(status))
-	{
-		if (WTERMSIG(status) == SIGSEGV)
-			error_manager(mini, SEGF);
-	}
+	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGSEGV)
+		error_manager(mini, SEGF);
 }
 
 int		execute_list(t_mini *mini)

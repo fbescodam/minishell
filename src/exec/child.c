@@ -19,7 +19,10 @@ void	exit_child(char *process_name)
 		ft_putstr_fd(": Command not found\n", 2);
 	}
 	else if (errno != 0)
-		perror("minishell");
+	{
+		ft_putstr_fd("minishell: ", 2);
+		perror(process_name);
+	}
 	exit(errno);
 }
 
@@ -98,10 +101,7 @@ void	child_process(t_cmd *cmd)
 		exit_child("");
 	if (cmd->builtin != MINI_BUILTIN_NONE)
 	{
-		if (run_in_child(cmd->builtin))
-			run_reserved(cmd);
-		else if (cmd->frake_err != NULL)
-			print_ptc_errors(cmd->frake_err);
+		errno = run_reserved(1, cmd);
 		return (exit_child(*(cmd->params)));
 	}
 	custom_envp = get_envars_as_envp(cmd->mini);

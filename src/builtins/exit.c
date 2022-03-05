@@ -3,21 +3,27 @@
 #include "utils.h"
 #include "envars.h"
 
-// error code 255, like bash
-static void	exit_err(t_cmd *cmd, char *str)
+// error code 255 on weird exit codes, like in bash
+static int	exit_err(int is_child, t_cmd *cmd, char *str)
 {
-	ft_putstr_fd("minishell: exit: ", 2);
-	ft_putstr_fd(str, 2);
-	ft_putendl_fd(": numeric argument required", 2);
-	set_mini_status(cmd->mini, 255);
+	if (is_child)
+	{
+		ft_putstr_fd("minishell: exit: ", 2);
+		ft_putstr_fd(str, 2);
+		ft_putendl_fd(": numeric argument required", 2);
+		return (0);
+	}
+	force_exit(cmd->mini, 255);
+	return (0);
 }
 
-// exit runs in the parent. the exit is not printed in out with exit > out
-int	mini_exit(t_cmd *cmd)
+// exit runs in the child. the exit is printed out on FD 2, just like in bash.
+int	mini_exit(int is_child, t_cmd *cmd)
 {
 	char	*temp;
 
-	ft_putendl_fd("exit", 2);
+	if (is_child)
+		ft_putendl_fd("exit", 2);
 	if (char_array_len(cmd->params) > 1)
 	{
 		temp = cmd->params[1];
@@ -28,11 +34,14 @@ int	mini_exit(t_cmd *cmd)
 			temp++;
 		}
 		if (!*temp)
-			set_mini_status(cmd->mini,
-				(int)(unsigned char)ft_atoi(cmd->params[1]));
+		{
+			if (is_child)
+				return (0);
+			cmd->mini->status = (int)(unsigned char)ft_atoi(cmd->params[1]);
+		}
 		else
-			exit_err(cmd, cmd->params[1]);
+			return (exit_err(is_child, cmd, cmd->params[1]));
 	}
-	force_exit(cmd->mini, 0);
+	force_exit(cmd->mini, cmd->mini->status);
 	return (0);
 }

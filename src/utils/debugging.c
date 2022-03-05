@@ -68,15 +68,18 @@ void	print_command_status(t_cmd *cmd, int ret)
 
 void	print_path_pid(t_list *cmds, int pid)
 {
-		t_list *current;
-	t_cmd *cmd;
+	t_list	*current;
+	t_cmd	*cmd;
 
 	current = cmds;
 	while (current)
 	{
-		cmd = (t_cmd *)(current->content);
+		cmd = (t_cmd *)current->content;
 		if (cmd->pid == pid)
+		{
 			printf("COMMAND: %s\n", cmd->path);
+			break ;
+		}
 		current = current->next;
 	}
 }

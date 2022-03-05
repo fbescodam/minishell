@@ -2,12 +2,14 @@
 #include "utils.h"
 
 // TODO: echo DOES always run in the child! It doesn't change any memory.
-int	mini_echo(t_cmd *cmd)
+int	mini_echo(int is_child, t_cmd *cmd)
 {
 	size_t	i;
 	char	add_nl;
 	char	*temp;
 
+	if (!is_child)
+		return (0);
 	add_nl = 1;
 	i = 1;
 	while (cmd->params[i] && ft_strncmp("-n\0", cmd->params[i], 3) == 0)

@@ -1,29 +1,31 @@
 #include "libft.h"
 #include "structs.h"
 
-int	ptc_error(t_cmd *cmd, char *str)
+void	print_builtin_err(char *method, char *helping_hand, char *err)
 {
-	char	*temp;
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(method, 2);
+	ft_putstr_fd(": ", 2);
+	if (helping_hand)
+	{
+		ft_putstr_fd(helping_hand, 2);
+		ft_putstr_fd(": ", 2);
+	}
+	ft_putendl_fd(err, 2);
+}
+
+t_cmd	*get_cmd_from_pid(t_list *cmds, int pid)
+{
 	t_list	*item;
+	t_cmd	*cmd;
 
-	temp = ft_strdup(str);
-	if (!temp)
-		return (0);
-	item = ft_lstnew(temp);
-	if (!item)
-		return (0);
-	ft_lstadd_back(&cmd->frake_err, item);
-	return (1);
-}
-
-static void	print_ptc_error(void *ptc_err)
-{
-	ft_putendl_fd((char *)ptc_err, 2);
-}
-
-void	print_ptc_errors(t_list *frake_err)
-{
-	if (!frake_err)
-		return ;
-	ft_lstiter(frake_err, &print_ptc_error);
+	item = cmds;
+	while (item)
+	{
+		cmd = (t_cmd *)item->content;
+		if (cmd->pid == pid)
+			return (cmd);
+		item = item->next;
+	}
+	return (NULL);
 }
