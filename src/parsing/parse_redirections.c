@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "parse.h"
+#include "envars.h"
 
 int	parse_file_name(char *prompt, char ***dest)
 {
@@ -59,7 +60,7 @@ int	redir_type_check(char *prompt)
 	return (OUT_FILE);
 }
 
-int	add_token(void *content, int flag, t_cmd *cmd, char *prompt)
+int	add_token(char *content, int flag, t_cmd *cmd, char *prompt)
 {
 	t_token	*token;
 	t_list	*new;
@@ -67,12 +68,14 @@ int	add_token(void *content, int flag, t_cmd *cmd, char *prompt)
 	token = (t_token *)ft_calloc(sizeof(t_token), 1);
 	if (!token)
 		return (-1);
-	token->content = content;
 	token->flag = flag;
 	if (flag == HEREDOC)
-		flag = read_heredoc(cmd, (char *)content);
+		heredoc(cmd, (char *)content);
+	else
+		flag = parse_envars(cmd->mini->envars, &content);
 	if (flag < 0)
 		return (-1);
+	token->content = content;
 	token->fd = -1;
 	if (ft_isdigit(*prompt))
 		token->fd = ft_atoi(prompt);

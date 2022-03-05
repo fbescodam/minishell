@@ -1,3 +1,6 @@
+MINISHELL (work in progress)
+
+TODO LIST:
 - replace  write / printf errors with our custom fd_putstring function
 - if a path contains a / character, assume it's absolute or relative and try and access the file, DO NOT look in path and if it does not, then only check path
 - make "'"' work: should have an ' as one argument and then error out because of an unclosed ' parameter
@@ -8,15 +11,14 @@
 - do we need to implement 2>&1 etc
 - CD : child checks access to directory, if not prints error (this way stderr redirections are set correctly), then error code is passed to parent
 - when a program segfaults bash prints segfault. Ours does not. I'd love to know why?
+- change envar export boolean into a string that contains the combined NAME=VALUE, or NULL if no need to export
 - setting $_ envar (not required, is currently set to absolute path of minishell at setup):
 	- for export, it is set to the last envar to set's name (not including the = and the value!)
 	- for everything else, it is set to the last parameter of the command ran (if no parameters, that is the command ran) BEFORE RUNNING SAID COMMAND
 
 
 
-
-
-VOLGORDE ORDER SEQUENCE WHATEVER HELL
+ORDER ON HOW TO DO THINGS:
 - split on pipes
 - check for and run heredoc
 - set up the redirections (heredoc is part of that)
@@ -25,3 +27,8 @@ VOLGORDE ORDER SEQUENCE WHATEVER HELL
 - parse the commands
 - check if it is built-in, if not find the executable, if so, run built-in
 - execute all commands at the same time (and if one doesn't expect input and the one that pipes into the non-expecting-input one tries to pipe into there, it should quit also (cat | ls))
+
+-lsof -p to test fd leaks
+- fix ^C ^D in read_input.c
+
+-$FUCK="miao"
