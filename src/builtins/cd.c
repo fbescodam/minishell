@@ -37,7 +37,7 @@ int	mini_cd(t_cmd *cmd)
 		free(path);
 		return (ENOMEM);
 	}
-	if (!replace_envar_value(envar, path))
+	if (!replace_envar_value(envar, ft_strdup(path)))
 		return (ENOMEM);
 	free(path);
 	return (0);
