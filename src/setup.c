@@ -81,6 +81,11 @@ static int	setup_envars(t_mini *mini, char *shellname, char **envp)
 	envp_temp = envp;
 	while (*envp_temp)
 	{
+		if (ft_strchr(RESERVED_ENVAR_NAMES, (*envp_temp)[0]) && (*envp_temp)[1] == '=')
+		{
+			envp_temp++;
+			continue ;
+		}
 		temp = ft_strdup(*envp_temp);
 		if (!temp)
 			return (0);
