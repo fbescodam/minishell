@@ -30,3 +30,5 @@ ORDER ON HOW TO DO THINGS:
 
 -lsof -p to test fd leaks
 - fix ^C ^D in read_input.c
+
+-$FUCK="miao"
