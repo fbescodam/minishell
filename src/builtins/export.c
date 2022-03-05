@@ -38,8 +38,8 @@ int	mini_export(t_cmd *cmd)
 			return (ENOMEM);
 		else if (equals_pos)
 		{
-			if (!is_valid_env_name(cmd->params[i]) &&
-				!export_error(cmd, cmd->params[i]))
+			if (!is_valid_env_name(cmd->params[i])
+				&& !export_error(cmd, cmd->params[i]))
 				return (ENOMEM);
 			else
 			{
@@ -49,6 +49,9 @@ int	mini_export(t_cmd *cmd)
 		}
 		else
 		{
+			if (!is_valid_env_name(cmd->params[i])
+				&& !export_error(cmd, cmd->params[i]))
+				return (ENOMEM);
 			envar = get_envar(cmd->mini->envars, cmd->params[i]);
 			if (envar)
 				envar->export = 1;
