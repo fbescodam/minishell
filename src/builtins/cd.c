@@ -30,13 +30,12 @@ int	mini_cd(int is_child, t_cmd *cmd)
 	if (!path)
 		return (ENOMEM);
 	envar = get_envar(cmd->mini->envars, "PWD");
-	if (!envar && !set_envar(cmd->mini, "PWD", path, 0))
-	{
-		free(path);
-		return (ENOMEM);
-	}
-	if (!replace_envar_value(envar, ft_strdup(path)))
-		return (ENOMEM);
+	if (envar)
+		ret = replace_envar_value(envar, path);
+	else
+		ret = set_envar(cmd->mini, "PWD", path, 0);
 	free(path);
+	if (!ret)
+		return (ENOMEM);
 	return (0);
 }

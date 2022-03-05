@@ -8,9 +8,9 @@
  * @brief Counts and returns how many strings in an array of type char **
  */
 
-int		char_array_len(char **arr)
+size_t	char_array_len(char **arr)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (arr[i])
@@ -18,9 +18,19 @@ int		char_array_len(char **arr)
 	return (i);
 }
 
+char	*get_last_from_char_array(char **arr)
+{
+	char	**temp;
+
+	temp = arr;
+	while (*temp)
+		temp++;
+	return (*temp);
+}
+
 int	add_string_to_array(char ***to, char *from)
 {
-	int		arr_size;
+	size_t	arr_size;
 	char	**temp;
 	int		i;
 

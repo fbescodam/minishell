@@ -1,3 +1,5 @@
+#include <stdlib.h>
+#include <errno.h>
 #include "libft.h"
 #include "utils.h"
 #include "envars.h"
@@ -91,17 +93,23 @@ int	set_mini_paths(t_mini *mini, t_ditem *list_item)
 	return (1);
 }
 
-void	set_mini_status(t_mini *mini, int status_code)
+int	set_mini_status(t_mini *mini, int status_code)
 {
 	t_envar	*quest;
+	char	*stat;
+	int		ret;
 
+	stat = ft_itoa(status_code);
+	if (!stat)
+		return (0);
 	mini->status = status_code;
 	quest = get_envar(mini->envars, "?");
 	if (quest)
-	{
-		ft_free(quest->val);
-		quest->val = ft_itoa(status_code);
-	}
+		ret = replace_envar_value(quest, stat);
+	else
+		ret = set_envar(mini, "?", stat, 0);
+	free(stat);
+	return (ret);
 }
 
 // stop at '=' because that is where the value starts if used in

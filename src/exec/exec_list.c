@@ -107,8 +107,9 @@ void	wait_n_processes(int amount, t_mini *mini)
 		}
 		amount--;
 	}
-	if (((status) & 0x7f) == 0)
-		set_mini_status(mini, ((status) & 0xff00) >> 8);
+	if (((status) & 0x7f) == 0
+		&& !set_mini_status(mini, ((status) & 0xff00) >> 8))
+		error_manager(mini, ENOMEM);
 	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGSEGV)
 		error_manager(mini, SEGF);
 }

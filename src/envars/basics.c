@@ -51,15 +51,15 @@ t_envar	*get_envar(t_dlist *envars, char *name)
  * @brief Replace the value of an existing environment variable
  *
  * @param[in] envar The environment variable to modify
- * @param[in] new_val The new value to set, allocated by malloc, cannot be NULL
- * @return Returns 1 on success and 0 on failure
+ * @param[in] new_val The new value to set, will be strduped
+ * @return Returns 0 on failure, 1 on success
  */
 int	replace_envar_value(t_envar *envar, char *new_val)
 {
 	if (!new_val)
 		return (0);
 	ft_free(envar->val);
-	envar->val = new_val;
+	envar->val = ft_strdup(new_val);
 	if (!envar->val)
 		return (0);
 	return (1);
@@ -81,7 +81,7 @@ int	set_envar(t_mini *mini, char *name, char *val, int export)
 
 	envar = get_envar(mini->envars, name);
 	if (envar)
-		return (replace_envar_value(envar, ft_strdup(val)));
+		return (replace_envar_value(envar, val));
 	envar = ft_calloc(1, sizeof(t_envar));
 	if (!envar)
 		return (0);

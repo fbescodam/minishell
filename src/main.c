@@ -43,7 +43,8 @@ int	main(int argc, char **argv, char **envp)
 				error_manager(&mini, ret);
 			else
 			{
-				set_mini_status(&mini, 0);
+				if (!set_mini_status(&mini, 0))
+					error_manager(&mini, ENOMEM);
 				//printf("prompt after parsing envars: \"%s\"\n", mini.prompt);
 				ret = parse_prompt(&mini, mini.prompt);
 				if (ret != 0)
