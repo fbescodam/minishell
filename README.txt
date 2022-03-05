@@ -1,15 +1,13 @@
 MINISHELL (work in progress)
 
 TODO LIST:
-- replace  write / printf errors with our custom fd_putstring function
 - if a path contains a / character, assume it's absolute or relative and try and access the file, DO NOT look in path and if it does not, then only check path
+- print "No such file or directory" when running a local executable that does not exist, instead of "command not found"
 - make "'"' work: should have an ' as one argument and then error out because of an unclosed ' parameter
 - //// Ctrl + C should not clear the entire command, should only remove the ^C (should it really?)
 - test with: "< /usr/share/dict/words cat | cat > out" (should not get stuck)
-- ioctl to check pipe byte limit
 - check if we need to implement $PPID
 - do we need to implement 2>&1 etc
-- when a program segfaults bash prints segfault. Ours does not. I'd love to know why?
 - change envar export boolean into a string that contains the combined NAME=VALUE, or NULL if no need to export
 - setting $_ envar (not required, is currently set to absolute path of minishell at setup):
 	- for export, it is set to the last envar to set's name (not including the = and the value!)
