@@ -1,4 +1,5 @@
 #include "structs.h"
+#include "builtins.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -39,6 +40,9 @@ int		check_command(t_cmd *cmd, t_mini *mini)
 	int		ret;
 
 	if (!*(cmd->params))
+		return (0);
+	cmd->builtin = is_reserved(cmd);
+	if (cmd->builtin != MINI_BUILTIN_NONE)
 		return (0);
 	if (ft_strchr(*(cmd->params), '/'))
 	{

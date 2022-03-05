@@ -1,6 +1,7 @@
 #include "structs.h"
 #include "debug.h"
 #include "utils.h"
+#include "builtins.h"
 #include "custom_errors.h"
 #include <stdlib.h>
 #include "parse.h"
@@ -54,6 +55,7 @@ t_list	*new_cmd(t_mini *mini)
 	if (!cmd)
 		return (NULL);
 	cmd->mini = mini;
+	cmd->builtin = MINI_BUILTIN_NONE;
 	cmd_instance = ft_lstnew(cmd);
 	if (!cmd_instance)
 	{

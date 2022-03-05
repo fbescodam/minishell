@@ -10,7 +10,7 @@
 - when a program segfaults bash prints segfault. Ours does not. I'd love to know why?
 - setting $_ envar (not required, is currently set to absolute path of minishell at setup):
 	- for export, it is set to the last envar to set's name (not including the = and the value!)
-	- for everything else, it is set to the last parameter of the command ran (if no parameters, that is the command ran)
+	- for everything else, it is set to the last parameter of the command ran (if no parameters, that is the command ran) BEFORE RUNNING SAID COMMAND
 
 
 

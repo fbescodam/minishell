@@ -1,28 +1,29 @@
 #include "utils.h"
 #include "builtins.h"
+	#	include <stdio.h>
 
 /**
- * @brief Check if given command is a reserved keyword for minishell and if it
- * is, run it.
+ * @brief Run a reserved minishell command
  * @param[in] cmd Command struct
  * @return Returns -1 if no reserved keyword, 0 if it was and it completed
  * successfully, > 0 on system error (using errno), < 0 on minishell error
  */
-int	check_run_reserved_cmds(t_cmd *cmd, int which)
+int	run_reserved(t_cmd *cmd)
 {
-	if (which == MINI_BUILTIN_CD)
+	printf("RUNNING RESERVED CMD %d\n", cmd->builtin);
+	if (cmd->builtin == MINI_BUILTIN_CD)
 		return (mini_cd(cmd));
-	if (which == MINI_BUILTIN_EXIT)
+	if (cmd->builtin == MINI_BUILTIN_EXIT)
 		return (mini_exit(cmd));
-	if (which == MINI_BUILTIN_PWD)
+	if (cmd->builtin == MINI_BUILTIN_PWD)
 		return (mini_pwd(cmd));
-	if (which == MINI_BUILTIN_ECHO)
+	if (cmd->builtin == MINI_BUILTIN_ECHO)
 		return (mini_echo(cmd));
-	if (which == MINI_BUILTIN_EXPORT)
+	if (cmd->builtin == MINI_BUILTIN_EXPORT)
 		return (mini_export(cmd));
-	if (which == MINI_BUILTIN_ENV)
+	if (cmd->builtin == MINI_BUILTIN_ENV)
 		return (mini_env(cmd));
-	if (which == MINI_BUILTIN_UNSET)
+	if (cmd->builtin == MINI_BUILTIN_UNSET)
 		return (mini_unset(cmd));
 	return (-1);
 }

@@ -1,6 +1,9 @@
+#include "libft.h"
 #include "structs.h"
 #include "execute.h"
 #include "envars.h"
+#include "builtins.h"
+#include "utils.h"
 #include <errno.h>
 #include <signal.h>
 #include "error_handling.h"
@@ -93,6 +96,14 @@ void	child_process(t_cmd *cmd)
 		exit_child("");
 	if (!*(cmd->params))
 		exit_child("");
+	if (cmd->builtin != MINI_BUILTIN_NONE)
+	{
+		if (run_in_child(cmd->builtin))
+			run_reserved(cmd);
+		else if (cmd->frake_err != NULL)
+			print_ptc_errors(cmd->frake_err);
+		return (exit_child(*(cmd->params)));
+	}
 	custom_envp = get_envars_as_envp(cmd->mini);
 	if (!custom_envp)
 	{
