@@ -60,6 +60,7 @@ int	replace_envar_value(t_envar *envar, char *new_val)
 		return (0);
 	ft_free(envar->val);
 	envar->val = ft_strdup(new_val);
+	// TODO: replace envar->export if not NULL
 	if (!envar->val)
 		return (0);
 	return (1);

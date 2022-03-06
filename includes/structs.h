@@ -16,6 +16,10 @@ typedef struct s_token {
 	int			fd;
 }				t_token;
 
+// TODO: char *name can be removed, only rely on hash
+// name would still be in char *export
+// also TODO: rename *export, as it might be reserved
+// also TODO: point *val to the char after the '=' char in *export
 typedef struct s_envar
 {
 	unsigned int	hash;
