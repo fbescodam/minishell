@@ -2,6 +2,7 @@
 #include "structs.h"
 #include "utils.h"
 #include "envars.h"
+#include <stdlib.h>
 	#include <stdio.h>
 
 /**
@@ -56,11 +57,27 @@ t_envar	*get_envar(t_dlist *envars, char *name)
  */
 int	replace_envar_value(t_envar *envar, char *new_val)
 {
+	char	*temp;
+	char	*equals;
+	size_t	fuck;
+
 	if (!new_val)
 		return (0);
 	ft_free(envar->val);
 	envar->val = ft_strdup(new_val);
-	// TODO: replace envar->export if not NULL
+	if (envar->export)
+	{
+		equals = ft_strchr(envar->export, '=');
+		*equals = '\0';
+		temp = ft_calloc(equals - envar->export + ft_strlen(new_val) + 2,
+				sizeof(char));
+		fuck = equals - envar->export;
+		ft_strlcpy(temp, envar->export, fuck);
+		temp[fuck] = '=';
+		ft_strlcpy(&temp[fuck + 1], new_val, ft_strlen(new_val));
+		free(envar->export);
+		envar->export = temp;
+	}
 	if (!envar->val)
 		return (0);
 	return (1);
