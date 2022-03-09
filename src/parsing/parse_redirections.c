@@ -74,7 +74,7 @@ int	add_token(char *content, int flag, t_cmd *cmd, char *prompt)
 	else
 		flag = parse_envars(cmd->mini->envars, &content);
 	if (flag < 0)
-		return (-1);
+		return (flag);
 	token->content = content;
 	token->fd = -1;
 	if (ft_isdigit(*prompt))
@@ -114,6 +114,6 @@ int	parse_input_redir(char *prompt, t_cmd *cmd)
 	ret = add_token(*dest, flag, cmd, prompt);
 	free(dest);
 	if (ret < 0)
-		return (-1);
+		return (ret);
 	return (size);
 }

@@ -11,59 +11,67 @@
 #include <unistd.h>
 #include "error_handling.h"
 #include "signal_handling.h"
+#include "get_next_line.h"
 
-char	*readline_but_better(char *prompt)
+
+char	*readline_but_better(char *prompt, t_dlist *envars, int fd)
 {
 	char	*line;
+	char	*temp;
 	int		ret;
 
 	ft_putstr_fd(prompt, 1);
-	ret = ft_get_next_line(0, &line);
+	ret = get_next_line(0, &line);
+	if (ret == 0 && !(line[0]))
+		return (NULL);
+	while (ret == 0 && !ft_strchr(line, '\n'))
+	{
+		ret = get_next_line(0, &temp);
+		if (ret == -1)
+			exit (errno);
+		int ret_2 = join_realloc(&line, temp, ft_strlen(temp));
+		free(temp);
+		if (ret_2 != 0)
+			exit (ENOMEM);
+	}
 	if (ret == -1)
-		exit (ENOMEM);
+		exit(ENOMEM);
+	ret = parse_envars(envars, &line);		//parent should do this upon receiving
+	if (ret != 0)
+		exit(ENOMEM);
 	return (line);
 }
 
-int	read_input(char *read_until, char **dest)
+void	input_to_fd(char *read_until, t_dlist *envars, int fd)
 {
 	char	*in;
 	int		ret;
 
-	if (*dest)
-		free(*dest);
-	*dest = ft_strdup("");
 	while (1)
 	{
-		in = readline_but_better("\001\e[1;40;31m\002>\001\e[0m\002 ");
+		in = readline_but_better("\001\e[1;40;31m\002>\001\e[0m\002 ", envars, fd);
 		if (!in || (!read_until && in[0]))
 			break ;
 		ret = ft_strlen(in);
 		if (ft_strncmp(in, read_until, ret) == 0 && ret > 0)
 			break ;
-		in[ret] = '\n';
-		ret = join_realloc(dest, in, ret + 1);
-		if (ret != 0)
-			return (-1);
-		free(in);
+		ret = ft_putstr_fd(in, fd);
+		if (ret < 0)
+			exit(errno);
+		write(fd, "\n", 1);
+		if (in)
+			free(in);
 	}
-	return (0);
+	if (in)
+		free(in);
 }
 
-void	read_heredoc(t_cmd *cmd, char *delimiter, int fd[2])
+void	heredoc_child(t_cmd *cmd, char *delimiter, int fd[2])
 {
-	int		ret;
-	
-	ret = read_input(delimiter, &(cmd->heredoc));
-	if (ret != 0)
-		exit (ENOMEM);
-	ret = parse_envars(cmd->mini->envars, &(cmd->heredoc));
-	if (ret != 0)
-		exit (ENOMEM);
+	signal(SIGINT , &hdoc_sig_handler);
 	close(fd[0]);
-	ret = ft_putstr_fd(cmd->heredoc, fd[1]);
-	//close(fd[1]);
-	if (ret < 0)
-		exit (errno);
+	input_to_fd(delimiter, cmd->mini->envars, fd[1]);
+	close(fd[1]);
 	exit(0);
 }
 
@@ -105,13 +113,16 @@ int	heredoc(t_cmd *cmd, char *delimiter)
 	pid = fork();
 	if (pid == -1)
 		force_exit(cmd->mini, errno);
+	signal(SIGINT, &sig_new_line);
 	if (pid == 0)
-		read_heredoc(cmd, delimiter, fd);
+		heredoc_child(cmd, delimiter, fd);
 	close(fd[1]);
 	wait_n_processes(1, cmd->mini);
+	if (cmd->mini->status == IGNORE)
+		return (-3);
 	ret = read_from_child(&(cmd->heredoc), fd[0]);
 	close(fd[0]);
-	printf("HEREDOC : %s:\n", cmd->heredoc);
+	//printf("HEREDOC : %s:\n", cmd->heredoc);
 	return (0);
 }
 
@@ -126,11 +137,11 @@ int	read_til_close_pipe(char ***to)
 		in = readline("\001\e[1;40;31m\002>\001\e[0m\002 ");
 		if (!in || in[0])
 			break;
-		free(in);
+		//free(in);
 	}
 	if (!in)
 		return (PARSE_ERROR);
 	ret = split_prompt(in, to, "|");
-	free (in);
+	//free (in);
 	return (ret);
 }

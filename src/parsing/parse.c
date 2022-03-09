@@ -148,6 +148,8 @@ int	parse_prompt(t_mini *mini, char *prompt)
 			return (ENOMEM);
 		if (ret == -2)
 			return (PARSE_ERROR);
+		if (ret == -3)
+			return (IGNORE);
 	}
 	return (0);
 }

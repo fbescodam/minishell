@@ -6,6 +6,17 @@
 #include "readline/readline.h"
 #include "signal_handling.h"
 
+void	hdoc_sig_handler(int sig)
+{
+	if (sig == SIGINT)
+		exit(IGNORE);
+}
+
+void	sig_new_line(int sig)
+{
+	printf("\n");
+}
+
 void	sig_handler(int sig)
 {
 	// system("leaks minishell");

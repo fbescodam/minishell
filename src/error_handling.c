@@ -20,6 +20,8 @@ void	force_exit(t_mini *mini, int err)
 
 void	error_manager(t_mini *mini, int err)
 {
+	if (err == IGNORE)
+		return ;
 	mini->status = err;
 	if (err == PARSE_ERROR)
 		ft_putstr_fd("minishell: parse error\n", 2);
