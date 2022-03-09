@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "get_next_line.h"
 #include "libft.h"
+#include <stdio.h>
 
 int	sort_buffer(int fd, char *buff, int *curr_seg)
 {
@@ -91,7 +92,7 @@ int	get_next_line(int fd, char **line)
 	int			current_segment;
 
 	if (line == 0)
-		return (-1);
+		return (gnl_reset(buff));
 	buff[100] = 0;
 	*line = 0;
 	res = 0;

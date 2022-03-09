@@ -13,6 +13,27 @@
 #include "signal_handling.h"
 #include "get_next_line.h"
 
+//something is still weird when you hit ^D just before a new line 
+
+void	handle_eof(char **line)
+{
+	char	*c;
+	int		ret;
+
+	c = malloc(1);
+	get_next_line(0, NULL);
+	while (*c != '\n')
+	{
+		ret = read(0, c, 1);
+		if (ret == -1)
+			exit (errno);
+		if (ret > 0)
+			ret = join_realloc(line, c, 1);
+		if (ret != 0)
+			exit (ENOMEM);
+	}
+	free(c);
+}
 
 char	*readline_but_better(char *prompt, int fd)
 {
@@ -21,22 +42,15 @@ char	*readline_but_better(char *prompt, int fd)
 	int		ret;
 	int		ret_2;
 
+	temp = ".";
 	ft_putstr_fd(prompt, 1);
 	ret = get_next_line(0, &line);
 	if (ret == -1)
 		exit(ENOMEM);
 	if (ret == 0 && !(line[0]))
 		return (NULL);
-	while (ret == 0 && !ft_strchr(line, '\n'))
-	{
-		ret = get_next_line(0, &temp);
-		if (ret == -1)
-			exit (errno);
-		ret_2 = join_realloc(&line, temp, ft_strlen(temp));
-		free(temp);
-		if (ret_2 != 0)
-			exit (ENOMEM);
-	}
+	else
+		handle_eof(&line);
 	return (line);
 }
 
