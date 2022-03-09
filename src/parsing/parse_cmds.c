@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include "parse.h"
 #include <stdio.h>
+#include "envars.h"
 
 int	parse_operator(char *prompt, int index, t_cmd *cmd)
 {
@@ -66,6 +67,22 @@ t_list	*new_cmd(t_mini *mini)
 	return (cmd_instance);
 }
 
+int	expand_params(t_cmd *cmd)
+{
+	int	i;
+	int	ret;
+
+	i = 0;
+	while ((cmd->params)[i])
+	{
+		ret = parse_envars(cmd->mini->envars, &((cmd->params)[i]));
+		if (ret != 0)
+			return (ENOMEM);
+		i++;
+	}
+	return (0);
+}
+
 int	setup_cmds(t_mini *mini, char **prompts)
 {
 	int	i;
@@ -88,5 +105,6 @@ int	setup_cmds(t_mini *mini, char **prompts)
 			((t_cmd *)(current_cmd->content))->pipe_out[0] = 1;
 		i++;
 	}
+	ret = expand_params(current_cmd->content);
 	return (ret);
 }

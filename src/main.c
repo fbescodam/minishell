@@ -37,8 +37,6 @@ int	main(int argc, char **argv, char **envp)
 			error_manager(&mini, ret);
 		else
 		{
-			//printf("prompt after parsing envars to set: \"%s\"\n", mini.prompt);
-			ret = parse_envars(mini.envars, &mini.prompt);
 			if (ret != 0)
 				error_manager(&mini, ret);
 			else
