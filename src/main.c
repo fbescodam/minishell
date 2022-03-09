@@ -16,7 +16,7 @@ int	main(int argc, char **argv, char **envp)
 	t_mini	mini;
 	int		ret;
 
-	rl_catch_signals = 0;
+	//rl_catch_signals = 0;
 	if (!setup_mini(&mini, argv[0], envp))
 		force_exit(&mini, 1);
 	while (1)
@@ -56,6 +56,7 @@ int	main(int argc, char **argv, char **envp)
 			}
 		}
 
+		
 		ft_free(mini.prompt);
 		ft_lstclear(&(mini.cmds), &free_cmd);
 		mini.prompt = NULL;

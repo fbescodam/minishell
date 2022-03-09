@@ -5,16 +5,16 @@
 #include <stdlib.h>
 #include "readline/readline.h"
 #include "signal_handling.h"
+#include "structs.h"
 
-void	hdoc_sig_handler(int sig)
+void	hdoc_sig_parent(int sig)
 {
 	if (sig == SIGINT)
-		exit(IGNORE);
-}
-
-void	sig_new_line(int sig)
-{
-	printf("\n");
+	{
+		kill(g_pid, SIGTERM);
+		dprintf(2, "FUCK\n");
+		//g_pid = -1;
+	}
 }
 
 void	sig_handler(int sig)
@@ -28,7 +28,7 @@ void	sig_handler(int sig)
 	else if (sig == SIGINT)
 	{
 		printf("\n"); // Move to a new line
-		rl_replace_line("", 0); // Clear the previous text
+		//rl_replace_line("", 0); // Clear the previous text
 		//printf("\x1b[1A\033[10C\x1b[0K\n");
 		// Hooray for ANSI Escape Sequences!
 		// \x1b stands for the ESCAPE key, then [1A goes up one line ([2A would go up two lines)

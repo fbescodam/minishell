@@ -16,12 +16,8 @@
 void	handle_eof(char **line)
 {
 	char	*c;
-	char	last_char_read;
 	int		ret;
 
-	last_char_read = (*line)[ft_strlen(*line) - 1];
-	if (last_char_read == '\n')
-		return ;
 	c = ft_calloc(2, 1);
 	get_next_line(0, NULL);
 	while (1)
@@ -65,7 +61,7 @@ void	input_to_fd(char *read_until, int fd)
 
 	while (1)
 	{
-		in = readline_but_better("\001\e[1;40;31m\002>\001\e[0m\002 ", fd);
+		in = readline("\001\e[1;40;31m\002>\001\e[0m\002 ");
 		if (!in || (!read_until && in[0]))
 			break ;
 		ret = ft_strlen(in);
@@ -84,10 +80,11 @@ void	input_to_fd(char *read_until, int fd)
 
 void	heredoc_child(t_cmd *cmd, char *delimiter, int fd[2])
 {
-	signal(SIGINT , &hdoc_sig_handler);
+	signal(SIGINT, SIG_IGN);
 	close(fd[0]);
 	input_to_fd(delimiter, fd[1]);
 	close(fd[1]);
+	//system("leaks minishell");
 	exit(0);
 }
 
@@ -98,6 +95,8 @@ int	read_from_child(char **dest, int fd, t_dlist *envars)
 	int		bytes;
 
 	bytes = 1;
+	if (g_pid == -1)
+		return (0);
 	while (bytes)
 	{
 		buff = (char *)ft_calloc(50, 1);
@@ -132,13 +131,14 @@ int	heredoc(t_cmd *cmd, char *delimiter)
 	pid = fork();
 	if (pid == -1)
 		force_exit(cmd->mini, errno);
-	signal(SIGINT, &sig_new_line);
 	if (pid == 0)
 		heredoc_child(cmd, delimiter, fd);
-	close(fd[1]);
+	g_pid = pid;
+	signal(SIGINT, &hdoc_sig_parent);
 	wait_n_processes(1, cmd->mini);
 	if (cmd->mini->status == IGNORE)
 		return (-3);
+	close(fd[1]);
 	ret = read_from_child(&(cmd->heredoc), fd[0], cmd->mini->envars);
 	close(fd[0]);
 	//printf("HEREDOC : %s:\n", cmd->heredoc);

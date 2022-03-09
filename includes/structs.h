@@ -10,6 +10,8 @@
 # define PIPE_IN 5
 # define PIPE_OUT 6
 
+int	g_pid;
+
 typedef struct s_token {
 	void		*content;
 	int			flag;
