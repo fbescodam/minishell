@@ -55,8 +55,6 @@ int	main(int argc, char **argv, char **envp)
 				//printf("prompt after parse_prompt: \"%s\"\n", mini.prompt);
 			}
 		}
-
-		system ("leaks minishell");
 		ft_free(mini.prompt);
 		ft_lstclear(&(mini.cmds), &free_cmd);
 		mini.prompt = NULL;

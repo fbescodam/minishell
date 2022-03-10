@@ -31,7 +31,10 @@ int	output_redirect(t_token *token)
 	fd_2 = 1;
 	if (token->fd != -1)
 		fd_2 = token->fd;
-	fd_1 = open((char *)(token->content), O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	if (token->flag == OUT_FILE)
+		fd_1 = open((char *)(token->content), O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	else if (token->flag == OUT_FILE_APPEND)
+		fd_1 = open((char *)(token->content), O_WRONLY | O_CREAT | O_APPEND, 0666);
 	if (fd_1 == -1)
 		return (-1);
 	ret = dup2(fd_1, fd_2);
