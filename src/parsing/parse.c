@@ -92,7 +92,7 @@ int		split_and_add(char *from, char ***to, int split_index)
  * to split on
  * @return 0 on default, error code in case of error
  */
-int	split_prompt(char *from, char ***to, char *set)
+int	split_prompt(char *from, char ***to, char *set, t_mini *mini)
 {
 	int		ret;
 	int		nxt_op;
@@ -110,7 +110,7 @@ int	split_prompt(char *from, char ***to, char *set)
 		if (ret != 0)
 			return (ret);
 		if (from[nxt_op] == '|' && from[nxt_op + 1] == '\0')
-			ret = read_til_close_pipe(to);
+			ret = read_til_close_pipe(to,mini);
 		if (ret != 0)
 			return (ret);
 		from += nxt_op;
@@ -136,7 +136,7 @@ int	parse_prompt(t_mini *mini, char *prompt)
 		prompt_split = ft_calloc(1, sizeof(char *));
 		if (!prompt_split)
 			return (ENOMEM);
-		ret = split_prompt(prompt, &prompt_split, "|");
+		ret = split_prompt(prompt, &prompt_split, "|", mini);
 		if (ret != 0)
 		{
 			ft_free_double_ptr((void *)prompt_split);

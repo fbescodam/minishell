@@ -11,9 +11,9 @@ void	hdoc_sig_parent(int sig)
 {
 	if (sig == SIGINT)
 	{
-		kill(g_pid, SIGTERM);
-		dprintf(2, "FUCK\n");
-		//g_pid = -1;
+		if (g_pid != -1)
+			kill(g_pid, SIGTERM);
+		g_pid = -1;
 	}
 }
 

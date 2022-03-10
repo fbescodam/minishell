@@ -13,48 +13,9 @@
 #include "signal_handling.h"
 #include "get_next_line.h"
 
-void	handle_eof(char **line)
-{
-	char	*c;
-	int		ret;
+//cat |  with a space at the end
 
-	c = ft_calloc(2, 1);
-	get_next_line(0, NULL);
-	while (1)
-	{
-		ret = read(0, c, 1);
-		if (ret == -1)
-			exit (errno);
-		if (*c == '\n')
-			break ;
-		if (ret > 0)
-			ret = join_realloc(line, c, 1);
-		if (ret != 0)
-			exit (ENOMEM);
-	}
-	free(c);
-}
-
-char	*readline_but_better(char *prompt, int fd)
-{
-	char	*line;
-	char	*temp;
-	int		ret;
-	int		ret_2;
-
-	temp = ".";
-	ft_putstr_fd(prompt, 1);
-	ret = get_next_line(0, &line);
-	if (ret == -1)
-		exit(ENOMEM);
-	if (ret == 0 && !(line[0]))
-		return (NULL);
-	else if (ret == 0)
-		handle_eof(&line);
-	return (line);
-}
-
-void	input_to_fd(char *read_until, int fd)
+void	input_to_fd(char *read_until, int fd, int write_nl)
 {
 	char	*in;
 	int		ret;
@@ -62,27 +23,31 @@ void	input_to_fd(char *read_until, int fd)
 	while (1)
 	{
 		in = readline("\001\e[1;40;31m\002>\001\e[0m\002 ");
-		if (!in || (!read_until && in[0]))
+		if (!in)
 			break ;
+		if (!read_until && in[0])
+		{
+			ft_putstr_fd(in, fd);
+			break;
+		}
 		ret = ft_strlen(in);
-		if (ft_strncmp(in, read_until, ret) == 0 && ret > 0)
+		if (ret > 0 && ft_strncmp(in, read_until, ret) == 0)
 			break ;
 		ret = ft_putstr_fd(in, fd);
 		if (ret < 0)
 			exit(errno);
-		write(fd, "\n", 1);
-		if (in)
-			free(in);
+		if (write_nl)
+			write(fd, "\n", 1);
+		ft_free(in);
 	}
-	if (in)
-		free(in);
+	ft_free(in);
 }
 
-void	heredoc_child(t_cmd *cmd, char *delimiter, int fd[2])
+void	fork_read_child(char *delimiter, int read_nl, int fd[2])
 {
 	signal(SIGINT, SIG_IGN);
 	close(fd[0]);
-	input_to_fd(delimiter, fd[1]);
+	input_to_fd(delimiter, fd[1], read_nl);
 	close(fd[1]);
 	//system("leaks minishell");
 	exit(0);
@@ -95,8 +60,7 @@ int	read_from_child(char **dest, int fd, t_dlist *envars)
 	int		bytes;
 
 	bytes = 1;
-	if (g_pid == -1)
-		return (0);
+	ret = 0;
 	while (bytes)
 	{
 		buff = (char *)ft_calloc(50, 1);
@@ -110,57 +74,78 @@ int	read_from_child(char **dest, int fd, t_dlist *envars)
 			return (ENOMEM);
 		free (buff);
 	}
-	ret = parse_envars(envars, dest);
+	if (envars)
+		ret = parse_envars(envars, dest);
 	if (ret != 0)
-		exit(ret);
+		return(ret);
 	return (0);
+}
+
+int	fork_read_input(t_mini *mini, char *delimiter, int read_nl, char **dest)
+{
+	int	ret;
+	int	pid;
+	int	fd[2];
+
+	ret = pipe(fd);	
+	if (ret < 0)
+		force_exit(mini, errno);
+	pid = fork();
+	if (pid == -1)
+		force_exit(mini, errno);
+	if (pid == 0)
+		fork_read_child(delimiter, read_nl, fd);
+	g_pid = pid;
+	signal(SIGINT, &hdoc_sig_parent);
+	wait_n_processes(1, mini);
+	close(fd[1]);
+	if (g_pid != -1 && read_nl)
+		ret = read_from_child(dest, fd[0], mini->envars);
+	else if (g_pid != -1)
+		ret = read_from_child(dest, fd[0], NULL);
+	close(fd[0]);
+	if (g_pid == -1)
+		return (IGNORE);
+	return (ret);
 }
 
 int	heredoc(t_cmd *cmd, char *delimiter)
 {
-	int		fd[2];
 	int		ret;
-	int		pid;
 
 	if (cmd->heredoc)
 		free(cmd->heredoc);
 	cmd->heredoc = ft_strdup("");
-	ret = pipe(fd);
-	if (ret < 0)
-		force_exit(cmd->mini, errno);
-	pid = fork();
-	if (pid == -1)
-		force_exit(cmd->mini, errno);
-	if (pid == 0)
-		heredoc_child(cmd, delimiter, fd);
-	g_pid = pid;
-	signal(SIGINT, &hdoc_sig_parent);
-	wait_n_processes(1, cmd->mini);
-	if (cmd->mini->status == IGNORE)
+	if (!cmd->heredoc)
+		force_exit(cmd->mini, ret);
+	ret = fork_read_input(cmd->mini, delimiter, 1, &(cmd->heredoc));
+	if (ret == IGNORE)
 		return (-3);
-	close(fd[1]);
-	ret = read_from_child(&(cmd->heredoc), fd[0], cmd->mini->envars);
-	close(fd[0]);
-	//printf("HEREDOC : %s:\n", cmd->heredoc);
+	if (ret != 0)
+		force_exit(cmd->mini, ret);
 	return (0);
 }
 
-int	read_til_close_pipe(char ***to)
+int	read_til_close_pipe(char ***to, t_mini *mini)
 {
 	char	*in;
 	int		ret;
 
-	ret = 0;
-	while (1)
-	{
-		in = readline("\001\e[1;40;31m\002>\001\e[0m\002 ");
-		if (!in || in[0])
-			break;
-		//free(in);
-	}
+	in = ft_strdup ("");
 	if (!in)
-		return (PARSE_ERROR);
-	ret = split_prompt(in, to, "|");
-	//free (in);
-	return (ret);
+		return (ENOMEM);
+	ret = fork_read_input(mini, NULL, 0, &in);
+	if (ret == IGNORE)
+	{
+		ft_free(in);
+		return (IGNORE);
+	}
+	if (ret != 0)
+		force_exit(mini, ret);
+	ret = add_string_to_array(to, in);
+	if (ret != 0)
+		force_exit(mini, ret);
+	if (in && in[0] == '\0')
+		return(PARSE_ERROR);
+	return (0);
 }
