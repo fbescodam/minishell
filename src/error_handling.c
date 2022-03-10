@@ -31,11 +31,6 @@ void	error_manager(t_mini *mini, int err)
 		ft_putstr_fd("minishell: !! SEGFAULT !!\n", 2);
 	else if (err > 0)
 		perror("minishell");
-	else if (err < 0)
-	{
-		if (err == ERR_ENV_NOT_SET)
-			ft_putstr_fd("minishell: expected environment variable missing", 2);
-	}
 	else if (err == 0)
 		ft_putstr_fd("minishell: an unknown error occurred (exit code 0?)", 2);
 }
