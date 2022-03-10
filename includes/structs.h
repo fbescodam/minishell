@@ -50,6 +50,7 @@ typedef struct s_cmd
 	t_list	*tokens;
 	int		argc;
 	t_list	*frake_err;
+	int		miao;
 }				t_cmd;
 
 #endif
