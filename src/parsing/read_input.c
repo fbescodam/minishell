@@ -43,7 +43,6 @@ void	input_to_fd(char *read_until, int fd, int write_nl)
 
 void	fork_read_child(char *delimiter, int read_nl, int fd[2])
 {
-	system("leaks minishell");
 	signal(SIGINT, SIG_IGN);
 	close(fd[0]);
 	input_to_fd(delimiter, fd[1], read_nl);
@@ -74,9 +73,7 @@ int	read_from_child(char **dest, int fd, t_dlist *envars)
 	}
 	if (envars)
 		ret = parse_envars(envars, dest);
-	if (ret != 0)
-		return(ret);
-	return (0);
+	return (ret);
 }
 
 int	fork_read_input(t_mini *mini, char *delimiter, int read_nl, char **dest)
@@ -100,7 +97,7 @@ int	fork_read_input(t_mini *mini, char *delimiter, int read_nl, char **dest)
 	close(fd[1]);
 	if (g_pid != -1 && read_nl)
 		ret = read_from_child(dest, fd[0], mini->envars);
-	else if (g_pid != -1)
+	else if (g_pid != -1 && !read_nl)
 		ret = read_from_child(dest, fd[0], NULL);
 	close(fd[0]);
 	if (g_pid == -1)
@@ -120,6 +117,8 @@ int	heredoc(t_cmd *cmd, char *delimiter)
 	ret = fork_read_input(cmd->mini, delimiter, 1, &(cmd->heredoc));
 	if (ret == IGNORE)
 		return (-3);
+	if (ret == PARSE_ERROR)
+		return (-2);
 	if (ret != 0)
 		force_exit(cmd->mini, ret);
 	return (0);
