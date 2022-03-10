@@ -108,6 +108,7 @@ int	set_envar(t_mini *mini, char *name, char *val, int export)
 	envar->val = ft_strdup(val);
 	if (export)
 		envar->export = ft_str3join(name, "=", val);
+	// printf("%s: %s\n", name, envar->export);
 	list_item = ft_ditemnew(envar);
 	if (!list_item || !envar->name || !envar->val || (export && !envar->export))
 	{
@@ -115,7 +116,10 @@ int	set_envar(t_mini *mini, char *name, char *val, int export)
 		return (0);
 	}
 	if (envar->hash == PATH_HASH && !set_mini_paths(mini, list_item))
+	{
+		ft_dlstdelone(list_item, &free_envar);
 		return (0);
+	}
 	ft_dlstadd_back(mini->envars, list_item);
 	return (1);
 }
