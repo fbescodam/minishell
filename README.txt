@@ -8,6 +8,7 @@ TODO LIST:
 - test with: "< /usr/share/dict/words cat | cat > out" (should not get stuck)
 - do we need to implement 2>&1 etc
 - fix "echo ${${}}" (double check with "echo ${a}}")
+- fix `VARNAME="value and this is all in one value" cmd` including the double quotes at parsing the envar
 
 
 cd: run in both child (print errors) and parent (change memory)
