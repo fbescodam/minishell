@@ -56,7 +56,7 @@ int	main(int argc, char **argv, char **envp)
 			}
 		}
 
-		
+		system ("leaks minishell");
 		ft_free(mini.prompt);
 		ft_lstclear(&(mini.cmds), &free_cmd);
 		mini.prompt = NULL;

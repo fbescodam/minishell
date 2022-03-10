@@ -24,6 +24,7 @@ void	free_cmd(void *cmd)
 {
 	if (!cmd)
 		return ;
+	ft_free(((t_cmd *)cmd)->heredoc);
 	ft_free_double_ptr((void **)((t_cmd *)cmd)->params);
 	ft_lstclear(&((t_cmd *)cmd)->tokens, &free_token);
 	if (((t_cmd *)cmd)->path)

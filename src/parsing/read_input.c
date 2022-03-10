@@ -13,7 +13,7 @@
 #include "signal_handling.h"
 #include "get_next_line.h"
 
-//cat |  with a space at the end
+//space after cat |
 
 void	input_to_fd(char *read_until, int fd, int write_nl)
 {
@@ -45,6 +45,7 @@ void	input_to_fd(char *read_until, int fd, int write_nl)
 
 void	fork_read_child(char *delimiter, int read_nl, int fd[2])
 {
+	
 	signal(SIGINT, SIG_IGN);
 	close(fd[0]);
 	input_to_fd(delimiter, fd[1], read_nl);
@@ -93,6 +94,7 @@ int	fork_read_input(t_mini *mini, char *delimiter, int read_nl, char **dest)
 	pid = fork();
 	if (pid == -1)
 		force_exit(mini, errno);
+	system("leaks minishell");
 	if (pid == 0)
 		fork_read_child(delimiter, read_nl, fd);
 	g_pid = pid;
