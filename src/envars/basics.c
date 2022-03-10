@@ -72,9 +72,9 @@ int	replace_envar_value(t_envar *envar, char *new_val)
 		temp = ft_calloc(equals - envar->export + ft_strlen(new_val) + 2,
 				sizeof(char));
 		fuck = equals - envar->export;
-		ft_strlcpy(temp, envar->export, fuck);
+		ft_memcpy(temp, envar->export, fuck);
 		temp[fuck] = '=';
-		ft_strlcpy(&temp[fuck + 1], new_val, ft_strlen(new_val));
+		ft_memcpy(&temp[fuck + 1], new_val, ft_strlen(new_val));
 		free(envar->export);
 		envar->export = temp;
 	}
