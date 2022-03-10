@@ -6,14 +6,15 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/15 18:46:07 by fbes          #+#    #+#                 */
-/*   Updated: 2022/02/08 19:48:05 by fbes          ########   odam.nl         */
+/*   Updated: 2022/03/10 18:05:53 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 /**
- * Copy a string from one place in memory to another
+ * Copy a string from one place in memory to another and make sure it's null-
+ * terminated. If size = 3, it copies 2 characters and sets the 3rd to NULL.
  * @param[in] *dest		The place to copy to
  * @param[in] *src		The place to copy from
  * @param[in] size		The maximum amount of bytes to copy
