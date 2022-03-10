@@ -109,7 +109,7 @@ int	split_prompt(char *from, char ***to, char *set, t_mini *mini)
 		ret = split_and_add(from, to, nxt_op);
 		if (ret != 0)
 			return (ret);
-		if (from[nxt_op] == '|' && from[nxt_op + 1] == '\0')
+		if (from[nxt_op] == '|' && *(skip_chars(from + 1 + nxt_op, " ")) == '\0')
 			ret = read_til_close_pipe(to,mini);
 		if (ret != 0)
 			return (ret);
