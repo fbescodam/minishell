@@ -70,7 +70,7 @@ int	add_token(char *content, int flag, t_cmd *cmd, char *prompt)
 		return (-1);
 	token->flag = flag;
 	if (flag == HEREDOC)
-		heredoc(cmd, (char *)content);
+		flag = heredoc(cmd, (char *)content);
 	else
 		flag = parse_envars(cmd->mini->envars, &content);
 	if (flag < 0)
