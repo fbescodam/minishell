@@ -6,11 +6,14 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/08 23:54:40 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/08 23:58:49 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/09 00:08:49 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "structs.h"
 #include "libft.h"
+#include "error_handling.h"
+#include "execute.h"
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -54,4 +57,38 @@ void	fork_read_child(char *delimiter, int read_nl, int fd[2])
 	input_to_fd(delimiter, fd[1], read_nl);
 	close(fd[1]);
 	exit(0);
+}
+
+void	write_heredoc(t_cmd *cmd, t_mini *mini)
+{
+	int	fd[2];
+	int	ret;
+	int	pid;
+
+	if (cmd->pipe_in[0])
+	{
+		close(cmd->pipe_in[0]);
+		close(cmd->pipe_in[1]);
+	}
+	ret = pipe(fd);
+	if (ret < 0)
+		force_exit(mini, errno);
+	cmd->pipe_in[0] = fd[0];
+	cmd->pipe_in[1] = fd[1];
+	pid = fork();
+	if (pid == -1)
+		force_exit(mini, errno);
+	if (pid == 0)
+	{
+		close(fd[0]);
+		ret = dup2(fd[1], 1);
+		if (ret < 0)
+			exit(errno);
+		close(fd[1]);
+		ret = ft_putstr_fd(cmd->heredoc, 1);
+		if (ret < 0)
+			exit(errno);
+		exit (0);
+	}
+	wait_n_processes(1, mini);
 }

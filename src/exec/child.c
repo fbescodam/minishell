@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/09 15:43:06 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/08 23:22:54 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/09 00:04:23 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ static int	redir_setup(t_cmd *cmd)
 
 	ret = 0;
 	current_token = cmd->tokens;
-
 	if (cmd->pipe_in[0])
 		ret = pipe_setup(cmd->pipe_in, PIPE_IN);
 	if (ret != 0)
@@ -108,9 +107,7 @@ void	child_process(t_cmd *cmd)
 
 	errno = 0;
 	ret = redir_setup(cmd);
-	if (ret != 0)
-		exit_child("");
-	if (!*(cmd->params))
+	if (ret != 0 || !*(cmd->params))
 		exit_child("");
 	if (cmd->builtin != MINI_BUILTIN_NONE)
 	{

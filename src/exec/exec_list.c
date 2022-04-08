@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/08 20:06:29 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/08 23:19:17 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/09 00:09:55 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,41 +23,6 @@
 #include <stdio.h>
 #include <sys/wait.h>
 #include <stdlib.h>
-
-void	write_heredoc(t_cmd *cmd, t_mini *mini)
-{
-	int	fd[2];
-	int	ret;
-	int	pid;
-
-	if (cmd->pipe_in[0])
-	{
-		close(cmd->pipe_in[0]);
-		close(cmd->pipe_in[1]);
-	}
-	ret = pipe(fd);
-	if (ret < 0)
-		force_exit(mini, errno);
-	cmd->pipe_in[0] = fd[0];
-	cmd->pipe_in[1] = fd[1];
-	pid = fork();
-	if (pid == -1)
-		force_exit(mini, errno);
-	if (pid == 0)
-	{
-		close(fd[0]);
-		ret = dup2(fd[1], 1);
-		if (ret < 0)
-			exit(errno);
-		close(fd[1]);
-		ret = ft_putstr_fd(cmd->heredoc, 1);
-		if (ret < 0)
-			exit(errno);
-		exit (0);
-	}
-	wait_n_processes(1, mini);
-
-}
 
 void	fork_process(t_cmd *cmd, t_mini *mini)
 {
@@ -118,14 +83,13 @@ void	wait_n_processes(int amount, t_mini *mini)
 		}
 		amount--;
 	}
-	if (((status) & 0x7f) == 0
-		&& !set_mini_status(mini, ((status) & 0xff00) >> 8))
+	if (!((status) & 0x7f) && !set_mini_status(mini, ((status) & 0xff00) >> 8))
 		error_manager(mini, ENOMEM);
 	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGSEGV)
 		error_manager(mini, SEGF);
 }
 
-int		execute_list(t_mini *mini)
+int	execute_list(t_mini *mini)
 {
 	t_list	*current;
 	int		ret;

@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/09 15:43:06 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/08 23:24:06 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/09 00:10:41 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,11 @@ int	output_redirect(t_token *token)
 	if (token->fd != -1)
 		fd_2 = token->fd;
 	if (token->flag == OUT_FILE)
-		fd_1 = open((char *)(token->content), O_WRONLY | O_CREAT | O_TRUNC, 0666);
+		fd_1 = open((char *)(token->content),
+				O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	else if (token->flag == OUT_FILE_APPEND)
-		fd_1 = open((char *)(token->content), O_WRONLY | O_CREAT | O_APPEND, 0666);
+		fd_1 = open((char *)(token->content),
+				O_WRONLY | O_CREAT | O_APPEND, 0666);
 	if (fd_1 == -1)
 		return (-1);
 	ret = dup2(fd_1, fd_2);
