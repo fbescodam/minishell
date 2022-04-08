@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 17:21:39 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/08 22:42:00 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/08 23:18:33 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ static int	setup_envars(t_mini *mini, char *shellname, char **envp)
 int	setup_mini(t_mini *mini, char *shellname, char **envp)
 {
 	struct termios	raw;
-	char			*temp;
 
 	tcgetattr(STDIN_FILENO, &raw);
 	raw.c_lflag &= ~(ECHOCTL);

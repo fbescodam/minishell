@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 18:12:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/08 22:52:44 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/08 23:19:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,8 @@ int	parse_file_name(char *prompt, char ***dest)
 
 int	redir_type_check(char *prompt)
 {
-	char	*redir;
 	char	*next_char;
-	
+
 	while (ft_isdigit(*prompt))
 		prompt++;
 	if (prompt[0] == prompt[1])

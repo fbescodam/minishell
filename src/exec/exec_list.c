@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/08 20:06:29 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/08 22:57:09 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/08 23:19:17 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	write_heredoc(t_cmd *cmd, t_mini *mini)
 	int	fd[2];
 	int	ret;
 	int	pid;
-	int	status;
 
 	if (cmd->pipe_in[0])
 	{

@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/09 15:43:06 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/08 22:56:31 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/08 23:24:06 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	output_redirect(t_token *token)
 	int	fd_2;
 	int	ret;
 
+	fd_1 = -1;
 	fd_2 = 1;
 	if (token->fd != -1)
 		fd_2 = token->fd;

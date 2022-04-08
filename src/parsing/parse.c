@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 18:12:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/08 22:50:44 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/08 23:18:58 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ int	split_prompt(char *from, char ***to, char *set, t_mini *mini)
 {
 	int		ret;
 	int		nxt_op;
-	char	*split;
 
 	ret = 0;
 	while (*from)

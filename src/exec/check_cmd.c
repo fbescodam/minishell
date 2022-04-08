@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/09 14:29:12 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/08 22:58:27 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/08 23:19:37 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,8 @@
 
 //return 0 on no error, -2 on ENOMEM, -1 on command found
 
-int		find_abs_path(t_cmd *cmd, t_mini *mini)
+int	find_abs_path(t_cmd *cmd, t_mini *mini)
 {
-	char	*temp;
 	int		i;
 
 	i = 0;
@@ -37,7 +36,7 @@ int		find_abs_path(t_cmd *cmd, t_mini *mini)
 	return (-1);
 }
 
-int		check_command(t_cmd *cmd, t_mini *mini)
+int	check_command(t_cmd *cmd, t_mini *mini)
 {
 	int		ret;
 

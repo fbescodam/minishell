@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/01 20:45:54 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/08 22:58:52 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/08 23:19:11 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ int	parse_set_envars_b4_comm(t_mini *mini, char **str)
 {
 	char	*temp;
 	char	*end_of_str;
-	size_t	i;
 	int		ret;
 	char	*cur;
 

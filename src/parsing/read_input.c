@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/03 16:40:43 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/08 22:54:19 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/08 23:26:20 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,13 @@ int	fork_read_input(t_mini *mini, char *delimiter, int read_nl, char **dest)
 	int	pid;
 	int	fd[2];
 
-	ret = pipe(fd);	
+	ret = pipe(fd);
 	if (ret < 0)
 		force_exit(mini, errno);
 	pid = fork();
 	if (pid == -1)
 		force_exit(mini, errno);
-	
+
 	if (pid == 0)
 		fork_read_child(delimiter, read_nl, fd);
 	g_pid = pid;
@@ -125,7 +125,7 @@ int	heredoc(t_cmd *cmd, char *delimiter)
 		free(cmd->heredoc);
 	cmd->heredoc = ft_strdup("");
 	if (!cmd->heredoc)
-		force_exit(cmd->mini, ret);
+		force_exit(cmd->mini, ENOMEM);
 	ret = fork_read_input(cmd->mini, delimiter, 1, &(cmd->heredoc));
 	if (ret == IGNORE)
 		return (-3);

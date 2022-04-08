@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/25 22:08:44 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/08 23:07:53 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/08 23:25:11 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 int		mini_exit(int is_child, t_cmd *cmd);
 int		mini_cd(int is_child, t_cmd *cmd);
-int		mini_pwd(int is_child, t_cmd *cmd);
+int		mini_pwd(int is_child);
 int		mini_echo(int is_child, t_cmd *cmd);
 int		mini_export(int is_child, t_cmd *cmd);
 int		mini_env(int is_child, t_cmd *cmd);

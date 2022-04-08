@@ -6,7 +6,7 @@
 #    By: jgalloni <jgalloni@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/26 21:32:38 by jgalloni      #+#    #+#                  #
-#    Updated: 2022/04/08 23:09:07 by fbes          ########   odam.nl          #
+#    Updated: 2022/04/08 23:16:53 by fbes          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ INCLUDES =	-I includes -I libft -I /Users/$(USER)/.brew/opt/readline/include
 
 OBJS =		$(subst src/,obj/,$(SRCS:.c=.o))
 
-CFLAGS =	
+CFLAGS =	-Wall -Werror -Wextra
 
 all: $(NAME)
 

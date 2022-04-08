@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 17:21:57 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/08 23:02:08 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/08 23:24:49 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	mini_echo(int is_child, t_cmd *cmd)
 {
 	size_t	i;
 	char	add_nl;
-	char	*temp;
 
 	if (!is_child)
 		return (0);

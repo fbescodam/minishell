@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/09 15:43:06 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/08 22:57:50 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/08 23:22:54 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-void	exit_child(char *process_name)
+static void	exit_child(char *process_name)
 {
 	if (errno != 0)
 	{
@@ -39,7 +39,7 @@ void	exit_child(char *process_name)
 	exit(errno);
 }
 
-int		pipe_setup(int fd[2], int flag)
+static int	pipe_setup(int fd[2], int flag)
 {
 	int	ret;
 
@@ -63,7 +63,7 @@ int		pipe_setup(int fd[2], int flag)
 	return (0);
 }
 
-int		fd_setup(t_token *token, t_cmd *cmd)
+static int	fd_setup(t_token *token)
 {
 	int	ret;
 
@@ -75,7 +75,7 @@ int		fd_setup(t_token *token, t_cmd *cmd)
 	return (ret);
 }
 
-int		redir_setup(t_cmd *cmd)
+static int	redir_setup(t_cmd *cmd)
 {
 	t_list	*current_token;
 	int		ret;
@@ -89,7 +89,7 @@ int		redir_setup(t_cmd *cmd)
 		return (ret);
 	while (current_token)
 	{
-		ret = fd_setup(current_token->content, cmd);
+		ret = fd_setup(current_token->content);
 		if (ret != 0)
 			return (ret);
 		current_token = current_token->next;
@@ -114,7 +114,7 @@ void	child_process(t_cmd *cmd)
 		exit_child("");
 	if (cmd->builtin != MINI_BUILTIN_NONE)
 	{
-		errno = run_reserved(1, cmd);
+		errno = run_reserved(1, cmd);	// TODO check what happens if errno < 0
 		return (exit_child(*(cmd->params)));
 	}
 	custom_envp = get_envars_as_envp(cmd->mini);

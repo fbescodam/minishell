@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 17:21:57 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/08 23:00:51 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/08 23:25:02 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <errno.h>
 #include "utils.h"
 
-int	mini_pwd(int is_child, t_cmd *cmd)
+int	mini_pwd(int is_child)
 {
 	char	*path;
 

@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/09 16:00:18 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/08 22:55:57 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/08 23:25:22 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	run_reserved(int is_child, t_cmd *cmd)
 	if (cmd->builtin == MINI_BUILTIN_EXIT)
 		return (mini_exit(is_child, cmd));
 	if (cmd->builtin == MINI_BUILTIN_PWD)
-		return (mini_pwd(is_child, cmd));
+		return (mini_pwd(is_child));
 	if (cmd->builtin == MINI_BUILTIN_ECHO)
 		return (mini_echo(is_child, cmd));
 	if (cmd->builtin == MINI_BUILTIN_EXPORT)
