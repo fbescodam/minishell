@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/09 15:43:06 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/09 00:04:23 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/09 00:52:54 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	child_process(t_cmd *cmd)
 		exit_child("");
 	if (cmd->builtin != MINI_BUILTIN_NONE)
 	{
-		errno = run_reserved(1, cmd);	// TODO check what happens if errno < 0
+		errno = run_reserved(1, cmd);
 		return (exit_child(*(cmd->params)));
 	}
 	custom_envp = get_envars_as_envp(cmd->mini);
