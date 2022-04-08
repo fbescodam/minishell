@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 17:21:39 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/08 23:18:33 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/08 23:31:52 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 #include "error_handling.h"
 #include "signal_handling.h"
 #include "envars.h"
-	#	include <stdio.h>
 
 /**
   * @brief Assigns signal-handling functions to signals
@@ -65,6 +64,25 @@ static int	setup_reserved_envars(t_mini *mini, char *shellname)
 	return (1);
 }
 
+static int	setup_envar(t_mini *mini, char ***envp_temp)
+{
+	char	*temp;
+	char	*equals;
+	int		ret;
+
+	temp = ft_strdup(**envp_temp);
+	if (!temp)
+		return (0);
+	equals = ft_strchr(temp, '=');
+	*equals = '\0';
+	ret = set_envar(mini, temp, equals + 1, 1);
+	free(temp);
+	if (!ret)
+		return (0);
+	(*envp_temp)++;
+	return (1);
+}
+
 /**
  * @brief Export the envp variables into our environment variables list
  *
@@ -75,30 +93,20 @@ static int	setup_reserved_envars(t_mini *mini, char *shellname)
 static int	setup_envars(t_mini *mini, char *shellname, char **envp)
 {
 	char		**envp_temp;
-	char		*temp;
-	char		*equals;
-	int			ret;
 
 	if (!envp)
 		return (1);
 	envp_temp = envp;
 	while (*envp_temp)
 	{
-		if (ft_strchr(RESERVED_ENVAR_NAMES, (*envp_temp)[0]) && (*envp_temp)[1] == '=')
+		if (ft_strchr(RESERVED_ENVAR_NAMES, (*envp_temp)[0])
+			&& (*envp_temp)[1] == '=')
 		{
 			envp_temp++;
 			continue ;
 		}
-		temp = ft_strdup(*envp_temp);
-		if (!temp)
+		if (setup_envar(mini, &envp_temp) == 0)
 			return (0);
-		equals = ft_strchr(temp, '=');
-		*equals = '\0';
-		ret = set_envar(mini, temp, equals + 1, 1);
-		free(temp);
-		if (!ret)
-			return (0);
-		envp_temp++;
 	}
 	if (!mini->paths)
 	{

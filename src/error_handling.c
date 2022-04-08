@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 17:21:10 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/08 22:40:43 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/08 23:27:17 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	force_exit(t_mini *mini, int err)
 {
 	free_mini(mini);
 	rl_clear_history();
-	//system("leaks minishell");
 	if (!err)
 		exit(mini->status);
 	else
