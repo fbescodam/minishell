@@ -6,12 +6,13 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 17:50:29 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/03/09 17:50:51 by jgalloni      ########   odam.nl         */
+/*   Updated: 2022/04/08 23:11:56 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
+
 # include <stdlib.h>
 
 int		get_next_line(int fd, char **line);

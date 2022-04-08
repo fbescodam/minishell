@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/25 23:21:22 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/08 23:02:53 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/08 23:12:23 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	free_token(void *token);
 void	free_cmd(void *cmd);
 void	free_envar(void *envar);
 void	free_mini(t_mini *mini);
-int 	skip_over_single_quotes(char **str);
+int		skip_over_single_quotes(char **str);
 char	*skip_chars(char *prompt, char *mask_set);
 int		remove_character(char **str, char rem);
 char	*get_next_single_quote(char *str);

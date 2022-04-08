@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/25 22:08:44 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/08 23:03:36 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/08 23:12:14 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define PIPE_IN 5
 # define PIPE_OUT 6
 
+// global process id
 int	g_pid;
 
 typedef struct s_token {

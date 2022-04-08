@@ -6,12 +6,13 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/25 22:08:44 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/08 23:07:11 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/08 23:11:44 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEBUG_H
 # define DEBUG_H
+
 # include "structs.h"
 
 void	print_char_array(char **arr);

@@ -6,14 +6,14 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 16:52:29 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/08 23:04:50 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/08 23:11:37 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSE_H
 # define PARSE_H
-#include "structs.h"
 
+# include "structs.h"
 
 int		parse_prompt(t_mini *mini, char *prompt);
 int		setup_cmds(t_mini *mini, char **prompts);
@@ -24,4 +24,5 @@ int		add_param(char **param_buffer, char ***dest);
 int		read_til_close_pipe(char ***to, t_mini *mini);
 int		split_prompt(char *from, char ***to, char *set, t_mini *mini);
 int		heredoc(t_cmd *cmd, char *delimiter);
+
 #endif
