@@ -6,7 +6,7 @@
 #    By: jgalloni <jgalloni@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/26 21:32:38 by jgalloni      #+#    #+#                  #
-#    Updated: 2022/04/08 23:16:53 by fbes          ########   odam.nl          #
+#    Updated: 2022/04/08 23:57:57 by fbes          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,16 +15,17 @@ NAME =		minishell
 SRCS =		src/utils/debugging.c src/error_handling.c src/main.c src/setup.c \
 			src/signal_handler.c src/utils/garbage.c src/envars/basics.c \
 			src/envars/parser.c src/utils/strings.c src/envars/helpers.c \
-			src/parsing/parse.c src/parsing/parse_utils.c \
-			src/utils/char_array_utils.c src/parsing/parse_cmds.c \
-			src/parsing/parse_redirections.c src/envars/set.c \
+			src/envars/set.c src/parsing/parse.c src/utils/parse_utils.c \
+			src/utils/char_array_utils.c src/utils/input_utils.c \
+			src/parsing/parse_cmds.c src/parsing/parse_redirections.c  \
 			src/parsing/parse_params.c src/exec/exec_list.c \
 			src/exec/check_cmd.c src/exec/child.c src/exec/redirections.c \
 			src/exec/reserved_cmds.c src/utils/builtin_utils.c \
 			src/builtins/cd.c src/builtins/echo.c src/builtins/env.c \
 			src/builtins/exit.c src/builtins/export.c src/builtins/pwd.c \
 			src/builtins/unset.c src/parsing/read_input.c \
-			src/parsing/get_next_line.c src/parsing/get_next_line_utils.c
+			src/parsing/get_next_line.c src/parsing/get_next_line_utils.c \
+
 
 INCLUDES =	-I includes -I libft -I /Users/$(USER)/.brew/opt/readline/include
 

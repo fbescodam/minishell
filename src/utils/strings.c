@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 17:21:57 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/08 23:42:29 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/08 23:51:16 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,4 +111,32 @@ char	replace_space_with_null(unsigned int pos, char c)
 	else if (!in_quotes && c == ' ')
 		return ('\0');
 	return (c);
+}
+
+/**
+ * @brief skips characters in the set
+ * @param[in] str source string
+ * @param[in] mask_set a set of characters to allow in source string
+ * @return pointer to the next character in the string after skipping
+ */
+char	*skip_chars(char *str, char *mask_set)
+{
+	int	i;
+	int	k;
+
+	i = 0;
+	k = 0;
+	while (str[i])
+	{
+		while (mask_set[k])
+		{
+			if (str[i] == mask_set[k])
+				k++;
+			else
+				return (str + i);
+		}
+		i++;
+		k = 0;
+	}
+	return (str + i);
 }

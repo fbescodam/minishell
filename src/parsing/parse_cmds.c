@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 18:12:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/08 22:53:18 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/08 23:45:59 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,16 @@ int	parse_operator(char *prompt, int index, t_cmd *cmd)
 	int	ret;
 
 	ret = 0;
-	if (prompt[index] == '<' || prompt[index] == '>' ||
-		ft_isdigit(prompt[index]))
+	if (prompt[index] == '<' || prompt[index] == '>'
+		|| ft_isdigit(prompt[index]))
 		ret = parse_input_redir(prompt + index, cmd);
-	return(ret);
+	return (ret);
 }
 
 int	parse_cmd(t_list *cmd, char *prompt)
 {
-	int	ret;
-	int	index;
+	int		ret;
+	int		index;
 	t_cmd	*current_cmd;
 
 	ret = 0;
@@ -50,10 +50,10 @@ int	parse_cmd(t_list *cmd, char *prompt)
 			return (ret);
 		index += ret;
 		if (!prompt[index])
-			break;
+			break ;
 		ret = parse_operator(prompt, index, current_cmd);
 		if (ret < 0)
-			return (ret); // ENOMEM OR PARSE ERROR
+			return (ret);
 		index += ret;
 	}
 	return (0);
@@ -97,9 +97,9 @@ int	expand_params(t_cmd *cmd)
 
 int	setup_cmds(t_mini *mini, char **prompts)
 {
-	int	i;
+	int		i;
 	t_list	*current_cmd;
-	int ret;
+	int		ret;
 
 	ret = 0;
 	i = 0;
@@ -107,7 +107,7 @@ int	setup_cmds(t_mini *mini, char **prompts)
 	{
 		current_cmd = new_cmd(mini);
 		if (current_cmd == NULL)
-				return(ENOMEM);
+			return (ENOMEM);
 		if (i > 0)
 			((t_cmd *)(current_cmd->content))->pipe_in[0] = 1;
 		ret = parse_cmd(current_cmd, prompts[i]);

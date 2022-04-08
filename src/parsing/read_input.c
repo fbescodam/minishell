@@ -6,63 +6,23 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/03 16:40:43 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/08 23:26:20 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/08 23:59:44 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "readline/readline.h"
-#include "readline/history.h"
-#include "parse.h"
 #include <stdlib.h>
+#include <signal.h>
+#include <unistd.h>
+#include "parse.h"
 #include "utils.h"
 #include "custom_errors.h"
-#include <signal.h>
 #include "envars.h"
 #include "execute.h"
-#include <unistd.h>
 #include "error_handling.h"
 #include "signal_handling.h"
 #include "get_next_line.h"
 
-void	input_to_fd(char *read_until, int fd, int write_nl)
-{
-	char	*in;
-	int		ret;
-
-	while (1)
-	{
-		in = readline("\001\e[1;40;31m\002>\001\e[0m\002 ");
-		if (!in)
-			break ;
-		if (!read_until && in[0])
-		{
-			ft_putstr_fd(in, fd);
-			break;
-		}
-		ret = ft_strlen(in);
-		if (ret > 0 && ft_strncmp(in, read_until, ret) == 0)
-			break ;
-		ret = ft_putstr_fd(in, fd);
-		if (ret < 0)
-			exit(errno);
-		if (write_nl)
-			write(fd, "\n", 1);
-		ft_free(in);
-	}
-	ft_free(in);
-}
-
-void	fork_read_child(char *delimiter, int read_nl, int fd[2])
-{
-	signal(SIGINT, SIG_IGN);
-	close(fd[0]);
-	input_to_fd(delimiter, fd[1], read_nl);
-	close(fd[1]);
-	exit(0);
-}
-
-int	read_from_child(char **dest, int fd, t_dlist *envars)
+static int	read_from_child(char **dest, int fd, t_dlist *envars)
 {
 	int		ret;
 	char	*buff;
@@ -81,14 +41,15 @@ int	read_from_child(char **dest, int fd, t_dlist *envars)
 		ret = join_realloc(dest, buff, bytes);
 		if (ret < 0)
 			return (ENOMEM);
-		free (buff);
+		free(buff);
 	}
 	if (envars)
 		ret = parse_envars(envars, dest);
 	return (ret);
 }
 
-int	fork_read_input(t_mini *mini, char *delimiter, int read_nl, char **dest)
+static int	fork_read_input(t_mini *mini, char *delimiter,
+		int read_nl, char **dest)
 {
 	int	ret;
 	int	pid;
@@ -100,7 +61,6 @@ int	fork_read_input(t_mini *mini, char *delimiter, int read_nl, char **dest)
 	pid = fork();
 	if (pid == -1)
 		force_exit(mini, errno);
-
 	if (pid == 0)
 		fork_read_child(delimiter, read_nl, fd);
 	g_pid = pid;
@@ -156,6 +116,6 @@ int	read_til_close_pipe(char ***to, t_mini *mini)
 	if (ret != 0)
 		force_exit(mini, ret);
 	if (in && in[0] == '\0')
-		return(PARSE_ERROR);
+		return (PARSE_ERROR);
 	return (0);
 }

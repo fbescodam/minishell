@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/25 23:21:22 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/08 23:12:23 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/08 23:56:01 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ int		join_realloc(char **dest, char *src, char len);
 void	print_builtin_err(char *method, char *helping_hand, char *err);
 int		is_fd_redir(char *prompt);
 t_cmd	*get_cmd_from_pid(t_list *cmds, int pid);
+void	fork_read_child(char *delimiter, int read_nl, int fd[2]);
 
 #endif

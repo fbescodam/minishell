@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/08 22:51:44 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/08 22:51:59 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/08 23:46:09 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,5 +119,5 @@ int	parse_params(char *prompt, char ***dest)
 	if (ret < 0)
 		return (-1);
 	free(buff);
-	return(prompt - prompt_start);
+	return (prompt - prompt_start);
 }

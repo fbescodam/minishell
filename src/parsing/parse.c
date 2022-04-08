@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 18:12:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/08 23:18:58 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/08 23:45:11 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
  * @param[in] prompt
  * @return index on default, -1 in case of parse error
  */
-
 int	quote_search_index(char *prompt)
 {
 	int	nxt_quote;
@@ -34,7 +33,7 @@ int	quote_search_index(char *prompt)
 	nxt_quote = 0;
 	end_quote_index = 0;
 	ret = 0;
-	while(1)
+	while (1)
 	{
 		nxt_quote = scan_operators(prompt + ret, "\'\"|", 0);
 		if (prompt[nxt_quote + ret] == '\0' || prompt[nxt_quote + ret] == '|')
@@ -53,7 +52,6 @@ int	quote_search_index(char *prompt)
  * @param[in] prompt, set of delimiters
  * @return index, -1 on parse error
  */
-
 int	next_operator_index(char *prompt, char *set)
 {
 	int		next_operator;
@@ -74,7 +72,7 @@ int	next_operator_index(char *prompt, char *set)
 		return (next_operator);
 	if (prompt[next_operator + 1] == *set)
 		return (-1);
-	return(next_operator);
+	return (next_operator);
 }
 
 /**
@@ -82,7 +80,7 @@ int	next_operator_index(char *prompt, char *set)
  * @param[in] from: string to split, split_index, to: array
  * @return 0, error code in case of error
  */
-int		split_and_add(char *from, char ***to, int split_index)
+int	split_and_add(char *from, char ***to, int split_index)
 {
 	char	*split;
 	int		ret;
@@ -98,6 +96,7 @@ int		split_and_add(char *from, char ***to, int split_index)
 	ret = add_string_to_array(to, split);
 	return (ret);
 }
+
 /**
  * @brief splits a prompt on the set character, unless it is between quotes
  * @param[in] from: string to split, to: destination string array, set: character
@@ -114,14 +113,14 @@ int	split_prompt(char *from, char ***to, char *set, t_mini *mini)
 	{
 		nxt_op = next_operator_index(from, set);
 		if (nxt_op < 0)
-			return(PARSE_ERROR);
+			return (PARSE_ERROR);
 		if (nxt_op == 0 && from[nxt_op] != '\"' && from[nxt_op] != '\'')
 			return (0);
 		ret = split_and_add(from, to, nxt_op);
 		if (ret != 0)
 			return (ret);
-		if (from[nxt_op] == '|' && *(skip_chars(from + 1 + nxt_op, " ")) == '\0')
-			ret = read_til_close_pipe(to,mini);
+		if (from[nxt_op] == '|' && !*(skip_chars(from + 1 + nxt_op, " ")))
+			ret = read_til_close_pipe(to, mini);
 		if (ret != 0)
 			return (ret);
 		from += nxt_op;

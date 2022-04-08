@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 18:12:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/08 23:19:05 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/08 23:46:33 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	parse_file_name(char *prompt, char ***dest)
 	if (ret < 0)
 		return (-1);
 	free(buff);
-	return(prompt - prompt_start);
+	return (prompt - prompt_start);
 }
 
 int	redir_type_check(char *prompt)
@@ -65,7 +65,7 @@ int	redir_type_check(char *prompt)
 	while (*next_char == ' ')
 			next_char++;
 	if (*next_char == '<' || *next_char == '>' || *next_char == '\0')
-			return (-1);
+		return (-1);
 	if (prompt[0] == '<')
 		return (IN_FILE);
 	return (OUT_FILE);
@@ -110,7 +110,7 @@ int	parse_input_redir(char *prompt, t_cmd *cmd)
 	flag = redir_type_check(prompt);
 	if (flag < 0)
 		return (-2);
-	dest = ft_calloc(1, sizeof(char*));
+	dest = ft_calloc(1, sizeof(char *));
 	if (!dest)
 		return (-1);
 	size = 1;
