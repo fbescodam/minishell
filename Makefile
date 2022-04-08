@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: jgalloni <jgalloni@student.codam.nl>         +#+                      #
+#                                                    +#+                       #
+#    Created: 2021/11/26 21:32:38 by jgalloni      #+#    #+#                  #
+#    Updated: 2022/04/08 23:09:07 by fbes          ########   odam.nl          #
+#                                                                              #
+# **************************************************************************** #
+
 NAME =		minishell
 
 SRCS =		src/utils/debugging.c src/error_handling.c src/main.c src/setup.c \

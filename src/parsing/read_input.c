@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   read_input.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/03/03 16:40:43 by jgalloni      #+#    #+#                 */
+/*   Updated: 2022/04/08 22:54:19 by fbes          ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include "readline/readline.h"
 #include "readline/history.h"
