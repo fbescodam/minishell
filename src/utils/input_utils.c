@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/08 23:54:40 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/09 00:08:49 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/09 00:14:19 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,23 +59,10 @@ void	fork_read_child(char *delimiter, int read_nl, int fd[2])
 	exit(0);
 }
 
-void	write_heredoc(t_cmd *cmd, t_mini *mini)
+static void	write_heredoc_inner(t_mini *mini, t_cmd *cmd, int pid, int fd[2])
 {
-	int	fd[2];
 	int	ret;
-	int	pid;
 
-	if (cmd->pipe_in[0])
-	{
-		close(cmd->pipe_in[0]);
-		close(cmd->pipe_in[1]);
-	}
-	ret = pipe(fd);
-	if (ret < 0)
-		force_exit(mini, errno);
-	cmd->pipe_in[0] = fd[0];
-	cmd->pipe_in[1] = fd[1];
-	pid = fork();
 	if (pid == -1)
 		force_exit(mini, errno);
 	if (pid == 0)
@@ -90,5 +77,23 @@ void	write_heredoc(t_cmd *cmd, t_mini *mini)
 			exit(errno);
 		exit (0);
 	}
+}
+
+void	write_heredoc(t_cmd *cmd, t_mini *mini)
+{
+	int	fd[2];
+	int	pid;
+
+	if (cmd->pipe_in[0])
+	{
+		close(cmd->pipe_in[0]);
+		close(cmd->pipe_in[1]);
+	}
+	if (pipe(fd) < 0)
+		force_exit(mini, errno);
+	cmd->pipe_in[0] = fd[0];
+	cmd->pipe_in[1] = fd[1];
+	pid = fork();
+	write_heredoc_inner(mini, cmd, pid, fd);
 	wait_n_processes(1, mini);
 }
