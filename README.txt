@@ -22,9 +22,8 @@ unset: run in the child (print errors, but do not return errno on builtin error)
 
 ORDER ON HOW TO DO THINGS:
 - split on pipes
-- check for and run heredoc
-- set up the redirections (heredoc is part of that)
 - set environment variables found in the command (VAR=VALUE cmd)
+- set up the redirections (heredoc is part of that)
 - expand environment variables
 - parse the commands
 - check if it is built-in, if not find the executable, if so, run built-in
@@ -32,5 +31,5 @@ ORDER ON HOW TO DO THINGS:
 
 -lsof -p to test fd leaks
 - fix ^C ^D in read_input.c
-
+-FUCKME="Makefile src/main.c"		cat $FUCKME
 -$FUCK="miao"
