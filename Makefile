@@ -6,7 +6,7 @@
 #    By: jgalloni <jgalloni@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/26 21:32:38 by jgalloni      #+#    #+#                  #
-#    Updated: 2022/04/08 23:57:57 by fbes          ########   odam.nl          #
+#    Updated: 2022/04/09 00:22:07 by fbes          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ NAME =		minishell
 SRCS =		src/utils/debugging.c src/error_handling.c src/main.c src/setup.c \
 			src/signal_handler.c src/utils/garbage.c src/envars/basics.c \
 			src/envars/parser.c src/utils/strings.c src/envars/helpers.c \
-			src/envars/set.c src/parsing/parse.c src/utils/parse_utils.c \
+			src/envars/set.c src/utils/envar_utils.c \
+			src/parsing/parse.c src/utils/parse_utils.c \
 			src/utils/char_array_utils.c src/utils/input_utils.c \
 			src/parsing/parse_cmds.c src/parsing/parse_redirections.c  \
 			src/parsing/parse_params.c src/exec/exec_list.c \

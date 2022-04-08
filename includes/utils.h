@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/25 23:21:22 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/09 00:07:52 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/09 00:30:16 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,7 @@ int		is_fd_redir(char *prompt);
 t_cmd	*get_cmd_from_pid(t_list *cmds, int pid);
 void	fork_read_child(char *delimiter, int read_nl, int fd[2]);
 void	write_heredoc(t_cmd *cmd, t_mini *mini);
+int		is_valid_env_name_char(size_t pos, char c);
+int		join_parsed_str(char **parsed_str, char *str);
 
 #endif

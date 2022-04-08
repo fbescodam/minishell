@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/01 20:45:54 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/08 23:19:11 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/09 00:50:46 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,36 @@
 #include "libft.h"
 #include "utils.h"
 #include "envars.h"
-	#include <stdio.h>
 
-/**
- * @brief Set the new start of str, free the old str and replace it with dup
- *
- * @param[in] str The str, what else?
- * @param[in] new_start The last pos that was checked in parse_set_envars_b4_comm
- * @param[in] end_of_str A pointer to the last NULL character of new_start string
- * @return Returns 1 on success, 0 on error
- */
-static int	set_new_start(char **str, char *last_c, char *start, char *end)
+static int	set_new_start_inner(char **temp, char **last_c,
+		char *start, char *end)
+{
+	size_t	i;
+
+	while (**last_c != '\0' && *last_c != start)
+		(*last_c)--;
+	if (*last_c != start && *last_c != end)
+		(*last_c)++;
+	*temp = ft_stralloc(end - *last_c);
+	if (!*temp)
+		return (0);
+	i = 0;
+	while (*last_c < end)
+	{
+		if (**last_c != '\0')
+			(*temp)[i] = **last_c;
+		else
+			(*temp)[i] = ' ';
+		(*last_c)++;
+		i++;
+	}
+	return (1);
+}
+
+static int	set_new_start(char **str, char *last_c,
+		char *start, char *end)
 {
 	char	*temp;
-	size_t	i;
 
 	if (last_c > end)
 	{
@@ -36,27 +52,8 @@ static int	set_new_start(char **str, char *last_c, char *start, char *end)
 		if (!temp)
 			return (0);
 	}
-	else
-	{
-		while (*last_c != '\0' && last_c != start)
-			last_c--;
-		if (last_c != start && last_c != end)
-			last_c++;
-		temp = (char *)malloc(end - last_c + 1);
-		if (!temp)
-			return (0);
-		i = 0;
-		while (last_c < end)
-		{
-			if (*last_c != '\0')
-				temp[i] = *last_c;
-			else
-				temp[i] = ' ';
-			last_c++;
-			i++;
-		}
-		temp[i] = '\0';
-	}
+	else if (!set_new_start_inner(&temp, &last_c, start, end))
+		return (0);
 	ft_free(*str);
 	*str = temp;
 	return (1);
@@ -72,7 +69,7 @@ static int	all_done(char *temp, int ret)
  * @brief Perform magic
  *
  * @param[in] mini The mini struct
- * @param[in] str The string to parse one
+ * @param[in] str The string to parse
  * @return Returns 1 on success, 0 on error, -1 on done
  */
 static int	set_one_envar(t_mini *mini, char **str)

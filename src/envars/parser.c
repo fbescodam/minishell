@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 17:21:57 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/08 22:59:15 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/09 00:30:01 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include "utils.h"
 #include "envars.h"
 #include "custom_errors.h"
-	#include <stdio.h>
 
 static int	parse_envar_fail(char *parsed_str, int err)
 {
@@ -24,25 +23,9 @@ static int	parse_envar_fail(char *parsed_str, int err)
 	return (err);
 }
 
-static int	join_parsed_str(char **parsed_str, char *str)
+static int	setup_envar_fetch(char **parsed_str, char **var_start,
+		char **var_end)
 {
-	char	*temp;
-
-	temp = ft_strjoin(*parsed_str, str);
-	if (!temp)
-		return (0);
-	free(*parsed_str);
-	*parsed_str = temp;
-	return (1);
-}
-
-static int	fetch_n_replace_envar(t_dlist *envars, char **parsed_str,
-	char **var_start, char **var_end)
-{
-	t_envar	*envar;
-	char	*var_name;
-	char	*temp;
-
 	if (**var_start == '{')
 		*(*var_start - 1) = '\0';
 	else
@@ -58,8 +41,21 @@ static int	fetch_n_replace_envar(t_dlist *envars, char **parsed_str,
 			return (ENOMEM);
 		return (0);
 	}
+	return (-1);
+}
+
+static int	fetch_n_replace_envar(t_dlist *envars, char **parsed_str,
+		char **var_start, char **var_end)
+{
+	t_envar	*envar;
+	char	*var_name;
+	char	*temp;
+	int		ret;
+
+	ret = setup_envar_fetch(parsed_str, var_start, var_end);
+	if (ret > -1)
+		return (ret);
 	var_name = ft_substr(*var_start + 1, 0, *var_end - *var_start - 1);
-	//printf("var_name: \"%s\"\n", var_name);
 	if (!var_name)
 		return (ENOMEM);
 	temp = ft_strchr(var_name, '}');

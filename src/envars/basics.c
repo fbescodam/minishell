@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 17:21:57 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/08 23:00:02 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/09 00:20:55 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include "utils.h"
 #include "envars.h"
 #include <stdlib.h>
-	#include <stdio.h>
 
 /**
  * @brief Get an environment variable from the list as item, by name
@@ -120,62 +119,13 @@ int	set_envar(t_mini *mini, char *name, char *val, int export)
 	envar->val = ft_strdup(val);
 	if (export)
 		envar->export = ft_str3join(name, "=", val);
-	// printf("%s: %s\n", name, envar->export);
 	list_item = ft_ditemnew(envar);
-	if (!list_item || !envar->name || !envar->val || (export && !envar->export))
-	{
-		ft_dlstdelone(list_item, &free_envar);
-		return (0);
-	}
-	if (envar->hash == PATH_HASH && !set_mini_paths(mini, list_item))
+	if (!list_item || !envar->name || !envar->val || (export && !envar->export)
+		|| (envar->hash == PATH_HASH && !set_mini_paths(mini, list_item)))
 	{
 		ft_dlstdelone(list_item, &free_envar);
 		return (0);
 	}
 	ft_dlstadd_back(mini->envars, list_item);
 	return (1);
-}
-
-static size_t	get_amount_of_exported_envars(t_dlist *envars)
-{
-	size_t	i;
-	size_t	amount;
-	t_ditem	*item;
-
-	item = envars->first;
-	i = 0;
-	amount = 0;
-	while (i < envars->size)
-	{
-		if (((t_envar *)item->content)->export)
-			amount++;
-		item = item->next;
-		i++;
-	}
-	return (amount);
-}
-
-char	**get_envars_as_envp(t_mini *mini)
-{
-	size_t			i;
-	size_t			amount;
-	t_ditem			*item;
-	char			**ret;
-
-	i = 0;
-	amount = get_amount_of_exported_envars(mini->envars);
-	item = mini->envars->first;
-	ret = (char **)ft_calloc(amount + 1, sizeof(char *));
-	if (!ret)
-		return (NULL);
-	while (item)
-	{
-		if (((t_envar *)item->content)->export)
-		{
-			ret[i] = ((t_envar *)item->content)->export;
-			i++;
-		}
-		item = item->next;
-	}
-	return (ret);
 }
