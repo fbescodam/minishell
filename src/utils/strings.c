@@ -6,13 +6,12 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 17:21:57 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/08 22:43:40 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/08 23:42:29 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libft.h"
-	#include <stdio.h>
 
 /**
  * @brief Get the next single quote in a string, skipping over double quotes
@@ -44,7 +43,7 @@ char	*get_next_single_quote(char *str)
  * @param[in] str The string, starting at the first ' character
  * @return Returns 0 if no single quotes found in string
  */
-int skip_over_single_quotes(char **str)
+int	skip_over_single_quotes(char **str)
 {
 	char	*temp;
 

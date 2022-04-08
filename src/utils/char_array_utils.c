@@ -6,20 +6,18 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 17:21:57 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/08 22:46:28 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/08 23:39:39 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structs.h"
 #include <stdlib.h>
-//#include "tokens.h"
 #include <errno.h>
 #include <stdio.h>
 
-/*
+/**
  * @brief Counts and returns how many strings in an array of type char **
  */
-
 size_t	char_array_len(char **arr)
 {
 	size_t	i;
@@ -53,7 +51,7 @@ int	add_string_to_array(char ***to, char *from)
 	temp = ft_calloc(arr_size + 2, sizeof(char *));
 	if (!temp)
 		return (ENOMEM);
-	while((*to)[i])
+	while ((*to)[i])
 	{
 		temp[i] = (*to)[i];
 		i++;
@@ -65,11 +63,9 @@ int	add_string_to_array(char ***to, char *from)
 	return (0);
 }
 
-
-/*
+/**
  * @brief Appends strings **from array **to array
  */
-
 void	append_char_array(char **from, char **to)
 {
 	int	i;

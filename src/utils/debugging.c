@@ -6,28 +6,16 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 17:21:57 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/08 22:44:29 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/08 23:41:12 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structs.h"
 #include <stdio.h>
 
-void	print_envars(t_mini *mini)
-{
-	t_ditem		*current;
-
-	current = mini->envars->first;
-	while (current)
-	{
-		printf("%s=%s\n", ((t_envar *)current->content)->name, ((t_envar *)current->content)->val);
-		current = current->next;
-	}
-}
-
 void	print_char_array(char **arr)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (arr[i])
@@ -39,22 +27,23 @@ void	print_char_array(char **arr)
 
 void	print_tokens(t_list *tokens)
 {
-	t_list *current;
-	t_token *token;
+	t_list	*current;
+	t_token	*token;
 
 	current = tokens;
 	while (current)
 	{
 		token = (t_token *)(current->content);
-		printf("FLAG: %d, CONTENT: %s, FD: %d\n", token->flag, (char *)(token->content), token->fd);
+		printf("FLAG: %d, CONTENT: %s, FD: %d\n", token->flag,
+			(char *)(token->content), token->fd);
 		current = current->next;
 	}
 }
 
 void	print_command_list(t_list *cmds)
 {
-	t_list *current;
-	t_cmd *cmd;
+	t_list	*current;
+	t_cmd	*cmd;
 
 	current = cmds;
 	while (current)
