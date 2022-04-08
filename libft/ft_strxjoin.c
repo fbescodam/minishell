@@ -6,13 +6,12 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/09 16:23:26 by fbes          #+#    #+#                 */
-/*   Updated: 2022/02/23 21:47:29 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/09 00:43:05 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdarg.h>
 #include "libft.h"
+#include <stddef.h>
 
 static char	*xerror(t_ft_va_list strs, char *res)
 {
@@ -67,8 +66,7 @@ char	*ft_strxjoin(size_t amount, t_ft_va_list strs)
 		ft_va_arg(&strx);
 		i++;
 	}
-	res = (void *)malloc(joint_len + 1);
-	res[joint_len] = '\0';
+	res = ft_stralloc(joint_len);
 	if (joint_len > 0)
 		xjoin(amount, strs, res);
 	ft_va_end(strs);

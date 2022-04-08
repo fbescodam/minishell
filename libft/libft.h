@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 14:35:23 by fbes          #+#    #+#                 */
-/*   Updated: 2022/03/05 23:10:52 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/09 00:37:34 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ size_t			ft_strnlen(const char *s, size_t maxlen);
 void			*ft_realloc(void *ptr, size_t old_size, size_t new_size);
 void			*ft_free(void *freeable);
 void			**ft_free_double_ptr(void **freeable);
+char			*ft_stralloc(size_t size);
 char			*ft_strschr(char const *str, char const *set);
 unsigned int	ft_strhash(const char *str, size_t length);
 t_ditem			*ft_ditemnew(void *content);

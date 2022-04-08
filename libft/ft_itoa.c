@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 16:32:18 by fbes          #+#    #+#                 */
-/*   Updated: 2022/02/08 19:48:05 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/09 00:39:55 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,9 @@ static char	*ft_itoad(unsigned int n, int neg, int digits)
 	char	*res;
 	int		i;
 
-	res = (char *)malloc((digits + 1) * sizeof(char));
+	res = ft_stralloc(digits);
 	if (res)
 	{
-		res[digits] = '\0';
 		i = digits - 1;
 		while (n > 0)
 		{

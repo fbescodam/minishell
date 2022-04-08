@@ -1,37 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_strdup.c                                        :+:    :+:            */
+/*   ft_stralloc.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/09/01 20:06:31 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/09 00:40:28 by fbes          ########   odam.nl         */
+/*   Created: 2022/04/09 00:34:12 by fbes          #+#    #+#                 */
+/*   Updated: 2022/04/09 00:37:06 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "libft.h"
 
 /**
- * Duplicate a string in newly allocated memory
- * @param[in] *src		The source to copy from
- * @return			A pointer to the copy, NULL on error
+ * @brief Allocate memory for a string. This allocation is NULL-terminated,
+ * but not emptied (not filled with NULL characters).
+ * @param[in] size The size of the allocation (NULL / '\0' not included)
+ * @return A pointer to the allocated memory, or NULL on error
  */
-char	*ft_strdup(const char *src)
+char	*ft_stralloc(size_t size)
 {
-	char	*dest;
-	size_t	i;
+	char	*str;
 
-	dest = ft_stralloc(ft_strlen(src));
-	if (dest)
-	{
-		i = 0;
-		while (src[i] != '\0')
-		{
-			dest[i] = src[i];
-			i++;
-		}
-	}
-	return (dest);
+	str = (char *)malloc(size + 1);
+	if (str)
+		str[size] = '\0';
+	return (str);
 }

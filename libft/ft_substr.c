@@ -6,12 +6,12 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 14:13:01 by fbes          #+#    #+#                 */
-/*   Updated: 2022/02/08 19:48:05 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/09 00:43:20 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
+#include <stddef.h>
 
 /**
  * Trim a string to a certain length into a newly allocated string
@@ -33,7 +33,7 @@ char	*ft_substr(const char *s, unsigned int start, size_t len)
 		if (final_len > len)
 			final_len = len;
 	}
-	dest = (char *)malloc(final_len + 1);
+	dest = ft_stralloc(final_len);
 	if (dest)
 	{
 		i = 0;
@@ -42,7 +42,6 @@ char	*ft_substr(const char *s, unsigned int start, size_t len)
 			dest[i] = s[(size_t)start + i];
 			i++;
 		}
-		dest[i] = '\0';
 	}
 	return (dest);
 }
