@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/01 20:45:54 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/09 00:50:46 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/11 16:19:16 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ static int	set_one_envar(t_mini *mini, char **str)
 	value = ft_strdup(equals_pos + 1);
 	if (!value)
 		return (0);
+	remove_character(&value, '"');
+	remove_character(&value, '\'');
 	if (parse_envars(mini->envars, &value) != 0)
 		return (0);
 	ret = set_envar(mini, *str, value, 0);
@@ -97,6 +99,7 @@ static int	set_one_envar(t_mini *mini, char **str)
 
 /**
  * @brief Parse and set environment variables before running a command
+ * example: VAR="the value" echo "$VAR"
  *
  * @param[in] mini The mini struct
  * @param[in] str The whole input from readline

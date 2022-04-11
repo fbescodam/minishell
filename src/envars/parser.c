@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 17:21:57 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/09 00:30:01 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/11 16:16:25 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,7 @@ static int	replace_str_with_parsed(char **str, char *parsed_str, char *var_end)
 }
 
 /**
- * @brief Find and replace environment variables in a string, plus parse ones
- * set with var=value before any commands
+ * @brief Find and replace environment variables in a string
  *
  * @param[in] envars A list of environment variables to work with
  * @param[in] str A pointer to the string to search and replace in
