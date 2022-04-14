@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 18:12:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/08 23:45:59 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/14 20:23:53 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,5 @@ int	setup_cmds(t_mini *mini, char **prompts)
 			((t_cmd *)(current_cmd->content))->pipe_out[0] = 1;
 		i++;
 	}
-	ret = expand_params(current_cmd->content);
-	return (ret);
+	return (0);
 }

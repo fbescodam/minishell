@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 17:21:02 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/08 23:18:27 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/14 20:23:22 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	after_rl(t_mini *mini)
 		error_manager(mini, ret);
 	else
 	{
+		ret = parse_envars(mini->envars, &mini->prompt);
 		if (ret != 0)
 			error_manager(mini, ret);
 		else
