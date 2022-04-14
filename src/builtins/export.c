@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 17:21:57 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/08 23:01:08 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/14 23:18:36 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ static int	export_only(int is_child, size_t i, t_cmd *cmd)
 		export_err(cmd->params[i]);
 	envar = get_envar(cmd->mini->envars, cmd->params[i]);
 	if (envar)
+	{
+		ft_free(envar->export);
 		envar->export = ft_str3join(envar->name, "=", envar->val);
+	}
 	if (envar && !envar->export)
 		return (0);
 	return (1);
