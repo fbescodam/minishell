@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 17:21:02 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/14 20:23:22 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/14 22:56:14 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@
 void	after_rl(t_mini *mini)
 {
 	int		ret;
-
-	add_history(mini->prompt);
+	
 	ret = parse_set_envars_b4_comm(mini, &mini->prompt);
 	if (ret != 0)
 		error_manager(mini, ret);
@@ -71,6 +70,8 @@ int	main(int argc, char **argv, char **envp)
 			rl_replace_line(" exit", 1);
 			force_exit(&mini, 0);
 		}
+		if (mini.prompt && mini.prompt[0])
+			add_history(mini.prompt);
 		after_rl(&mini);
 		ft_free(mini.prompt);
 		ft_lstclear(&(mini.cmds), &free_cmd);
