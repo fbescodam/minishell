@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/09 15:43:06 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/09 00:52:54 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/14 21:43:00 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,10 @@ static int	redir_setup(t_cmd *cmd)
 		ret = pipe_setup(cmd->pipe_in, PIPE_IN);
 	if (ret != 0)
 		return (ret);
+	if (cmd->pipe_out[0])
+		ret = pipe_setup(cmd->pipe_out, PIPE_OUT);
+	if (ret != 0)
+		return (ret);
 	while (current_token)
 	{
 		ret = fd_setup(current_token->content);
@@ -93,10 +97,6 @@ static int	redir_setup(t_cmd *cmd)
 			return (ret);
 		current_token = current_token->next;
 	}
-	if (cmd->pipe_out[0])
-		ret = pipe_setup(cmd->pipe_out, PIPE_OUT);
-	if (ret != 0)
-		return (ret);
 	return (ret);
 }
 
