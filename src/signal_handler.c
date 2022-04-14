@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 17:21:00 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/08 23:36:27 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/14 20:56:51 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,11 @@ void	sig_handler(int sig)
 	{
 		printf("\n");
 		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+	else if (sig == SIGQUIT)
+	{
 		rl_on_new_line();
 		rl_redisplay();
 	}
