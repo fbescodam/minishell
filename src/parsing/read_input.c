@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/03 16:40:43 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/14 23:18:49 by jgalloni      ########   odam.nl         */
+/*   Updated: 2022/04/14 23:28:54 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,30 +94,5 @@ int	heredoc(t_cmd *cmd, char *delimiter)
 		return (-2);
 	if (ret != 0)
 		force_exit(cmd->mini, ret);
-	return (0);
-}
-
-int	read_til_close_pipe(char ***to, t_mini *mini)
-{
-	char	*in;
-	int		ret;
-
-	in = ft_strdup ("");
-	if (!in)
-		return (ENOMEM);
-	ret = fork_read_input(mini, NULL, 0, &in);
-	if (ret == IGNORE)
-	{
-		ft_free(in);
-		return (IGNORE);
-	}
-	if (ret != 0)
-		force_exit(mini, ret);
-	if (in && in[0] == '\0')
-		return (PARSE_ERROR);
-		ret = split_prompt(in, to, "|", mini);
-	//ret = add_string_to_array(to, in);
-	if (ret != 0)
-		force_exit(mini, ret);
 	return (0);
 }

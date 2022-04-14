@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 18:12:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/08 23:45:11 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/14 23:30:16 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int	split_and_add(char *from, char ***to, int split_index)
  * to split on
  * @return 0 on default, error code in case of error
  */
-int	split_prompt(char *from, char ***to, char *set, t_mini *mini)
+int	split_prompt(char *from, char ***to, char *set)
 {
 	int		ret;
 	int		nxt_op;
@@ -120,7 +120,7 @@ int	split_prompt(char *from, char ***to, char *set, t_mini *mini)
 		if (ret != 0)
 			return (ret);
 		if (from[nxt_op] == '|' && !*(skip_chars(from + 1 + nxt_op, " ")))
-			ret = read_til_close_pipe(to, mini);
+			return (PARSE_ERROR);
 		if (ret != 0)
 			return (ret);
 		from += nxt_op;
@@ -146,7 +146,7 @@ int	parse_prompt(t_mini *mini, char *prompt)
 		prompt_split = ft_calloc(1, sizeof(char *));
 		if (!prompt_split)
 			return (ENOMEM);
-		ret = split_prompt(prompt, &prompt_split, "|", mini);
+		ret = split_prompt(prompt, &prompt_split, "|");
 		if (ret != 0)
 		{
 			ft_free_double_ptr((void *)prompt_split);
