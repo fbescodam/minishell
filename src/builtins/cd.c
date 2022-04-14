@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 17:21:57 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/08 23:24:39 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/14 21:25:56 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	set_path_envar(t_cmd *cmd)
 		return (ENOMEM);
 	envar = get_envar(cmd->mini->envars, "PWD");
 	if (envar)
-		ret = replace_envar_value(envar, path);
+		ret = replace_envar_value(cmd->mini, envar, path);
 	else
 		ret = set_envar(cmd->mini, "PWD", path, 0);
 	free(path);

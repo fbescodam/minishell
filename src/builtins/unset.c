@@ -6,13 +6,14 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 17:21:57 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/08 23:00:30 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/14 21:34:23 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include "envars.h"
 #include "libft.h"
+#include <errno.h>
 
 int	mini_unset(int is_child, t_cmd *cmd)
 {
@@ -31,7 +32,12 @@ int	mini_unset(int is_child, t_cmd *cmd)
 		{
 			to_unset = get_envar_item(cmd->mini->envars, cmd->params[i]);
 			if (to_unset)
+			{
+				if (((t_envar *)to_unset->content)->hash == PATH_HASH && \
+					!set_mini_paths(cmd->mini, ""))
+					return (ENOMEM);
 				ft_dlstrem(cmd->mini->envars, to_unset, &free_envar);
+			}
 		}
 		i++;
 	}

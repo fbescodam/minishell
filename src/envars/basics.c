@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 17:21:57 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/09 00:20:55 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/14 21:32:29 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,16 @@ t_envar	*get_envar(t_dlist *envars, char *name)
 /**
  * @brief Replace the value of an existing environment variable
  *
+ * @param[in] mini Mini struct
  * @param[in] envar The environment variable to modify
  * @param[in] new_val The new value to set, will be strduped
  * @return Returns 0 on failure, 1 on success
  */
-int	replace_envar_value(t_envar *envar, char *new_val)
+int	replace_envar_value(t_mini *mini, t_envar *envar, char *new_val)
 {
 	char	*temp;
 	char	*equals;
-	size_t	fuck;
+	size_t	len_until_equals;
 
 	if (!new_val)
 		return (0);
@@ -82,14 +83,15 @@ int	replace_envar_value(t_envar *envar, char *new_val)
 		*equals = '\0';
 		temp = ft_calloc(equals - envar->export + ft_strlen(new_val) + 2,
 				sizeof(char));
-		fuck = equals - envar->export;
-		ft_memcpy(temp, envar->export, fuck);
-		temp[fuck] = '=';
-		ft_memcpy(&temp[fuck + 1], new_val, ft_strlen(new_val));
+		len_until_equals = equals - envar->export;
+		ft_memcpy(temp, envar->export, len_until_equals);
+		temp[len_until_equals] = '=';
+		ft_memcpy(&temp[len_until_equals + 1], new_val, ft_strlen(new_val));
 		free(envar->export);
 		envar->export = temp;
 	}
-	if (!envar->val)
+	if (!envar->val
+		|| (envar->hash == PATH_HASH && !set_mini_paths(mini, envar->val)))
 		return (0);
 	return (1);
 }
@@ -110,7 +112,7 @@ int	set_envar(t_mini *mini, char *name, char *val, int export)
 
 	envar = get_envar(mini->envars, name);
 	if (envar)
-		return (replace_envar_value(envar, val));
+		return (replace_envar_value(mini, envar, val));
 	envar = ft_calloc(1, sizeof(t_envar));
 	if (!envar)
 		return (0);
@@ -121,7 +123,7 @@ int	set_envar(t_mini *mini, char *name, char *val, int export)
 		envar->export = ft_str3join(name, "=", val);
 	list_item = ft_ditemnew(envar);
 	if (!list_item || !envar->name || !envar->val || (export && !envar->export)
-		|| (envar->hash == PATH_HASH && !set_mini_paths(mini, list_item)))
+		|| (envar->hash == PATH_HASH && !set_mini_paths(mini, envar->val)))
 	{
 		ft_dlstdelone(list_item, &free_envar);
 		return (0);

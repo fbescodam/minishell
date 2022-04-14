@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 17:21:57 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/09 00:24:31 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/14 21:37:07 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,16 +73,13 @@ char	*find_var_name_end(char *str, char is_curly_bracket)
 	return (chr);
 }
 
-int	set_mini_paths(t_mini *mini, t_ditem *list_item)
+int	set_mini_paths(t_mini *mini, char *str)
 {
 	if (mini->paths)
 		ft_free_double_ptr((void **)mini->paths);
-	mini->paths = ft_split(((t_envar *)list_item->content)->val, ':');
+	mini->paths = ft_split(str, ':');
 	if (!mini->paths)
-	{
-		ft_dlstdelone(list_item, &free_envar);
 		return (0);
-	}
 	return (1);
 }
 
@@ -98,7 +95,7 @@ int	set_mini_status(t_mini *mini, int status_code)
 	mini->status = status_code;
 	quest = get_envar(mini->envars, "?");
 	if (quest)
-		ret = replace_envar_value(quest, stat);
+		ret = replace_envar_value(mini, quest, stat);
 	else
 		ret = set_envar(mini, "?", stat, 0);
 	free(stat);
