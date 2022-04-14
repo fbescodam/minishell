@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/08 20:06:29 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/09 00:09:55 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/14 22:39:08 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "builtins.h"
 #include "utils.h"
 #include "error_handling.h"
+#include "signal_handling.h"
 #include <errno.h>
 #include <signal.h>
 #include <unistd.h>
@@ -60,6 +61,22 @@ int	execute_command(t_list *cmd_inst, t_mini *mini)
 	return (0);
 }
 
+void	set_exit_code(int *status, t_mini *mini)
+{
+	if (WIFSIGNALED(*status) && WTERMSIG(*status) == SIGSEGV)
+	{
+		set_mini_status(mini, SEGF);
+		error_manager(mini, SEGF);
+	}
+	else if (WIFSIGNALED(*status) && WTERMSIG(*status) == SIGINT)
+		set_mini_status(mini, 130);
+	else if (WIFSIGNALED(*status) && WTERMSIG(*status) == SIGQUIT)
+		set_mini_status(mini, 131);
+	else if (!((*status) & 0x7f)
+		&& !set_mini_status(mini, ((*status) & 0xff00) >> 8))
+		error_manager(mini, ENOMEM);
+}
+
 void	wait_n_processes(int amount, t_mini *mini)
 {
 	int		ret;
@@ -83,10 +100,7 @@ void	wait_n_processes(int amount, t_mini *mini)
 		}
 		amount--;
 	}
-	if (!((status) & 0x7f) && !set_mini_status(mini, ((status) & 0xff00) >> 8))
-		error_manager(mini, ENOMEM);
-	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGSEGV)
-		error_manager(mini, SEGF);
+	set_exit_code(&status, mini);
 }
 
 int	execute_list(t_mini *mini)
@@ -98,6 +112,8 @@ int	execute_list(t_mini *mini)
 
 	amount = 0;
 	current = mini->cmds;
+	signal(SIGINT, exec_sig_handler);
+	signal(SIGQUIT, exec_sig_handler);
 	while (current)
 	{
 		cmd = ((t_cmd *)(current->content));

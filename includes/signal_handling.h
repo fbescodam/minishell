@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/25 22:08:44 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/08 23:12:02 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/14 22:37:13 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	sig_handler(int sig);
 void	hdoc_sig_handler(int sig);
-void	sig_new_line(int sig);
+void	exec_sig_handler(int sig);
 void	hdoc_sig_parent(int sig);
 
 #endif

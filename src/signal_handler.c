@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 17:21:00 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/14 20:56:51 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/14 22:37:53 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,12 @@ void	sig_handler(int sig)
 		rl_on_new_line();
 		rl_redisplay();
 	}
+}
+
+void	exec_sig_handler(int sig)
+{
+	if (sig == SIGINT)
+		printf("\n");
+	else if (sig == SIGQUIT)
+		printf("Quit: 3\n");
 }
