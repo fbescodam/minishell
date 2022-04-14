@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/03 16:40:43 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/08 23:59:44 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/14 22:44:19 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ static int	fork_read_input(t_mini *mini, char *delimiter,
 		fork_read_child(delimiter, read_nl, fd);
 	g_pid = pid;
 	signal(SIGINT, &hdoc_sig_parent);
+	signal(SIGQUIT, &hdoc_sig_parent);
 	wait_n_processes(1, mini);
 	close(fd[1]);
 	if (g_pid != -1 && read_nl)
