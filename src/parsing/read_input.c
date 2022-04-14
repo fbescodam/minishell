@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/03 16:40:43 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/14 22:44:19 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/14 23:18:49 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,11 @@ int	read_til_close_pipe(char ***to, t_mini *mini)
 	}
 	if (ret != 0)
 		force_exit(mini, ret);
-	ret = add_string_to_array(to, in);
-	if (ret != 0)
-		force_exit(mini, ret);
 	if (in && in[0] == '\0')
 		return (PARSE_ERROR);
+		ret = split_prompt(in, to, "|", mini);
+	//ret = add_string_to_array(to, in);
+	if (ret != 0)
+		force_exit(mini, ret);
 	return (0);
 }
