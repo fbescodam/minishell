@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 17:21:57 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/08 23:42:05 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/14 23:16:27 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	free_envar(void *envar)
 		return ;
 	ft_free(((t_envar *)envar)->name);
 	ft_free(((t_envar *)envar)->val);
+	ft_free(((t_envar *)envar)->export);
 	ft_free(envar);
 }
 

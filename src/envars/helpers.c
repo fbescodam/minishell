@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 17:21:57 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/14 21:37:07 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/14 22:56:21 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*find_var_name_end(char *str, char is_curly_bracket)
 	chr = str;
 	while (is_valid_env_name_char(0, *chr))
 		chr++;
-	if (ft_strchr(RESERVED_ENVAR_NAMES, *chr) && chr == str)
+	if (*chr && ft_strchr(RESERVED_ENVAR_NAMES, *chr) && chr == str)
 		return (chr + 1);
 	return (chr);
 }

@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 17:21:57 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/11 16:16:25 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/14 22:54:04 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	setup_envar_fetch(char **parsed_str, char **var_start,
 	*var_end = find_var_name_end(*var_start + 1, **var_start);
 	if (!*var_end)
 		return (PARSE_ERROR);
-	if (*var_end == *var_start + 1)
+	if (*var_end == *var_start + 1 || *var_end == '\0')
 	{
 		if (!join_parsed_str(parsed_str, "$"))
 			return (ENOMEM);
