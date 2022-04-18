@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/08 22:51:44 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/18 17:34:30 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/18 19:09:14 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ static int	close_param(char **buff, char **prompt, int len, char ***dest)
 	return (0);
 }
 
-static int	handle_quotes(char **buff, char **prompt, int quote_pos)
+static int	handle_quotes(char ***dest, char **buff,
+	char **prompt, int quote_pos)
 {
 	char	*quoted_string;
 	int		err;
@@ -67,6 +68,14 @@ static int	handle_quotes(char **buff, char **prompt, int quote_pos)
 	if (err < 0)
 		return (-1);
 	str_len = ft_strlen(quoted_string);
+	if (**buff == '\0' && str_len == 0
+		&& *(*prompt + str_len + quote_pos + 2) == ' ')
+	{
+		if (add_string_to_array(dest, quoted_string) < 0)
+			return (-1);
+		*prompt += str_len + quote_pos + 2;
+		return (0);
+	}
 	err = join_realloc(buff, quoted_string, str_len);
 	free(quoted_string);
 	if (err != 0)
@@ -89,7 +98,7 @@ int	search_params(char **buff, char **prompt, char ***dest)
 	if (nxt_delim <= nxt_quote)
 		ret = close_param(buff, prompt, nxt_delim, dest);
 	else
-		ret = handle_quotes(buff, prompt, nxt_quote);
+		ret = handle_quotes(dest, buff, prompt, nxt_quote);
 	if (ret != 0)
 		return (-1);
 	if (**prompt == '<' || **prompt == '>' || **prompt == '\0')
