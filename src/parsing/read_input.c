@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/03 16:40:43 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/18 16:40:29 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/18 16:53:14 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 #include "execute.h"
 #include "error_handling.h"
 #include "signal_handling.h"
-#include "get_next_line.h"
 
 static int	read_from_child_err(char *buff, int ret)
 {
