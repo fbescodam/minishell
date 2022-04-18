@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 18:12:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/08 23:46:33 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/18 16:15:02 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,6 @@ int	add_token(char *content, int flag, t_cmd *cmd, char *prompt)
 	token->flag = flag;
 	if (flag == HEREDOC)
 		flag = heredoc(cmd, (char *)content);
-	else
-		flag = parse_envars(cmd->mini->envars, &content);
-	if (flag < 0)
-		return (flag);
 	token->content = content;
 	token->fd = -1;
 	if (ft_isdigit(*prompt))
@@ -97,6 +93,8 @@ int	add_token(char *content, int flag, t_cmd *cmd, char *prompt)
 		cmd->tokens = new;
 	else
 		ft_lstadd_back(&(cmd->tokens), new);
+	if (flag < 0)
+		return (flag);
 	return (0);
 }
 
