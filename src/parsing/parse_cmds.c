@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 18:12:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/14 20:23:53 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/18 16:18:35 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,22 +77,6 @@ t_list	*new_cmd(t_mini *mini)
 	}
 	ft_lstadd_back(&(mini->cmds), cmd_instance);
 	return (cmd_instance);
-}
-
-int	expand_params(t_cmd *cmd)
-{
-	int	i;
-	int	ret;
-
-	i = 0;
-	while ((cmd->params)[i])
-	{
-		ret = parse_envars(cmd->mini->envars, &((cmd->params)[i]));
-		if (ret != 0)
-			return (ENOMEM);
-		i++;
-	}
-	return (0);
 }
 
 int	setup_cmds(t_mini *mini, char **prompts)
