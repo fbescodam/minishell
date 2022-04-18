@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/08 22:51:44 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/18 16:58:03 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/18 17:04:46 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,28 @@
 #include <stdlib.h>
 #include <debug.h>
 #include <stdio.h>
+
+int	add_param(char **param_buffer, char ***dest)
+{
+	char	*param;
+	int		err;
+
+	err = 0;
+	param = ft_strdup(*param_buffer);
+	if (!param)
+		return (-1);
+	if (*param)
+		err = add_string_to_array(dest, param);
+	else
+		free(param);
+	free(*param_buffer);
+	if (err != 0)
+		return (-1);
+	*param_buffer = ft_strdup("");
+	if (!*param_buffer)
+		return (-1);
+	return (0);
+}
 
 static int	close_param(char **buff, char **prompt, int len, char ***dest)
 {
@@ -50,28 +72,6 @@ static int	handle_quotes(char **buff, char **prompt, int quote_pos)
 	if (err != 0)
 		return (-1);
 	*prompt += str_len + quote_pos + 2;
-	return (0);
-}
-
-int	add_param(char **param_buffer, char ***dest)
-{
-	char	*param;
-	int		err;
-
-	err = 0;
-	param = ft_strdup(*param_buffer);
-	if (!param)
-		return (-1);
-	if (*param)
-		err = add_string_to_array(dest, param);
-	else
-		free(param);
-	free(*param_buffer);
-	if (err != 0)
-		return (-1);
-	*param_buffer = ft_strdup("");
-	if (!*param_buffer)
-		return (-1);
 	return (0);
 }
 
