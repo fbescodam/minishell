@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 17:21:57 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/14 21:32:29 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/18 16:23:46 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,28 @@ t_envar	*get_envar(t_dlist *envars, char *name)
 	return (NULL);
 }
 
+static int	replace_envar_export(t_envar *envar, char *new_val)
+{
+	char	*temp;
+	size_t	len;
+	char	*eq;
+	size_t	len_until_eq;
+
+	len = ft_strlen(new_val);
+	eq = ft_strchr(envar->export, '=');
+	*eq = '\0';
+	temp = ft_calloc(eq - envar->export + len + 2, sizeof(char));
+	if (!temp)
+		return (0);
+	len_until_eq = eq - envar->export;
+	ft_memcpy(temp, envar->export, len_until_eq);
+	temp[len_until_eq] = '=';
+	ft_memcpy(&temp[len_until_eq + 1], new_val, len);
+	free(envar->export);
+	envar->export = temp;
+	return (1);
+}
+
 /**
  * @brief Replace the value of an existing environment variable
  *
@@ -69,27 +91,14 @@ t_envar	*get_envar(t_dlist *envars, char *name)
  */
 int	replace_envar_value(t_mini *mini, t_envar *envar, char *new_val)
 {
-	char	*temp;
-	char	*equals;
-	size_t	len_until_equals;
-
 	if (!new_val)
 		return (0);
 	ft_free(envar->val);
 	envar->val = ft_strdup(new_val);
-	if (envar->export)
-	{
-		equals = ft_strchr(envar->export, '=');
-		*equals = '\0';
-		temp = ft_calloc(equals - envar->export + ft_strlen(new_val) + 2,
-				sizeof(char));
-		len_until_equals = equals - envar->export;
-		ft_memcpy(temp, envar->export, len_until_equals);
-		temp[len_until_equals] = '=';
-		ft_memcpy(&temp[len_until_equals + 1], new_val, ft_strlen(new_val));
-		free(envar->export);
-		envar->export = temp;
-	}
+	if (!envar->val)
+		return (0);
+	if (envar->export && !replace_envar_export(envar, new_val))
+		return (0);
 	if (!envar->val
 		|| (envar->hash == PATH_HASH && !set_mini_paths(mini, envar->val)))
 		return (0);
