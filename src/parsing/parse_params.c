@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/08 22:51:44 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/18 17:04:46 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/18 17:34:30 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,12 +112,15 @@ int	parse_params(char *prompt, char ***dest)
 	{
 		ret = search_params(&buff, &prompt, dest);
 		if (ret == -1)
+		{
+			free(buff);
 			return (-1);
+		}
 	}
 	if (*buff)
 		ret = add_param(&buff, dest);
+	free(buff);
 	if (ret < 0)
 		return (-1);
-	free(buff);
 	return (prompt - prompt_start);
 }
