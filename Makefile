@@ -6,7 +6,7 @@
 #    By: jgalloni <jgalloni@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/26 21:32:38 by jgalloni      #+#    #+#                  #
-#    Updated: 2022/04/18 16:51:06 by jgalloni      ########   odam.nl          #
+#    Updated: 2022/04/18 16:55:02 by fbes          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,8 +24,7 @@ SRCS =		src/utils/debugging.c src/error_handling.c src/main.c src/setup.c \
 			src/exec/reserved_cmds.c src/utils/builtin_utils.c \
 			src/builtins/cd.c src/builtins/echo.c src/builtins/env.c \
 			src/builtins/exit.c src/builtins/export.c src/builtins/pwd.c \
-			src/builtins/unset.c src/parsing/read_input.c \
-
+			src/builtins/unset.c src/parsing/read_input.c
 
 INCLUDES =	-I includes -I libft -I /Users/$(USER)/.brew/opt/readline/include
 
