@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/03 16:40:43 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/18 16:15:33 by jgalloni      ########   odam.nl         */
+/*   Updated: 2022/04/18 16:50:38 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 #include "execute.h"
 #include "error_handling.h"
 #include "signal_handling.h"
-#include "get_next_line.h"
 
 static int	read_from_child(char **dest, int fd, t_dlist *envars)
 {
