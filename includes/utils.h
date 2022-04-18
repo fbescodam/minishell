@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/25 23:21:22 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/18 19:20:26 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/18 20:45:12 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ void	write_heredoc(t_cmd *cmd, t_mini *mini);
 int		is_valid_env_name_char(size_t pos, char c);
 int		join_parsed_str(char **parsed_str, char *str);
 char	*strdup_for_envar_val(char *str);
+int		replace_tabs(char **prompt);
 
 #endif

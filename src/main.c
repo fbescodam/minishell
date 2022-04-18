@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 17:21:02 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/18 17:03:06 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/18 21:02:39 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ int	main(int argc, char **argv, char **envp)
 			rl_replace_line(" exit", 1);
 			force_exit(&mini, 0);
 		}
+		if (!replace_tabs(&mini.prompt))
+			force_exit(&mini, ENOMEM);
 		if (mini.prompt && mini.prompt[0])
 			add_history(mini.prompt);
 		after_rl(&mini);
