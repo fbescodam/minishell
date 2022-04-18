@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/08 23:54:40 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/18 17:02:34 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/18 21:18:09 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ static void	input_to_fd(char *read_until, int fd, int write_nl)
 			break ;
 		}
 		ret = ft_strlen(in);
-		if (ret > 0 && ft_strncmp(in, read_until, ret) == 0)
+		if ((*read_until == '\0' && *in == '\0')
+			|| ft_strncmp(in, read_until, ret) == 0)
 			break ;
 		ret = ft_putstr_fd(in, fd);
 		if (ret < 0)
