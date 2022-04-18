@@ -6,7 +6,7 @@
 #    By: jgalloni <jgalloni@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/26 21:32:38 by jgalloni      #+#    #+#                  #
-#    Updated: 2022/04/09 00:22:07 by fbes          ########   odam.nl          #
+#    Updated: 2022/04/18 16:03:01 by fbes          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ libft/libft.a:
 	make -C libft
 
 bonus:
-	@echo We did not do the bonus yet
+	@echo We did not do the bonus
 
 clean:
 	rm -rf 'obj'
