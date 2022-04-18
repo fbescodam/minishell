@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 17:21:57 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/18 17:00:47 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/18 19:20:12 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	replace_envar_value(t_mini *mini, t_envar *envar, char *new_val)
 	if (!new_val)
 		return (0);
 	ft_free(envar->val);
-	envar->val = ft_strdup(new_val);
+	envar->val = strdup_for_envar_val(new_val);
 	if (!envar->val)
 		return (0);
 	if (envar->export && !replace_envar_export(envar, new_val))
@@ -127,7 +127,7 @@ int	set_envar(t_mini *mini, char *name, char *val, int export)
 		return (0);
 	envar->hash = ft_strhash(name, ft_strlen(name));
 	envar->name = ft_strdup(name);
-	envar->val = ft_strdup(val);
+	envar->val = strdup_for_envar_val(val);
 	if (export)
 		envar->export = ft_str3join(name, "=", val);
 	list_item = ft_ditemnew(envar);

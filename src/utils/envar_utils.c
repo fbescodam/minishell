@@ -6,12 +6,13 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/09 00:18:29 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/09 00:30:34 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/18 19:20:41 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "structs.h"
+#include "utils.h"
 #include <stdlib.h>
 
 static size_t	get_amount_of_exported_envars(t_dlist *envars)
@@ -80,4 +81,16 @@ int	join_parsed_str(char **parsed_str, char *str)
 	free(*parsed_str);
 	*parsed_str = temp;
 	return (1);
+}
+
+char	*strdup_for_envar_val(char *str)
+{
+	char	*dup;
+
+	dup = ft_strdup(str);
+	if (!dup)
+		return (NULL);
+	remove_character(&dup, '"');
+	remove_character(&dup, '\'');
+	return (dup);
 }
