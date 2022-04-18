@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 17:21:39 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/08 23:31:52 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/18 17:03:25 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,6 @@
 #include "error_handling.h"
 #include "signal_handling.h"
 #include "envars.h"
-
-/**
-  * @brief Assigns signal-handling functions to signals
-  * SIGINT = Ctrl + C, interrupt process
-  * SIGTERM = terminate software
-  * SIGABRT = abort program
-  * SIGQUIT = quit program
-  * SIGTSTP = stop signal generated from keyboard
-  */
-void	setup_signals(t_mini *mini)
-{
-	if (signal(SIGTERM, sig_handler) == SIG_ERR
-		|| signal(SIGABRT, sig_handler) == SIG_ERR
-		|| signal(SIGQUIT, sig_handler) == SIG_ERR
-		|| signal(SIGTSTP, sig_handler) == SIG_ERR
-		|| signal(SIGINT, sig_handler) == SIG_ERR)
-	{
-		error_manager(mini, errno);
-		force_exit(mini, errno);
-	}
-}
 
 static int	setup_reserved_envars(t_mini *mini, char *shellname)
 {
@@ -115,6 +94,27 @@ static int	setup_envars(t_mini *mini, char *shellname, char **envp)
 			return (0);
 	}
 	return (setup_reserved_envars(mini, shellname));
+}
+
+/**
+  * @brief Assigns signal-handling functions to signals
+  * SIGINT = Ctrl + C, interrupt process
+  * SIGTERM = terminate software
+  * SIGABRT = abort program
+  * SIGQUIT = quit program
+  * SIGTSTP = stop signal generated from keyboard
+  */
+void	setup_signals(t_mini *mini)
+{
+	if (signal(SIGTERM, sig_handler) == SIG_ERR
+		|| signal(SIGABRT, sig_handler) == SIG_ERR
+		|| signal(SIGQUIT, sig_handler) == SIG_ERR
+		|| signal(SIGTSTP, sig_handler) == SIG_ERR
+		|| signal(SIGINT, sig_handler) == SIG_ERR)
+	{
+		error_manager(mini, errno);
+		force_exit(mini, errno);
+	}
 }
 
 /**

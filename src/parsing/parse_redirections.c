@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 18:12:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/18 16:15:02 by jgalloni      ########   odam.nl         */
+/*   Updated: 2022/04/18 16:58:34 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include "parse.h"
 #include "envars.h"
 
-int	parse_file_name(char *prompt, char ***dest)
+static int	parse_file_name(char *prompt, char ***dest)
 {
 	char	*prompt_start;
 	char	*buff;
@@ -44,7 +44,7 @@ int	parse_file_name(char *prompt, char ***dest)
 	return (prompt - prompt_start);
 }
 
-int	redir_type_check(char *prompt)
+static int	redir_type_check(char *prompt)
 {
 	char	*next_char;
 
@@ -71,7 +71,7 @@ int	redir_type_check(char *prompt)
 	return (OUT_FILE);
 }
 
-int	add_token(char *content, int flag, t_cmd *cmd, char *prompt)
+static int	add_token(char *content, int flag, t_cmd *cmd, char *prompt)
 {
 	t_token	*token;
 	t_list	*new;

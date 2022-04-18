@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/08 23:54:40 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/09 00:14:19 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/18 17:02:34 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,6 @@ static void	input_to_fd(char *read_until, int fd, int write_nl)
 	ft_free(in);
 }
 
-void	fork_read_child(char *delimiter, int read_nl, int fd[2])
-{
-	signal(SIGINT, SIG_IGN);
-	close(fd[0]);
-	input_to_fd(delimiter, fd[1], read_nl);
-	close(fd[1]);
-	exit(0);
-}
-
 static void	write_heredoc_inner(t_mini *mini, t_cmd *cmd, int pid, int fd[2])
 {
 	int	ret;
@@ -77,6 +68,15 @@ static void	write_heredoc_inner(t_mini *mini, t_cmd *cmd, int pid, int fd[2])
 			exit(errno);
 		exit (0);
 	}
+}
+
+void	fork_read_child(char *delimiter, int read_nl, int fd[2])
+{
+	signal(SIGINT, SIG_IGN);
+	close(fd[0]);
+	input_to_fd(delimiter, fd[1], read_nl);
+	close(fd[1]);
+	exit(0);
 }
 
 void	write_heredoc(t_cmd *cmd, t_mini *mini)

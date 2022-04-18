@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 18:12:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/18 16:18:35 by jgalloni      ########   odam.nl         */
+/*   Updated: 2022/04/18 16:56:22 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include <stdio.h>
 #include "envars.h"
 
-int	parse_operator(char *prompt, int index, t_cmd *cmd)
+static int	parse_operator(char *prompt, int index, t_cmd *cmd)
 {
 	int	ret;
 
@@ -31,7 +31,7 @@ int	parse_operator(char *prompt, int index, t_cmd *cmd)
 	return (ret);
 }
 
-int	parse_cmd(t_list *cmd, char *prompt)
+static int	parse_cmd(t_list *cmd, char *prompt)
 {
 	int		ret;
 	int		index;
@@ -59,7 +59,7 @@ int	parse_cmd(t_list *cmd, char *prompt)
 	return (0);
 }
 
-t_list	*new_cmd(t_mini *mini)
+static t_list	*new_cmd(t_mini *mini)
 {
 	t_cmd	*cmd;
 	t_list	*cmd_instance;

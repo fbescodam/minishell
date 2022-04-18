@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/08 22:51:44 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/08 23:46:09 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/18 16:58:03 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,43 @@
 #include <stdlib.h>
 #include <debug.h>
 #include <stdio.h>
+
+static int	close_param(char **buff, char **prompt, int len, char ***dest)
+{
+	int	err;
+
+	err = join_realloc(buff, *prompt, len);
+	if (err != 0)
+		return (-1);
+	err = add_param(buff, dest);
+	if (err != 0)
+		return (-1);
+	*prompt += len;
+	while (**prompt == ' ')
+		(*prompt)++;
+	return (0);
+}
+
+static int	handle_quotes(char **buff, char **prompt, int quote_pos)
+{
+	char	*quoted_string;
+	int		err;
+	int		str_len;
+
+	err = join_realloc(buff, *prompt, quote_pos);
+	if (err < 0)
+		return (-1);
+	err = get_quoted_string(*prompt + quote_pos, &quoted_string);
+	if (err < 0)
+		return (-1);
+	str_len = ft_strlen(quoted_string);
+	err = join_realloc(buff, quoted_string, str_len);
+	free(quoted_string);
+	if (err != 0)
+		return (-1);
+	*prompt += str_len + quote_pos + 2;
+	return (0);
+}
 
 int	add_param(char **param_buffer, char ***dest)
 {
@@ -35,43 +72,6 @@ int	add_param(char **param_buffer, char ***dest)
 	*param_buffer = ft_strdup("");
 	if (!*param_buffer)
 		return (-1);
-	return (0);
-}
-
-int	close_param(char **buff, char **prompt, int len, char ***dest)
-{
-	int	err;
-
-	err = join_realloc(buff, *prompt, len);
-	if (err != 0)
-		return (-1);
-	err = add_param(buff, dest);
-	if (err != 0)
-		return (-1);
-	*prompt += len;
-	while (**prompt == ' ')
-		(*prompt)++;
-	return (0);
-}
-
-int	handle_quotes(char **buff, char **prompt, int quote_pos)
-{
-	char	*quoted_string;
-	int		err;
-	int		str_len;
-
-	err = join_realloc(buff, *prompt, quote_pos);
-	if (err < 0)
-		return (-1);
-	err = get_quoted_string(*prompt + quote_pos, &quoted_string);
-	if (err < 0)
-		return (-1);
-	str_len = ft_strlen(quoted_string);
-	err = join_realloc(buff, quoted_string, str_len);
-	free(quoted_string);
-	if (err != 0)
-		return (-1);
-	*prompt += str_len + quote_pos + 2;
 	return (0);
 }
 

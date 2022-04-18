@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/08 20:06:29 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/14 22:39:08 by jgalloni      ########   odam.nl         */
+/*   Updated: 2022/04/18 16:59:54 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 #include <sys/wait.h>
 #include <stdlib.h>
 
-void	fork_process(t_cmd *cmd, t_mini *mini)
+static void	fork_process(t_cmd *cmd, t_mini *mini)
 {
 	int		pid;
 
@@ -40,7 +40,7 @@ void	fork_process(t_cmd *cmd, t_mini *mini)
 	return ;
 }
 
-int	execute_command(t_list *cmd_inst, t_mini *mini)
+static int	execute_command(t_list *cmd_inst, t_mini *mini)
 {
 	int		ret;
 	t_cmd	*cmd;
@@ -61,7 +61,7 @@ int	execute_command(t_list *cmd_inst, t_mini *mini)
 	return (0);
 }
 
-void	set_exit_code(int *status, t_mini *mini)
+static void	set_exit_code(int *status, t_mini *mini)
 {
 	if (WIFSIGNALED(*status) && WTERMSIG(*status) == SIGSEGV)
 	{

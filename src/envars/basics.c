@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 17:21:57 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/18 16:23:46 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/18 17:00:47 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,28 @@
 #include "utils.h"
 #include "envars.h"
 #include <stdlib.h>
+
+static int	replace_envar_export(t_envar *envar, char *new_val)
+{
+	char	*temp;
+	size_t	len;
+	char	*eq;
+	size_t	len_until_eq;
+
+	len = ft_strlen(new_val);
+	eq = ft_strchr(envar->export, '=');
+	*eq = '\0';
+	temp = ft_calloc(eq - envar->export + len + 2, sizeof(char));
+	if (!temp)
+		return (0);
+	len_until_eq = eq - envar->export;
+	ft_memcpy(temp, envar->export, len_until_eq);
+	temp[len_until_eq] = '=';
+	ft_memcpy(&temp[len_until_eq + 1], new_val, len);
+	free(envar->export);
+	envar->export = temp;
+	return (1);
+}
 
 /**
  * @brief Get an environment variable from the list as item, by name
@@ -57,28 +79,6 @@ t_envar	*get_envar(t_dlist *envars, char *name)
 	if (temp)
 		return ((t_envar *)temp->content);
 	return (NULL);
-}
-
-static int	replace_envar_export(t_envar *envar, char *new_val)
-{
-	char	*temp;
-	size_t	len;
-	char	*eq;
-	size_t	len_until_eq;
-
-	len = ft_strlen(new_val);
-	eq = ft_strchr(envar->export, '=');
-	*eq = '\0';
-	temp = ft_calloc(eq - envar->export + len + 2, sizeof(char));
-	if (!temp)
-		return (0);
-	len_until_eq = eq - envar->export;
-	ft_memcpy(temp, envar->export, len_until_eq);
-	temp[len_until_eq] = '=';
-	ft_memcpy(&temp[len_until_eq + 1], new_val, len);
-	free(envar->export);
-	envar->export = temp;
-	return (1);
 }
 
 /**

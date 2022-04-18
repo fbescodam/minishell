@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 18:12:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/18 16:51:28 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/18 16:58:55 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
  * @param[in] prompt
  * @return index on default, -1 in case of parse error
  */
-int	quote_search_index(char *prompt)
+static int	quote_search_index(char *prompt)
 {
 	int	nxt_quote;
 	int	end_quote_index;
@@ -52,7 +52,7 @@ int	quote_search_index(char *prompt)
  * @param[in] prompt, set of delimiters
  * @return index, -1 on parse error
  */
-int	next_operator_index(char *prompt, char *set)
+static int	next_operator_index(char *prompt, char *set)
 {
 	int		next_operator;
 	int		end_quote_index;

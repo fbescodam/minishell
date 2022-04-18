@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 17:21:57 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/18 16:51:54 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/18 17:01:32 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,24 +51,4 @@ int	add_string_to_array(char ***to, char *from)
 	temp[i + 1] = 0;
 	*to = temp;
 	return (0);
-}
-
-/**
- * @brief Appends strings **from array **to array
- */
-void	append_char_array(char **from, char **to)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (to[i])
-		i++;
-	while (from[j])
-	{
-		to[i + j] = from[j];
-		j++;
-	}
-	to[i + j] = 0;
 }
