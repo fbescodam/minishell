@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/25 22:08:44 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/08 23:12:14 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/18 16:49:28 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ typedef struct s_mini
 typedef struct s_cmd
 {
 	t_mini	*mini;
-	char	*in_file;
-	char	*out_file;
 	char	*heredoc;
 	char	**params;
 	int		pid;
@@ -61,9 +59,6 @@ typedef struct s_cmd
 	char	*path;
 	int		builtin;
 	t_list	*tokens;
-	int		argc;
-	t_list	*frake_err;
-	int		miao;
 }				t_cmd;
 
 #endif

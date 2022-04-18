@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 17:21:57 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/08 23:51:16 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/18 16:50:54 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,23 +35,6 @@ char	*get_next_single_quote(char *str)
 		temp++;
 	}
 	return (NULL);
-}
-
-/**
- * @brief Skip over single quotes in a string
- *
- * @param[in] str The string, starting at the first ' character
- * @return Returns 0 if no single quotes found in string
- */
-int	skip_over_single_quotes(char **str)
-{
-	char	*temp;
-
-	temp = get_next_single_quote(*str + 1);
-	if (!temp)
-		return (0);
-	*str = temp;
-	return (1);
 }
 
 /**

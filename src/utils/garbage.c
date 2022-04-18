@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 17:21:57 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/14 23:16:27 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/18 16:50:23 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
  * the params pointer in the t_cmd struct).
  * @param[in] token the token to free
  */
-void	free_token(void *token)
+static void	free_token(void *token)
 {
 	if (!token)
 		return ;
@@ -39,8 +39,6 @@ void	free_cmd(void *cmd)
 	ft_lstclear(&((t_cmd *)cmd)->tokens, &free_token);
 	if (((t_cmd *)cmd)->path)
 		ft_free(((t_cmd *)cmd)->path);
-	if (((t_cmd *)cmd)->frake_err)
-		ft_lstclear(&((t_cmd *)cmd)->frake_err, &free);
 	ft_free(cmd);
 }
 

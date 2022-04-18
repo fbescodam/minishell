@@ -6,7 +6,7 @@
 /*   By: fbes <fbes@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 17:21:57 by fbes          #+#    #+#                 */
-/*   Updated: 2022/04/08 23:39:39 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/18 16:51:54 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,6 @@ size_t	char_array_len(char **arr)
 	while (arr[i])
 		i++;
 	return (i);
-}
-
-char	*get_last_from_char_array(char **arr)
-{
-	char	**temp;
-
-	temp = arr;
-	while (*temp)
-		temp++;
-	return (*temp);
 }
 
 int	add_string_to_array(char ***to, char *from)

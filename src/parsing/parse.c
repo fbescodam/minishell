@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 18:12:39 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/14 23:30:16 by jgalloni      ########   odam.nl         */
+/*   Updated: 2022/04/18 16:51:28 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	next_operator_index(char *prompt, char *set)
  * @param[in] from: string to split, split_index, to: array
  * @return 0, error code in case of error
  */
-int	split_and_add(char *from, char ***to, int split_index)
+static int	split_and_add(char *from, char ***to, int split_index)
 {
 	char	*split;
 	int		ret;
