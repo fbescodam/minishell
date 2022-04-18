@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/03 16:40:43 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/18 16:15:33 by jgalloni      ########   odam.nl         */
+/*   Updated: 2022/04/18 16:31:16 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ static int	read_from_child(char **dest, int fd, t_dlist *envars)
 	ret = 0;
 	while (bytes)
 	{
-		buff = (char *)ft_calloc(50, 1);
+		buff = (char *)ft_calloc(51, sizeof(char));
 		if (!buff)
 			return (ENOMEM);
-		bytes = read(fd, buff, sizeof(buff));
+		bytes = read(fd, buff, 50);
 		if (bytes == -1)
 			return (errno);
 		ret = join_realloc(dest, buff, bytes);
