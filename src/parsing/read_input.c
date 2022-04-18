@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/03 16:40:43 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/18 16:50:38 by jgalloni      ########   odam.nl         */
+/*   Updated: 2022/04/18 16:53:14 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,29 +21,35 @@
 #include "error_handling.h"
 #include "signal_handling.h"
 
+static int	read_from_child_err(char *buff, int ret)
+{
+	free(buff);
+	return (ret);
+}
+
 static int	read_from_child(char **dest, int fd, t_dlist *envars)
 {
 	int		ret;
 	char	*buff;
 	int		bytes;
 
+	buff = (char *)ft_calloc(51, sizeof(char));
+	if (!buff)
+		return (ENOMEM);
 	bytes = 1;
 	ret = 0;
 	while (bytes)
 	{
-		buff = (char *)ft_calloc(50, 1);
-		if (!buff)
-			return (ENOMEM);
-		bytes = read(fd, buff, sizeof(buff));
+		bytes = read(fd, buff, 50);
 		if (bytes == -1)
-			return (errno);
+			return (read_from_child_err(buff, errno));
 		ret = join_realloc(dest, buff, bytes);
 		if (ret < 0)
-			return (ENOMEM);
-		free(buff);
+			return (read_from_child_err(buff, ENOMEM));
 	}
 	if (envars)
 		ret = parse_envars(envars, dest);
+	free(buff);
 	return (ret);
 }
 
