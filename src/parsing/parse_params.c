@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/08 22:51:44 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/18 19:09:14 by fbes          ########   odam.nl         */
+/*   Updated: 2022/04/18 19:37:02 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,15 @@ static int	handle_quotes(char ***dest, char **buff,
 	int		err;
 	int		str_len;
 
-	err = join_realloc(buff, *prompt, quote_pos);
-	if (err < 0)
+	if (join_realloc(buff, *prompt, quote_pos) < 0)
 		return (-1);
 	err = get_quoted_string(*prompt + quote_pos, &quoted_string);
 	if (err < 0)
 		return (-1);
 	str_len = ft_strlen(quoted_string);
 	if (**buff == '\0' && str_len == 0
-		&& *(*prompt + str_len + quote_pos + 2) == ' ')
+		&& (*(*prompt + str_len + quote_pos + 2) == ' '
+			|| *(*prompt + str_len + quote_pos + 2) == '\0'))
 	{
 		if (add_string_to_array(dest, quoted_string) < 0)
 			return (-1);

@@ -6,7 +6,7 @@
 /*   By: jgalloni <jgalloni@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/09 15:43:06 by jgalloni      #+#    #+#                 */
-/*   Updated: 2022/04/14 21:43:00 by jgalloni      ########   odam.nl         */
+/*   Updated: 2022/04/18 19:34:41 by jgalloni      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void	child_process(t_cmd *cmd)
 		errno = ENOMEM;
 		exit_child("");
 	}
-	if (!cmd->path)
+	if (!cmd->path || cmd->params[0][0] == '\0')
 		errno = CMDNF;
 	else
 		execve(cmd->path, cmd->params, custom_envp);
