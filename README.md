@@ -3,4 +3,4 @@
 
 
 ## Grade
-[![Not graded yet](https://badge42.vercel.app/api/v2/cl1o16nym001109lewimxyxs8/project/2422501)](https://github.com/JaeSeoKim/badge42)
+[![97/100](https://badge42.vercel.app/api/v2/cl1o16nym001109lewimxyxs8/project/2422501)](https://github.com/JaeSeoKim/badge42)
