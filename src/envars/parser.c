@@ -35,7 +35,7 @@ static int	setup_envar_fetch(char **parsed_str, char **var_start,
 	*var_end = find_var_name_end(*var_start + 1, **var_start);
 	if (!*var_end)
 		return (PARSE_ERROR);
-	if (*var_end == *var_start + 1 || *var_end == '\0')
+	if (*var_end == *var_start + 1 || *var_end == NULL)
 	{
 		if (!join_parsed_str(parsed_str, "$"))
 			return (ENOMEM);

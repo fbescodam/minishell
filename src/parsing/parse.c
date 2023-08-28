@@ -55,9 +55,7 @@ static int	quote_search_index(char *prompt)
 static int	next_operator_index(char *prompt, char *set)
 {
 	int		next_operator;
-	int		end_quote_index;
 
-	end_quote_index = 0;
 	next_operator = 0;
 	next_operator = skip_chars(prompt, " ") - prompt;
 	if (prompt[next_operator] == '\0')

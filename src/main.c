@@ -23,6 +23,9 @@
 #include "utils.h"
 #include "execute.h"
 
+// global process id
+int	g_pid;
+
 static void	after_rl(t_mini *mini)
 {
 	int		ret;
@@ -56,7 +59,8 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_mini	mini;
 
-	argc = 3;
+	if (argc < 0)
+		force_exit(&mini, 1);
 	if (!setup_mini(&mini, argv[0], envp))
 		force_exit(&mini, 1);
 	while (1)

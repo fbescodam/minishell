@@ -23,7 +23,7 @@
 # define PIPE_OUT 6
 
 // global process id
-int	g_pid;
+extern int	g_pid;
 
 typedef struct s_token {
 	void		*content;

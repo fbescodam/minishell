@@ -26,7 +26,7 @@ SRCS =		src/utils/debugging.c src/error_handling.c src/main.c src/setup.c \
 			src/builtins/exit.c src/builtins/export.c src/builtins/pwd.c \
 			src/builtins/unset.c src/parsing/read_input.c src/utils/tabs.c
 
-INCLUDES =	-I includes -I libft -I /Users/$(USER)/.brew/opt/readline/include
+INCLUDES =	-I includes -I libft
 
 OBJS =		$(subst src/,obj/,$(SRCS:.c=.o))
 
@@ -35,8 +35,7 @@ CFLAGS =	-Wall -Werror -Wextra
 all: $(NAME)
 
 $(NAME): $(OBJS) $(HEADERS) libft/libft.a
-	$(CC) $(CFLAGS) $(INCLUDES) $(SRCS) -lreadline \
-	-L /Users/$(USER)/.brew/opt/readline/lib libft/libft.a -o $(NAME)
+	$(CC) $(CFLAGS) $(INCLUDES) $(SRCS) -lreadline libft/libft.a -o $(NAME)
 
 obj/%.o: src/%.c
 	@mkdir -p $(dir $@)
@@ -58,11 +57,4 @@ fclean:
 
 re: fclean all
 
-brew:
-	curl https://brew.42.fr/ | bash
-
-readline:
-	brew install readline
-	brew link --force readline
-
-.PHONY: all clean fclean re bonus readline brew
+.PHONY: all clean fclean re bonus
